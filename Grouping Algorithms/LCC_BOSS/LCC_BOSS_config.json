@@ -1,0 +1,315 @@
+{
+	"algorithm":"LCC_BOSS_for_MAJAN_v1.1",
+	"pathToJarFile":"/home/lexi/Desktop/Projects/MAJAN-Files/LCC_BOSS_for_MAJAN.jar",
+	"timeout": "10",
+	"keywords":[
+		{
+			"keyword":{
+				"type":"Group Size",
+				"description":"description of Group Size",
+				"element":{
+					"items":[
+						{
+							"item":{
+								"name":"min",
+								"example_value":"2",
+								"datatype":"int",
+								"description":"description of minimum"
+							}
+						},
+						{
+							"item":{
+								"name":"max",
+								"example_value":"5",
+								"datatype":"int",
+								"description":"description of maximum"
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"keyword":{
+				"type":"SD Weight",
+				"description":"description of SD Weight",
+				"element":{
+					"item":{
+						"name":"sd weight",
+						"example_value":"0.25",
+						"datatype":"float",
+						"description":"description of sd weight"
+					}
+				}
+			}
+		},
+		{
+			"keyword":{
+				"type":"Agent Profiles",
+				"description":"description of profiles",
+				"elements":[
+					{
+						"element":{
+							"items":[
+								{
+									"item":{
+										"name":"agentId1",
+										"example_value":"1",
+										"datatype":"int",
+										"description":"description of agentId"
+									}
+								},
+								{
+									"item":{
+										"name":"gender",
+										"example_value":"0",
+										"datatype":"int",
+										"description":"description of gender"
+									}
+								},
+								{
+									"item":{
+										"name":"nation",
+										"example_value":"A",
+										"datatype":"string",
+										"description":"description of nation"
+									}
+								},
+								{
+									"item":{
+										"name":"cpl",
+										"example_value":"90",
+										"datatype":"int",
+										"description":"description of cpl"
+									}
+								},
+								{
+									"item":{
+										"name":"attendance",
+										"example_value":"1",
+										"datatype":"int",
+										"description":"description of attendance"
+									}
+								},
+								{
+									"item":{
+										"name":"gender pref.",
+										"example_value":"-1",
+										"datatype":"int",
+										"description":"description of gender preference"
+									}
+								},
+								{
+									"item":{
+										"name":"nation pref.",
+										"example_value":"0",
+										"datatype":"int",
+										"description":"description of nation preference"
+									}
+								},
+								{
+									"item":{
+										"name":"gender weight",
+										"example_value":"0.75",
+										"datatype":"float",
+										"description":"description of gender weight"
+									}
+								},
+								{
+									"item":{
+										"name":"nation weight",
+										"example_value":"0.25",
+										"datatype":"int",
+										"description":"description of nation weight"
+									}
+								}
+							]
+						}
+					},
+					{
+						"element":{
+							"items":[
+								{
+									"item":{
+										"name":"agentId2",
+										"example_value":"1",
+										"datatype":"int",
+										"description":"description of agentId"
+									}
+								},
+								{
+									"item":{
+										"name":"gender",
+										"example_value":"0",
+										"datatype":"int",
+										"description":"description of gender"
+									}
+								},
+								{
+									"item":{
+										"name":"nation",
+										"example_value":"A",
+										"datatype":"string",
+										"description":"description of nation"
+									}
+								},
+								{
+									"item":{
+										"name":"cpl",
+										"example_value":"90",
+										"datatype":"int",
+										"description":"description of cpl"
+									}
+								},
+								{
+									"item":{
+										"name":"attendance",
+										"example_value":"1",
+										"datatype":"int",
+										"description":"description of attendance"
+									}
+								},
+								{
+									"item":{
+										"name":"gender pref.",
+										"example_value":"-1",
+										"datatype":"int",
+										"description":"description of gender preference"
+									}
+								},
+								{
+									"item":{
+										"name":"nation pref.",
+										"example_value":"0",
+										"datatype":"int",
+										"description":"description of nation preference"
+									}
+								},
+								{
+									"item":{
+										"name":"gender weight",
+										"example_value":"0.75",
+										"datatype":"float",
+										"description":"description of gender weight"
+									}
+								},
+								{
+									"item":{
+										"name":"nation weight",
+										"example_value":"0.25",
+										"datatype":"int",
+										"description":"description of nation weight"
+									}
+								}
+							]
+						}
+					}
+				]
+			}
+		},
+		{
+			"keyword":{
+				"type":"ML",
+				"description":"must link",
+				"elements":[
+					{
+						"element":{
+							"items":[
+								{
+									"item":{
+										"name":"agentId1",
+										"example_value":"1",
+										"datatype":"int",
+										"description":"description of agentId"
+									}
+								},
+								{
+									"item":{
+										"name":"agentId2",
+										"example_value":"2",
+										"datatype":"int",
+										"description":"description of agentId"
+									}
+								}
+							]
+						}
+					},
+					{
+						"element":{
+							"items":[
+								{
+									"item":{
+										"name":"agentIdx",
+										"example_value":"5",
+										"datatype":"int",
+										"description":"id of one of the agents"
+									}
+								},
+								{
+									"item":{
+										"name":"agentIdy",
+										"example_value":"14",
+										"datatype":"int",
+										"description":"id of one of the agents"
+									}
+								}
+							]
+						}
+					}
+				]
+			}
+		},
+		{
+			"keyword":{
+				"type":"CL",
+				"description":"cannot link",
+				"elements":[
+					{
+						"element":{
+							"items":[
+								{
+									"item":{
+										"name":"agentId1",
+										"example_value":"1",
+										"datatype":"int",
+										"description":"description of agentId"
+									}
+								},
+								{
+									"item":{
+										"name":"agentId2",
+										"example_value":"2",
+										"datatype":"int",
+										"description":"description of agentId"
+									}
+								}
+							]
+						}
+					},
+					{
+						"element":{
+							"items":[
+								{
+									"item":{
+										"name":"agentIdx",
+										"example_value":"5",
+										"datatype":"int",
+										"description":"id of one of the agents"
+									}
+								},
+								{
+									"item":{
+										"name":"agentIdy",
+										"example_value":"14",
+										"datatype":"int",
+										"description":"id of one of the agents"
+									}
+								}
+							]
+						}
+					}
+				]
+			}
+		}
+	]
+}

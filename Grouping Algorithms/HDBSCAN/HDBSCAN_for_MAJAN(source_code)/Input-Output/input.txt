@@ -1,0 +1,7 @@
+Number of Objects -> {5}
+Distances -> {1.5, 2.5, 0.0, 4.7} | {7.4, 0.0, 1.4} | {5.0, 4.4} | {5.5}
+ML -> {1, 2} | {4, 2}
+CL -> {1, 3} | {5, 2}
+Minimum Points -> {2}
+Minimum Cluster Size -> {2}
+Outliers -> {true}

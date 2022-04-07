@@ -1,0 +1,89 @@
+{
+	"info": {
+		"_postman_id": "78180cb4-d22d-430d-b461-5e0b13c0b026",
+		"name": "some requests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Teacher-To-Agent",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/welcome_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> .\r\n\r\n#-------------------------------Message Type---------------------------------\r\nwelcome:Message     welcome:hasType     welcome:StartLccAssessment .\r\n\r\nwelcome:LccAssessmentPhase  welcome:hasLessonId     '1'^^xsd:integer ;\r\n                            welcome:hasDeadline     '2021-05-01T15:00'^^xsd:dateTime .\r\n#----------------------------------------------------------------------------\r\n\r\n#-------------------------------Message Type---------------------------------\r\nwelcome:Message     welcome:hasType     welcome:StartLccScenario .\r\n\r\n_:bnode_lccUseCase  rdf:type welcome:LCCUseCase ;\r\n                    welcome:hasParticipants \r\n                    \"majanAgent1\", \"majanAgent2\", \"majanAgent3\", \"majanAgent4\", \"majanAgent5\" ;\r\n                    welcome:hasLessonId     \"3\" ;\r\n                    welcome :hasDedicatedAgent   \"majanAgent1\" ;\r\n                    welcome:hasSdWeight    \"0.75\" ;\r\n                    welcome:hasId       \"1234\" .\r\n#----------------------------------------------------------------------------\r\n\r\n#-------------------------------Message Type---------------------------------\r\nwelcome:Message     welcome:hasType     welcome:InformLccFinalResult .\r\n\r\n?LccUseCaseSubjectIriReceivedFromAgents     rdf:type    welcome:LCCUseCase ;\r\n                                            welcome:hasId   ?lccId ;\r\n                                            welcome:hasFinalSolution    ?lccSolution .\r\n?lccSolution    rdf:type    welcome:Grouping ;\r\n                welcome:hasMembers  ?memberGroup .\r\n?memberGroup     rdf:type   welcome:Group ;\r\n                welcome:hasMembers  ?memberAgentId .\r\n\r\n#----------------------------------------------------------------------------\r\n\r\n"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/welcome/integration/coordination/ajan/agents/{{agentId}}?capability=teacherToAgent",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						"{{agentId}}"
+					],
+					"query": [
+						{
+							"key": "capability",
+							"value": "teacherToAgent"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "App-To-Agent",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/welcome_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> .\r\n\r\n\r\n#-------------------------------Message Type---------------------------------\r\nwelcome:Message welcome:hasType welcome:SubmitAssessmentScore .\r\n_:bnode_lcclesson   rdf:type    welcome:LCCLesson ;\r\n                    welcome:hasLessondId    ?lessonId ;\r\n                    welcome:hasAssessmentScore  ?assessmentScore ;\r\n                    welcome:hasReadingScore     ?readingScore ;\r\n                    welcome:hasWritingScore     ?writingScore ;\r\n                    welcome:hasListeningScore   ?listeningScore ;\r\n                    welcome:hasVocabularyScore  ?vocabularyScore .\r\n#----------------------------------------------------------------------------\r\n\r\n#-------------------------------Message Type---------------------------------\r\nwelcome:Message welcome:hasType welcome:StartChcScenario .\r\n\r\n#----------------------------------------------------------------------------\r\n"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/welcome/integration/coordination/ajan/agents/{{agentId}}?capability=appToAgent",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						"{{agentId}}"
+					],
+					"query": [
+						{
+							"key": "capability",
+							"value": "appToAgent"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

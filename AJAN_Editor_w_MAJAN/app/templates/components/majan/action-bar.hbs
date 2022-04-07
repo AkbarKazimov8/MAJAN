@@ -1,0 +1,23 @@
+<div class="flex-horizontal tabbar">
+  <div id="tabbar-overview" class="vcenter btn tabbar-button">
+    {{#link-to "editor.majan.monitoring" class="vcenter tabbar-link"}}
+      Monitoring
+    {{/link-to}}
+  </div>
+
+  <div id="tabbar-vocabulary" class="vcenter btn tabbar-button">
+    {{#link-to "editor.majan.evaluation" class="vcenter tabbar-link"}}
+      Evaluation
+    {{/link-to}}
+  </div>
+  <div class="store-url-cont vcenter" local-class="rightmost">
+    <div>
+      <div local-class="store">Triplestore:</div>
+      <div class="store-url">---</div>
+    </div>
+  </div>
+</div>
+
+{{yield}}
+{{ui/message/save-confirmation}}
+{{ui/message/error-message}}

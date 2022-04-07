@@ -1,0 +1,152 @@
+<div id="monitoring-action-bar">
+  {{majan/action-bar}}
+</div>
+
+<div id="monitoring">
+
+  <head>
+      <meta charset="UTF-8">
+      <title>Title</title>
+      <link rel="stylesheet" href="css/bootstrap.min.css">
+      <link rel="stylesheet" href="css/font.css">
+      <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+      <div local-class="tab-block">
+          <div local-class="tab-content">
+              <div local-class="tab-content-in">
+
+                  <div local-class="monitoring-service">
+                    <div local-class="flex-start">
+                      <span style="font-size: 20px;"> <b>Monitoring Service</b></span>
+                        <div local-class="connect_wss">
+                      {{#if wssConnection}}
+                      <button local-class="disconnect-button" class="ui right icon button" onclick={{action "disconnect"}}>
+                        Disconnect <i class="icon red bell slash no-side-margins"></i>
+                      </button>
+                      {{/if}}
+                      {{#unless wssConnection}}
+                      <button local-class="connect-button" class="ui right icon button" onclick={{action "connect"}}>
+                        Connect <i class="icon green bell no-side-margins"></i>
+                      </button>
+                      {{/unless}}
+                    </div>
+                  </div>
+                    To view logs of agents in Monitoring panel, you need to start Monitoring Service by executing startMajanLoggingService.bat in ajan-editor root folder. Then, you need to connect to this service via Connect button. To send a log to this panel, send a POST request with the log content to http://localhost:4202/post.
+                  </div>
+
+                  <div local-class="col-6">
+                    <div local-class="flex">
+                      <div local-class="filter-block">
+                          <div local-class="filter-block-in">
+                              <div local-class="flex-center">
+                                  <div local-class="title flex-center">Filter</div>
+                              </div>
+                              <form>
+                                  <div local-class="filter-in">
+                                      <div local-class="form-group">
+                                          {{input type="text" class="form-control" aria-label="agent"
+                                                 placeholder="Agent ID" value=agentIdInput}}
+                                      </div>
+                                      <div local-class="form-group ">
+                                          {{input type="text" class="form-control" aria-label="useCase"
+                                                 placeholder="Use-Case" value=useCaseInput}}
+                                      </div>
+                                      <div local-class="form-group ">
+                                          {{input type="text" class="form-control" aria-label="algorithm"
+                                                 placeholder="Solver" value=solverInput}}
+                                      </div>
+                                      <ul local-class="btn-block flex-end list-unstyled m-0">
+                                          <li>
+                                              <button type="button" local-class="btn-send" onclick={{action 'executeFilter'}}></button>
+                                          </li>
+                                          <li>
+                                              <button type="button" local-class="btn-border" onclick={{action "cleanFilter"}}>Clean</button>
+                                          </li>
+
+                                      </ul>
+                                  </div>
+                              </form>
+                          </div>
+                    </div>
+
+                      {{!-- <div local-class="connect_wss">
+                        {{#if wssConnection}}
+                        <button local-class="disconnect-button" class="ui right icon button" onclick={{action "disconnect"}}>
+                          Disconnect <i class="icon red bell slash no-side-margins"></i>
+                        </button>
+                        {{/if}}
+                        {{#unless wssConnection}}
+                        <button local-class="connect-button" class="ui right icon button" onclick={{action "connect"}}>
+                          Connect <i class="icon green bell no-side-margins"></i>
+                        </button>
+                        {{/unless}}
+                      </div> --}}
+                    </div>
+                  </div>
+
+
+                  <div local-class="coordination-block">
+                      <div local-class="col-8">
+                          <div local-class="coordination-in">
+                              <div local-class="flex-center">
+                                  <div local-class="title text-center">
+                                      Multi Agent Coordination <br> Logs
+                                  </div>
+                              </div>
+                              <div local-class="item-list-static">
+                                 <span local-class="item-static">
+                                   <b>Time</b>
+                                 </span>
+                                  <span local-class="item-static">
+                                    <b>Agent ID</b>
+                                 </span>
+                                 <span local-class="item-static">
+                                   <b>Use Case</b>
+                                 </span>
+                                  <span local-class="item-static">
+                                    <b>Solver</b>
+                                 </span>
+                                 <span local-class="item-static">
+                                   <b>Activity</b>
+                                 </span>
+                                  <span local-class="item-static">
+                                    <b>Status</b>
+                                 </span>
+                              </div>
+                              {{#each availableLogs as |log|}}
+                              <div local-class="item-list">
+                                 <span local-class="item">
+                                   {{log.time}}
+                                 </span>
+                                  <span local-class="item">
+                                    {{log.agentId}}
+                                 </span>
+                                 <span local-class="item">
+                                   {{log.usecase}}
+                                 </span>
+                                  <span local-class="item">
+                                    {{log.solver}}
+                                 </span>
+                                 <span local-class="item" style="white-space: pre-line">
+                                   {{log.activity}}
+                                 </span>
+                                  <span local-class="item">
+                                    {{log.status}}
+                                 </span>
+                              </div>
+                              {{/each}}
+                          </div>
+                          <div local-class="flex-start">
+                              <button type="button" local-class="btn-border" onclick={{action "cleanLogs"}}>Clean Logs</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </body>
+
+
+
+</div>

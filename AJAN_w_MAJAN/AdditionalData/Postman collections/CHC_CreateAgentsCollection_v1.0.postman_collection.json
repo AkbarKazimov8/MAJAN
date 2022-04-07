@@ -1,0 +1,145 @@
+{
+	"info": {
+		"_postman_id": "bb32cc7b-5c04-487d-ac71-47f961a3421e",
+		"name": "CHC_CreateAgentsCollection_v1.0",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CreateTestAgent1",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/welcome_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> .\r\n\r\n###########################################################\r\n#########   Necessary part for the agent-core  ############\r\n\r\n:initialization rdf:type ajan:AgentInitialisation .\r\n:initialization ajan:agentId \"testAgent1\"^^xsd:string .\r\n\r\n:initialization ajan:agentTemplate <http://localhost:8090/rdf4j/repositories/agents#MAJANAgent> .\r\n\r\n:initialization ajan:agentInitKnowledge :agent1.\r\n:initialization ajan:agentInitKnowledge _:age1_1, _:rent1_1, _:share1_1.\r\n\r\n:agent1 welcome:isRunningCHC 'false'^^xsd:boolean;\r\n        welcome:isInvolvedInCHC \"true\"^^xsd:boolean.\r\n\r\n:agent1\t\ta \tajan:Agent;\r\n    welcome:hasAge\t\t'20'^^xsd:integer;\r\n    welcome:hasGender\t\t'Female'^^xsd:string;\r\n    welcome:hasFamily\t\t'Single Parent Mother'^^xsd:string;\r\n    welcome:hasNationality\t\t'Nation1'^^xsd:string;\r\n    welcome:hasReligion\t\t'Religion1'^^xsd:string;\r\n    welcome:hasEthnicity\t\t'Ethnicity1'^^xsd:string;\r\n    welcome:hasAgePreference\t_:age1_1;\r\n    welcome:hasGenderPreference\t\t'Female'^^xsd:string;\r\n    welcome:hasFamilyPreference\t\t'Single Woman', 'Single Parent Mother';\r\n    welcome:hasNationPreference\t\t'Dont mind'^^xsd:string;\r\n    welcome:hasReligionPreference\t\t'Dont mind'^^xsd:string;\r\n    welcome:hasEthnicPreference\t\t'Mixed'^^xsd:string;\r\n    welcome:hasLocationPreference\t\t'Dont mind';\r\n    welcome:hasAccessibilityPreference\t'Dont mind'^^xsd:string;\r\n    welcome:hasRentPeriodPreference\t_:rent1_1;\r\n    welcome:hasShareWithPreference\t_:share1_1;\r\n    welcome:isParticipatingIn\t'chc1', 'chc37'.\r\n\r\n_:age1_1    welcome:lowerBound     '18';welcome:higherBound\t'25'.\r\n_:rent1_1  welcome:startDate\t'2021-01-01'^^xsd:date;     welcome:endDate\t'2021-07-01'^^xsd:date.\r\n_:share1_1  welcome:min '2'^^xsd:integer;   welcome:max '3'^^xsd:integer.\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8060/welcome/integration/coordination/ajan/agents/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8060",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateTestAgent2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/welcome_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> .\r\n\r\n###########################################################\r\n#########   Necessary part for the agent-core  ############\r\n\r\n:initialization rdf:type ajan:AgentInitialisation .\r\n:initialization ajan:agentId \"testAgent2\"^^xsd:string .\r\n\r\n:initialization ajan:agentTemplate <http://localhost:8090/rdf4j/repositories/agents#MAJANAgent> .\r\n\r\n:initialization ajan:agentInitKnowledge :agent2.\r\n:initialization ajan:agentInitKnowledge _:rent2_1.\r\n\r\n:agent2\t\ta \tajan:Agent;\r\n    welcome:hasAge\t\t'40'^^xsd:integer;\r\n    welcome:hasGender\t\t'Male'^^xsd:string;\r\n    welcome:hasFamily\t\t'Single Man'^^xsd:string;\r\n    welcome:hasNationality\t\t'Nation3'^^xsd:string;\r\n    welcome:hasReligion\t\t'Religion2'^^xsd:string;\r\n    welcome:hasEthnicity\t\t'Ethnicity2'^^xsd:string;\r\n    welcome:hasAgePreference\t'Dont mind'^^xsd:string; \r\n    welcome:hasGenderPreference\t\t'Mixed'^^xsd:string;\r\n    welcome:hasFamilyPreference\t\t'Dont mind';\r\n    welcome:hasNationPreference\t\t'Mixed'^^xsd:string;\r\n    welcome:hasReligionPreference\t\t'Dont mind'^^xsd:string;\r\n    welcome:hasEthnicPreference\t\t'Same'^^xsd:string;\r\n    welcome:hasLocationPreference\t\t'L1', 'L2', 'L3';\r\n    welcome:hasAccessibilityPreference\t'Dont mind'^^xsd:string;\r\n    welcome:hasRentPeriodPreference\t_:rent2_1;\r\n    welcome:hasShareWithPreference\t'Dont mind';\r\n    welcome:isParticipatingIn\t'chc1', 'chc37'.\r\n\r\n_:rent2_1  welcome:startDate\t'2021-05-01'^^xsd:date;  welcome:endDate\t'2022-05-01'^^xsd:date."
+				},
+				"url": {
+					"raw": "http://localhost:8060/welcome/integration/coordination/ajan/agents/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8060",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateTestAgent3",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/welcome_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> .\r\n\r\n###########################################################\r\n#########   Necessary part for the agent-core  ############\r\n\r\n:initialization rdf:type ajan:AgentInitialisation .\r\n:initialization ajan:agentId \"testAgent3\"^^xsd:string .\r\n\r\n:initialization ajan:agentTemplate <http://localhost:8090/rdf4j/repositories/agents#MAJANAgent> .\r\n\r\n:initialization ajan:agentInitKnowledge :agent3.\r\n:initialization ajan:agentInitKnowledge _:age3_1, _:age3_2, _:rent3_1, _:share3_1.\r\n\r\n:agent3\t\ta \tajan:Agent;\r\n    welcome:hasAge\t\t'34'^^xsd:integer;\r\n    welcome:hasGender\t\t'Male'^^xsd:string;\r\n    welcome:hasFamily\t\t'Single Parent Father'^^xsd:string;\r\n    welcome:hasNationality\t\t'Nation2'^^xsd:string;\r\n    welcome:hasReligion\t\t'Religion1'^^xsd:string;\r\n    welcome:hasEthnicity\t\t'Ethnicity3'^^xsd:string;\r\n    welcome:hasAgePreference\t_:age3_1, _:age3_2;\r\n    welcome:hasGenderPreference\t\t'Dont mind'^^xsd:string;\r\n    welcome:hasFamilyPreference\t\t'Single Parent Father', 'Single Parent Mother', 'Nuclear';\r\n    welcome:hasNationPreference\t\t'Dont mind'^^xsd:string;\r\n    welcome:hasReligionPreference\t\t'Dont mind'^^xsd:string;\r\n    welcome:hasEthnicPreference\t\t'Dont mind'^^xsd:string;\r\n    welcome:hasLocationPreference\t\t'L3', 'L4', 'L5';\r\n    welcome:hasAccessibilityPreference\t'Yes'^^xsd:string;\r\n    welcome:hasRentPeriodPreference\t_:rent3_1;\r\n    welcome:hasShareWithPreference\t  _:share3_1;\r\n    welcome:isParticipatingIn\t'chc1', 'chc37'.\r\n\r\n_:age3_1  welcome:lowerBound\t'26';welcome:higherBound\t'33'.\r\n_:age3_2  welcome:lowerBound\t'34';welcome:higherBound\t'43'.\r\n_:rent3_1  welcome:startDate\t'2021-01-01'^^xsd:date;  welcome:endDate\t'2022-07-01'^^xsd:date.\r\n_:share3_1  welcome:min '2'^^xsd:integer;  welcome:max '4'^^xsd:integer."
+				},
+				"url": {
+					"raw": "http://localhost:8060/welcome/integration/coordination/ajan/agents/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8060",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateTestAgent4",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/welcome_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> .\r\n\r\n###########################################################\r\n#########   Necessary part for the agent-core  ############\r\n\r\n:initialization rdf:type ajan:AgentInitialisation .\r\n:initialization ajan:agentId \"testAgent4\"^^xsd:string .\r\n\r\n:initialization ajan:agentTemplate <http://localhost:8090/rdf4j/repositories/agents#MAJANAgent> .\r\n\r\n:initialization ajan:agentInitKnowledge :agent4.\r\n:initialization ajan:agentInitKnowledge _:age4_1.\r\n\r\n\r\n:agent4\t\ta \tajan:Agent;\r\n    welcome:hasAge\t\t'19'^^xsd:integer;\r\n    welcome:hasGender\t\t'Other'^^xsd:string;\r\n    welcome:hasFamily\t\t'Extended'^^xsd:string;\r\n    welcome:hasNationality\t\t'Nation1'^^xsd:string;\r\n    welcome:hasReligion\t\t'Religion3'^^xsd:string;\r\n    welcome:hasEthnicity\t\t'Ethnicity2'^^xsd:string;\r\n    welcome:hasAgePreference\t_:age4_1;\r\n    welcome:hasGenderPreference\t\t'Dont mind'^^xsd:string;\r\n    welcome:hasFamilyPreference\t\t'Dont mind';\r\n    welcome:hasNationPreference\t\t'Dont mind'^^xsd:string;\r\n    welcome:hasReligionPreference\t\t'Same'^^xsd:string;\r\n    welcome:hasEthnicPreference\t\t'Mixed'^^xsd:string;\r\n    welcome:hasLocationPreference\t\t'Dont mind';\r\n    welcome:hasAccessibilityPreference\t'Dont mind'^^xsd:string;\r\n    welcome:hasRentPeriodPreference\t'Dont mind';\r\n    welcome:hasShareWithPreference\t'Dont mind';\r\n    welcome:isParticipatingIn\t'chc1', 'chc37'.\r\n\r\n_:age4_1  welcome:lowerBound\t'18';welcome:higherBound\t'25'."
+				},
+				"url": {
+					"raw": "http://localhost:8060/welcome/integration/coordination/ajan/agents/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8060",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

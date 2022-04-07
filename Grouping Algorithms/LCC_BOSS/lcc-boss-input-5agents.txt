@@ -1,0 +1,11 @@
+//<agent_id:{integer}>|<gender:{0:male,1:female}>|
+//<nationality:{String}>|<CPL:{double}>|
+//<attendance:{0:attended,1:missed}>|
+//<gender_preference:{-1:mixed, 0:don't mind, 1:same}>
+//|<nation_preference:{-1:mixed, 0:don't mind, 1:same}>|
+//<gen_pref_weight:{[0,1]}>|<nat_pref_weight:{[0,1]}>
+
+
+Agent Profiles -> {1, 0, A, 72, 0, 0, 1, 0.75, 0.25} | {2, 0, A, 84, 0, -1, -1, 0.75, 0.25} | {3, 1, B, 73, 0, 1, -1, 0.75, 0.25} | {4, 0, C, 53, 1, -1, -1, 0.75, 0.25} | {5, 1, D, 25, 0, 0, -1, 0.75, 0.25}
+Group Size -> {2, 5}
+SD Weight -> {0.75}

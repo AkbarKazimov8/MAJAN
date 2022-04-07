@@ -1,0 +1,4 @@
+1. Null array while it shouldnt be null
+2. Converting empty CS to string
+3. Adding as many as possible CSs to a solution list
+4. Error of null Coalition info while it shouldnt be null

@@ -1,0 +1,18 @@
+version: "3.7"
+
+networks: 
+    proxy: 
+      external: true
+
+services:
+    agent-core:
+        build: .
+        image: agent-core:v6.0
+        working_dir: /app/executionservice
+        ports:
+            - 8060:8060
+        command: java -Dpf4j.mode=development -Dpf4j.pluginsDir=../pluginsystem/plugins -jar target/executionservice-0.1.jar --triplestore.url="http://localhost:8090/rdf4j" --server.port=8060 --loadTTLFiles=false
+        extra_hosts:
+          - "localhost:192.168.178.23"
+
+

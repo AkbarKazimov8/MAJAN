@@ -1,0 +1,73 @@
+{
+	"algorithm":"BOSS_for_MAJAN_v1.1",
+	"pathToJarFile":"/home/lexi/Desktop/Projects/MAJAN-Files/BOSS_for_MAJAN.jar",
+	"timeout": "5",
+	"keywords":[
+		{
+			"keyword":{
+				"type":"Number of agents",
+				"description":"description of number of agents",
+				"element":{
+					"item":{
+						"name":"n",
+						"example_value":"10",
+						"datatype":"int",
+						"description":"description of n"
+					}
+				}
+			}
+		},
+		{
+			"keyword":{
+				"type":"CV",
+				"description":"description of CV",
+				"elements":[
+					{
+						"element":{
+							"items":[
+								{
+									"item":{
+										"name":"coalitionID",
+										"example_value":"0",
+										"datatype":"int",
+										"description":"description of coalitionID"
+									}
+								},
+								{
+									"item":{
+										"name":"coalitionValue",
+										"example_value":"1.4",
+										"datatype":"float",
+										"description":"description of coalitionValue"
+									}
+								}
+							]
+						}
+					},
+					{
+						"element":{
+							"items":[
+								{
+									"item":{
+										"name":"coalitionID2",
+										"example_value":"1",
+										"datatype":"int",
+										"description":"description of coalitionID2"
+									}
+								},
+								{
+									"item":{
+										"name":"coalitionValue2",
+										"example_value":"1",
+										"datatype":"float",
+										"description":"description of coalitionValue2"
+									}
+								}
+							]
+						}
+					}
+				]
+			}
+		}
+	]
+}

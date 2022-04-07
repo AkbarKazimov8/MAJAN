@@ -1,0 +1,383 @@
+{
+	"info": {
+		"_postman_id": "4e4a0968-f7bc-4ba2-899f-7c16d987971b",
+		"name": "MAJAN - Create Agents",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Agent 1",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/domain_specific_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix locn: <http://www.w3.org/ns/locn#> .\r\n@prefix actor: <http://www.daml.org/services/owl-s/1.1/ActorDefault.owl#> .\r\n@prefix agents: <http://localhost:8090/rdf4j/repositories/agents#> .\r\n\r\n\r\n###########################################################\r\n#########   Necessary part for the agent-core  ############\r\n\r\n:initialization rdf:type ajan:AgentInitialisation .\r\n:initialization ajan:agentId \"majanAgent1\"^^xsd:string .\r\n\r\n:initialization ajan:agentTemplate agents:MajanAgent .\r\n\r\n################################################################################\r\n###########    MAJAN Related Initial Knowledge - START #################################\r\n\r\n:initialization ajan:agentInitKnowledge :Person.\r\n\r\n:Person rdf:type    :DomainUser ;\r\n        :hasGender  \"Male\" ;\r\n        :hasNationality \"Nation1\" ;\r\n        :hasLanguage    \"Lang1\", \"Lang2\" ;\r\n        :hasGenderPreference    \"Same\" ;\r\n        :hasNationPreference    \"Mixed\" ;\r\n        :hasGenderPrefWeight    \"0.75\" ;\r\n        :hasNationPrefWeight    \"0.25\" ."
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/welcome/integration/coordination/ajan/agents/",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Agent (with variables)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/domain_specific_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix locn: <http://www.w3.org/ns/locn#> .\r\n@prefix actor: <http://www.daml.org/services/owl-s/1.1/ActorDefault.owl#> .\r\n@prefix agents: <http://localhost:8090/rdf4j/repositories/agents#> .\r\n\r\n\r\n###########################################################\r\n#########   Necessary part for the agent-core  ############\r\n\r\n:initialization rdf:type ajan:AgentInitialisation .\r\n:initialization ajan:agentId \"{{agentId}}\"^^xsd:string .\r\n\r\n:initialization ajan:agentTemplate agents:{{agentTemplate}} .\r\n\r\n################################################################################\r\n###########    MAJAN Related Initial Knowledge - START #################################\r\n\r\n:initialization ajan:agentInitKnowledge :Person.\r\n\r\n:Person rdf:type    :DomainUser ;\r\n        :hasGender  \"{{gender}}\" ;\r\n        :hasNationality \"{{nationality}}\" ;\r\n        :hasLanguage    \"{{laguage1}}\", \"{{language2}}\", \"{{language3}}\" ;\r\n        :hasGenderPreference    \"{{genderPref}}\" ;\r\n        :hasNationPreference    \"{{nationPref}}\" ;\r\n        :hasGenderPrefWeight    \"{{genderWeight}}\" ;\r\n        :hasNationPrefWeight    \"{{nationWeight}}\" ."
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/welcome/integration/coordination/ajan/agents/",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Agent 2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/domain_specific_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix locn: <http://www.w3.org/ns/locn#> .\r\n@prefix actor: <http://www.daml.org/services/owl-s/1.1/ActorDefault.owl#> .\r\n@prefix agents: <http://localhost:8090/rdf4j/repositories/agents#> .\r\n\r\n\r\n###########################################################\r\n#########   Necessary part for the agent-core  ############\r\n\r\n:initialization rdf:type ajan:AgentInitialisation .\r\n:initialization ajan:agentId \"majanAgent2\"^^xsd:string .\r\n\r\n:initialization ajan:agentTemplate agents:MajanAgent .\r\n\r\n################################################################################\r\n###########    MAJAN Related Initial Knowledge - START #################################\r\n\r\n:initialization ajan:agentInitKnowledge :Person.\r\n\r\n:Person rdf:type    :DomainUser ;\r\n        :hasGender  \"Female\" ;\r\n        :hasNationality \"Nation2\" ;\r\n        :hasLanguage    \"Lang3\", \"Lang2\" ;\r\n        :hasGenderPreference    \"Mixed\" ;\r\n        :hasNationPreference    \"Don't mind\" ;\r\n        :hasGenderPrefWeight    \"0.75\" ;\r\n        :hasNationPrefWeight    \"0.25\" ."
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/welcome/integration/coordination/ajan/agents/",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Agent 3",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/domain_specific_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix locn: <http://www.w3.org/ns/locn#> .\r\n@prefix actor: <http://www.daml.org/services/owl-s/1.1/ActorDefault.owl#> .\r\n@prefix agents: <http://localhost:8090/rdf4j/repositories/agents#> .\r\n\r\n\r\n###########################################################\r\n#########   Necessary part for the agent-core  ############\r\n\r\n:initialization rdf:type ajan:AgentInitialisation .\r\n:initialization ajan:agentId \"majanAgent3\"^^xsd:string .\r\n\r\n:initialization ajan:agentTemplate agents:MajanAgent .\r\n\r\n################################################################################\r\n###########    MAJAN Related Initial Knowledge - START #################################\r\n\r\n:initialization ajan:agentInitKnowledge :Person.\r\n\r\n:Person rdf:type    :DomainUser ;\r\n        :hasGender  \"Female\" ;\r\n        :hasNationality \"Nation4\" ;\r\n        :hasLanguage    \"Lang1\";\r\n        :hasGenderPreference    \"Same\" ;\r\n        :hasNationPreference    \"Same\" ;\r\n        :hasGenderPrefWeight    \"0.75\" ;\r\n        :hasNationPrefWeight    \"0.25\" ."
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/welcome/integration/coordination/ajan/agents/",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Agent 4",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/domain_specific_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix locn: <http://www.w3.org/ns/locn#> .\r\n@prefix actor: <http://www.daml.org/services/owl-s/1.1/ActorDefault.owl#> .\r\n@prefix agents: <http://localhost:8090/rdf4j/repositories/agents#> .\r\n\r\n\r\n###########################################################\r\n#########   Necessary part for the agent-core  ############\r\n\r\n:initialization rdf:type ajan:AgentInitialisation .\r\n:initialization ajan:agentId \"majanAgent4\"^^xsd:string .\r\n\r\n:initialization ajan:agentTemplate agents:MajanAgent .\r\n\r\n################################################################################\r\n###########    MAJAN Related Initial Knowledge - START #################################\r\n\r\n:initialization ajan:agentInitKnowledge :Person.\r\n\r\n:Person rdf:type    :DomainUser ;\r\n        :hasGender  \"Male\" ;\r\n        :hasNationality \"Nation3\" ;\r\n        :hasLanguage    \"Lang2\";\r\n        :hasGenderPreference    \"Mixed\" ;\r\n        :hasNationPreference    \"Don't mind\" ;\r\n        :hasGenderPrefWeight    \"0.75\" ;\r\n        :hasNationPrefWeight    \"0.25\" ."
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/welcome/integration/coordination/ajan/agents/",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Agent 5",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/domain_specific_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix locn: <http://www.w3.org/ns/locn#> .\r\n@prefix actor: <http://www.daml.org/services/owl-s/1.1/ActorDefault.owl#> .\r\n@prefix agents: <http://localhost:8090/rdf4j/repositories/agents#> .\r\n\r\n\r\n###########################################################\r\n#########   Necessary part for the agent-core  ############\r\n\r\n:initialization rdf:type ajan:AgentInitialisation .\r\n:initialization ajan:agentId \"majanAgent5\"^^xsd:string .\r\n\r\n:initialization ajan:agentTemplate agents:MajanAgent .\r\n\r\n################################################################################\r\n###########    MAJAN Related Initial Knowledge - START #################################\r\n\r\n:initialization ajan:agentInitKnowledge :Person.\r\n\r\n:Person rdf:type    :DomainUser ;\r\n        :hasGender  \"Female\" ;\r\n        :hasNationality \"Nation2\" ;\r\n        :hasLanguage    \"Lang1\", \"Lang3\";\r\n        :hasGenderPreference    \"Don't mind\" ;\r\n        :hasNationPreference    \"Same\" ;\r\n        :hasGenderPrefWeight    \"0.75\" ;\r\n        :hasNationPrefWeight    \"0.25\" ."
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/welcome/integration/coordination/ajan/agents/",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Agent 6",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/domain_specific_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix locn: <http://www.w3.org/ns/locn#> .\r\n@prefix actor: <http://www.daml.org/services/owl-s/1.1/ActorDefault.owl#> .\r\n@prefix agents: <http://localhost:8090/rdf4j/repositories/agents#> .\r\n\r\n\r\n###########################################################\r\n#########   Necessary part for the agent-core  ############\r\n\r\n:initialization rdf:type ajan:AgentInitialisation .\r\n:initialization ajan:agentId \"majanAgent6\"^^xsd:string .\r\n\r\n:initialization ajan:agentTemplate agents:MajanAgent .\r\n\r\n################################################################################\r\n###########    MAJAN Related Initial Knowledge - START #################################\r\n\r\n:initialization ajan:agentInitKnowledge :Person.\r\n\r\n:Person rdf:type    :DomainUser ;\r\n        :hasGender  \"Male\" ;\r\n        :hasNationality \"Nation2\" ;\r\n        :hasLanguage    \"Lang1\", \"Lang2\";\r\n        :hasGenderPreference    \"Don't mind\" ;\r\n        :hasNationPreference    \"Don't mind\" ;\r\n        :hasGenderPrefWeight    \"0.75\" ;\r\n        :hasNationPrefWeight    \"0.25\" ."
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/welcome/integration/coordination/ajan/agents/",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Agent 7",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/domain_specific_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix locn: <http://www.w3.org/ns/locn#> .\r\n@prefix actor: <http://www.daml.org/services/owl-s/1.1/ActorDefault.owl#> .\r\n@prefix agents: <http://localhost:8090/rdf4j/repositories/agents#> .\r\n\r\n\r\n###########################################################\r\n#########   Necessary part for the agent-core  ############\r\n\r\n:initialization rdf:type ajan:AgentInitialisation .\r\n:initialization ajan:agentId \"majanAgent7\"^^xsd:string .\r\n\r\n:initialization ajan:agentTemplate agents:MajanAgent .\r\n\r\n################################################################################\r\n###########    MAJAN Related Initial Knowledge - START #################################\r\n\r\n:initialization ajan:agentInitKnowledge :Person.\r\n\r\n:Person rdf:type    :DomainUser ;\r\n        :hasGender  \"Male\" ;\r\n        :hasNationality \"Nation3\" ;\r\n        :hasLanguage    \"Lang3\";\r\n        :hasGenderPreference    \"Same\" ;\r\n        :hasNationPreference    \"Don't mind\" ;\r\n        :hasGenderPrefWeight    \"0.75\" ;\r\n        :hasNationPrefWeight    \"0.25\" ."
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/welcome/integration/coordination/ajan/agents/",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Agent 8",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/domain_specific_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix locn: <http://www.w3.org/ns/locn#> .\r\n@prefix actor: <http://www.daml.org/services/owl-s/1.1/ActorDefault.owl#> .\r\n@prefix agents: <http://localhost:8090/rdf4j/repositories/agents#> .\r\n\r\n\r\n###########################################################\r\n#########   Necessary part for the agent-core  ############\r\n\r\n:initialization rdf:type ajan:AgentInitialisation .\r\n:initialization ajan:agentId \"majanAgent8\"^^xsd:string .\r\n\r\n:initialization ajan:agentTemplate agents:MajanAgent .\r\n\r\n################################################################################\r\n###########    MAJAN Related Initial Knowledge - START #################################\r\n\r\n:initialization ajan:agentInitKnowledge :Person.\r\n\r\n:Person rdf:type    :DomainUser ;\r\n        :hasGender  \"Male\" ;\r\n        :hasNationality \"Nation2\" ;\r\n        :hasLanguage    \"Lang1\", \"Lang2\";\r\n        :hasGenderPreference    \"Don't mind\" ;\r\n        :hasNationPreference    \"Don't mind\" ;\r\n        :hasGenderPrefWeight    \"0.75\" ;\r\n        :hasNationPrefWeight    \"0.25\" ."
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/welcome/integration/coordination/ajan/agents/",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Agent 9",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/domain_specific_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix locn: <http://www.w3.org/ns/locn#> .\r\n@prefix actor: <http://www.daml.org/services/owl-s/1.1/ActorDefault.owl#> .\r\n@prefix agents: <http://localhost:8090/rdf4j/repositories/agents#> .\r\n\r\n\r\n###########################################################\r\n#########   Necessary part for the agent-core  ############\r\n\r\n:initialization rdf:type ajan:AgentInitialisation .\r\n:initialization ajan:agentId \"majanAgent9\"^^xsd:string .\r\n\r\n:initialization ajan:agentTemplate agents:MajanAgent .\r\n\r\n################################################################################\r\n###########    MAJAN Related Initial Knowledge - START #################################\r\n\r\n:initialization ajan:agentInitKnowledge :Person.\r\n\r\n:Person rdf:type    :DomainUser ;\r\n        :hasGender  \"Female\" ;\r\n        :hasNationality \"Nation1\" ;\r\n        :hasLanguage    \"Lang1\";\r\n        :hasGenderPreference    \"Same\" ;\r\n        :hasNationPreference    \"Same\" ;\r\n        :hasGenderPrefWeight    \"0.75\" ;\r\n        :hasNationPrefWeight    \"0.25\" ."
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/welcome/integration/coordination/ajan/agents/",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Agent 10",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/domain_specific_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix locn: <http://www.w3.org/ns/locn#> .\r\n@prefix actor: <http://www.daml.org/services/owl-s/1.1/ActorDefault.owl#> .\r\n@prefix agents: <http://localhost:8090/rdf4j/repositories/agents#> .\r\n\r\n\r\n###########################################################\r\n#########   Necessary part for the agent-core  ############\r\n\r\n:initialization rdf:type ajan:AgentInitialisation .\r\n:initialization ajan:agentId \"majanAgent10\"^^xsd:string .\r\n\r\n:initialization ajan:agentTemplate agents:MajanAgent .\r\n\r\n################################################################################\r\n###########    MAJAN Related Initial Knowledge - START #################################\r\n\r\n:initialization ajan:agentInitKnowledge :Person.\r\n\r\n:Person rdf:type    :DomainUser ;\r\n        :hasGender  \"Female\" ;\r\n        :hasNationality \"Nation1\" ;\r\n        :hasLanguage    \"Lang2\";\r\n        :hasGenderPreference    \"Mixed\" ;\r\n        :hasNationPreference    \"Same\" ;\r\n        :hasGenderPrefWeight    \"0.75\" ;\r\n        :hasNationPrefWeight    \"0.25\" ."
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/welcome/integration/coordination/ajan/agents/",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

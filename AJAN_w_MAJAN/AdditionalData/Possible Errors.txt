@@ -1,0 +1,7 @@
+------------------Dedicated neither succes or failure for handleEvent ----------------------
+Error: When Dedicated sends a broadcast and the PAYLOAD is queried from Agent Knowledge, then
+Participants agents receive the message and respond accordingly. HOWEVER, Dedicated doesn't handle the event which 
+should be created when receiving a response from Participants. 
+Solution: Read the Payload from Execution Knowledge. To do so, first write everything you need to Exec Knowl. then read for Payload. 
+
+-----------------------

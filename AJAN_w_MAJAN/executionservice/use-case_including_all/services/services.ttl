@@ -1,0 +1,158 @@
+@prefix ajan: <http://www.ajan.de/ajan-ns#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix http-core: <http://www.w3.org/2006/http#> .
+@prefix http-headers: <http://www.w3.org/2008/http-headers#> .
+@prefix http-methods: <http://www.w3.org/2008/http-methods#> .
+@prefix sp: <http://spinrdf.org/sp#> .
+@prefix actn: <http://www.ajan.de/actn#> .
+@prefix mosim: <http://www.dfki.de/mosim-ns#> .
+@prefix : <http://localhost:8090/rdf4j/repositories/services#> .
+
+# --------------------------------------------
+# --------------- WELCOME Service ------------
+# --------------------------------------------
+
+# -------------- Retrieve Services from WSR ---------------
+
+:RetrieveWelcomeServices
+	rdf:type actn:ServiceAction ;
+	rdf:type actn:Safe ;
+	rdf:type actn:Idempotent ;
+	actn:category :Test ;
+	actn:communication actn:Synchronous ;
+	rdfs:label "Retrieve Welcome Services";
+	dct:description "Retrieve Welcome Services from WSR" ;
+	actn:runBinding :RunRetrieveWelcomeServices ;
+	actn:variables (
+			[ a actn:ActionVariable;
+				sp:varName "agent" ]
+		);
+		actn:consumes [
+			a actn:Consumable ;
+			actn:sparql """
+				PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+				PREFIX ajan: <http://www.ajan.de/ajan-ns#>				
+                ASK
+				WHERE {
+					?agent rdf:type ajan:Agent .
+				}"""^^xsd:string ;
+		] ;
+		actn:produces [
+			a actn:Producible ;
+			actn:sparql """
+				PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+				PREFIX : <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> 
+				ASK
+				WHERE {
+					?s ?p ?o .
+				}"""^^xsd:string ;
+		] .	
+
+:RunRetrieveWelcomeServices
+		rdf:type actn:Binding ;
+		rdf:type http-core:Request ;
+		http-core:httpVersion "1.1" ;
+		http-core:mthd http-methods:POST ;
+		http-core:requestURI "http://localhost:8092/kbs/receiveRepos"^^xsd:anyURI ;
+#       http-core:requestURI "http://18.224.42.120:9998/welcome/integration/workflow/dispatcher/globalRepository?repository=wsr"^^xsd:anyURI ; 		
+		http-core:headers ( [
+				a http-core:Header ;
+				http-core:hdrName http-headers:content-type ;
+				http-core:fieldValue "text/turtle; charset=UTF-8"
+			][
+				a http-core:Header ;
+				http-core:hdrName http-headers:accept ;
+				http-core:fieldValue "text/turtle; charset=UTF-8"
+			][
+				a http-core:Header ;
+				http-core:hdrName http-headers:to ;
+				http-core:fieldValue "WBS"]
+		);
+		http-core:body [
+			a actn:Payload ;
+			actn:sparql """
+				PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+				PREFIX ajan: <http://www.ajan.de/ajan-ns#>	
+				CONSTRUCT {					
+					?agent rdf:type ajan:Agent .
+				}
+				WHERE {
+					?agent rdf:type ajan:Agent .					
+				}"""^^xsd:string ;
+		] .
+
+# -------------- Retrieve Active Agents from WAR ---------------
+
+:RetrieveActiveAgents
+	rdf:type actn:ServiceAction ;
+	rdf:type actn:Safe ;
+	rdf:type actn:Idempotent ;
+	actn:category :Test ;
+	actn:communication actn:Synchronous ;
+	rdfs:label "Retrieve Active Agents";
+	dct:description "Retrieve Active Agents from WAR" ;
+	actn:runBinding :RunRetrieveActiveAgents ;
+	actn:variables (
+			[ a actn:ActionVariable;
+				sp:varName "agent" ]
+		);
+		actn:consumes [
+			a actn:Consumable ;
+			actn:sparql """
+				PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+				PREFIX welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> 
+				PREFIX ajan: <http://www.ajan.de/ajan-ns#>		
+                ASK
+				WHERE {
+					?agent rdf:type ajan:Agent .
+				}"""^^xsd:string ;
+		] ;
+		actn:produces [
+			a actn:Producible ;
+			actn:sparql """
+				PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+				PREFIX : <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> 
+				ASK
+				WHERE {
+					?s ?p ?o .
+				}"""^^xsd:string ;
+		] .	
+
+:RunRetrieveActiveAgents
+		rdf:type actn:Binding ;
+		rdf:type http-core:Request ;
+		http-core:httpVersion "1.1" ;
+		http-core:mthd http-methods:POST ;
+		http-core:requestURI "http://localhost:8092/kbs/receiveRepos"^^xsd:anyURI ;
+#		http-core:requestURI "http:<dispatcher_domain>:<port>/welcome/integration/workflow/dispatcher/globalRepository?repository=war"^^xsd:anyURI ; 
+#       http-core:requestURI "http://18.224.42.120:9998/welcome/integration/workflow/dispatcher/globalRepository?repository=war"^^xsd:anyURI ; 
+		http-core:headers ( [
+				a http-core:Header ;
+				http-core:hdrName http-headers:content-type ;
+				http-core:fieldValue "text/turtle; charset=UTF-8"
+			][
+				a http-core:Header ;
+				http-core:hdrName http-headers:accept ;
+				http-core:fieldValue "text/turtle; charset=UTF-8"
+			]
+			[
+				a http-core:Header ;
+				http-core:hdrName http-headers:to ;
+				http-core:fieldValue "WBS"]
+		);
+		http-core:body [
+			a actn:Payload ;
+			actn:sparql """
+				PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+				PREFIX welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> 
+				PREFIX ajan: <http://www.ajan.de/ajan-ns#>			
+				CONSTRUCT {					
+					?agent rdf:type ajan:Agent .
+				}
+				WHERE {
+					?agent rdf:type ajan:Agent .
+				}"""^^xsd:string ;
+		] .

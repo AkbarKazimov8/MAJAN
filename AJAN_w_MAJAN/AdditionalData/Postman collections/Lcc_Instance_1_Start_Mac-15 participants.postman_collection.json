@@ -1,0 +1,609 @@
+{
+	"info": {
+		"_postman_id": "b2b65558-c474-4028-9c2b-1cc6632b8951",
+		"name": "Lcc_Instance_1_Start_Mac-15 participants",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "StartLcc_MajanAgent1",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/welcome_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> .\r\n\r\n_:bnode_lcc rdf:type :LCCUseCase ;\r\n            welcome:hasParticipants \r\n            \"majanAgent1\", \"majanAgent2\", \"majanAgent3\", \"majanAgent4\", \"majanAgent5\" ,\r\n            \"majanAgent6\", \"majanAgent7\", \"majanAgent8\", \"majanAgent9\", \"majanAgent10\" ,\r\n            \"majanAgent11\", \"majanAgent12\", \"majanAgent13\", \"majanAgent14\", \"majanAgent15\" ;  \r\n#            \"majanAgent16\", \"majanAgent17\", \"majanAgent18\", \"majanAgent19\", \"majanAgent20\";\r\n            welcome:hasLessonId     \"3\" ;\r\n            welcome:hasDedicatedAgent   \"majanAgent1\" ;\r\n            welcome:hasSdWeight    \"0.75\" ;\r\n            welcome:hasId       \"1234\" ."
+				},
+				"url": {
+					"raw": "http://localhost:8060/welcome/integration/coordination/ajan/agents/majanAgent1?capability=startLCC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8060",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						"majanAgent1"
+					],
+					"query": [
+						{
+							"key": "capability",
+							"value": "startLCC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StartLcc_MajanAgent2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/welcome_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> .\r\n\r\n_:bnode_lcc rdf:type :LCCUseCase ;\r\n            welcome:hasParticipants \r\n            \"majanAgent1\", \"majanAgent2\", \"majanAgent3\", \"majanAgent4\", \"majanAgent5\" ,\r\n            \"majanAgent6\", \"majanAgent7\", \"majanAgent8\", \"majanAgent9\", \"majanAgent10\" ,\r\n            \"majanAgent11\", \"majanAgent12\", \"majanAgent13\", \"majanAgent14\", \"majanAgent15\" ;  \r\n#            \"majanAgent16\", \"majanAgent17\", \"majanAgent18\", \"majanAgent19\", \"majanAgent20\";\r\n            welcome:hasLessonId     \"3\" ;\r\n            welcome:hasDedicatedAgent   \"majanAgent1\" ;\r\n            welcome:hasSdWeight    \"0.75\" ;\r\n            welcome:hasId       \"1234\" ."
+				},
+				"url": {
+					"raw": "http://localhost:8060/welcome/integration/coordination/ajan/agents/majanAgent2?capability=startLCC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8060",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						"majanAgent2"
+					],
+					"query": [
+						{
+							"key": "capability",
+							"value": "startLCC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StartLcc_MajanAgent3",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/welcome_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> .\r\n\r\n_:bnode_lcc rdf:type :LCCUseCase ;\r\n            welcome:hasParticipants \r\n            \"majanAgent1\", \"majanAgent2\", \"majanAgent3\", \"majanAgent4\", \"majanAgent5\" ,\r\n            \"majanAgent6\", \"majanAgent7\", \"majanAgent8\", \"majanAgent9\", \"majanAgent10\" ,\r\n            \"majanAgent11\", \"majanAgent12\", \"majanAgent13\", \"majanAgent14\", \"majanAgent15\" ;  \r\n#            \"majanAgent16\", \"majanAgent17\", \"majanAgent18\", \"majanAgent19\", \"majanAgent20\";\r\n            welcome:hasLessonId     \"3\" ;\r\n            welcome:hasDedicatedAgent   \"majanAgent1\" ;\r\n            welcome:hasSdWeight    \"0.75\" ;\r\n            welcome:hasId       \"1234\" ."
+				},
+				"url": {
+					"raw": "http://localhost:8060/welcome/integration/coordination/ajan/agents/majanAgent3?capability=startLCC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8060",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						"majanAgent3"
+					],
+					"query": [
+						{
+							"key": "capability",
+							"value": "startLCC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StartLcc_MajanAgent4",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/welcome_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> .\r\n\r\n_:bnode_lcc rdf:type :LCCUseCase ;\r\n            welcome:hasParticipants \r\n            \"majanAgent1\", \"majanAgent2\", \"majanAgent3\", \"majanAgent4\", \"majanAgent5\" ,\r\n            \"majanAgent6\", \"majanAgent7\", \"majanAgent8\", \"majanAgent9\", \"majanAgent10\" ,\r\n            \"majanAgent11\", \"majanAgent12\", \"majanAgent13\", \"majanAgent14\", \"majanAgent15\" ;  \r\n#            \"majanAgent16\", \"majanAgent17\", \"majanAgent18\", \"majanAgent19\", \"majanAgent20\";\r\n            welcome:hasLessonId     \"3\" ;\r\n            welcome:hasDedicatedAgent   \"majanAgent1\" ;\r\n            welcome:hasSdWeight    \"0.75\" ;\r\n            welcome:hasId       \"1234\" ."
+				},
+				"url": {
+					"raw": "http://localhost:8060/welcome/integration/coordination/ajan/agents/majanAgent4?capability=startLCC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8060",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						"majanAgent4"
+					],
+					"query": [
+						{
+							"key": "capability",
+							"value": "startLCC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StartLcc_MajanAgent5",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/welcome_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> .\r\n\r\n_:bnode_lcc rdf:type :LCCUseCase ;\r\n            welcome:hasParticipants \r\n            \"majanAgent1\", \"majanAgent2\", \"majanAgent3\", \"majanAgent4\", \"majanAgent5\" ,\r\n            \"majanAgent6\", \"majanAgent7\", \"majanAgent8\", \"majanAgent9\", \"majanAgent10\" ,\r\n            \"majanAgent11\", \"majanAgent12\", \"majanAgent13\", \"majanAgent14\", \"majanAgent15\" ;  \r\n#            \"majanAgent16\", \"majanAgent17\", \"majanAgent18\", \"majanAgent19\", \"majanAgent20\";\r\n            welcome:hasLessonId     \"3\" ;\r\n            welcome:hasDedicatedAgent   \"majanAgent1\" ;\r\n            welcome:hasSdWeight    \"0.75\" ;\r\n            welcome:hasId       \"1234\" ."
+				},
+				"url": {
+					"raw": "http://localhost:8060/welcome/integration/coordination/ajan/agents/majanAgent5?capability=startLCC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8060",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						"majanAgent5"
+					],
+					"query": [
+						{
+							"key": "capability",
+							"value": "startLCC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StartLcc_MajanAgent6",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/welcome_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> .\r\n\r\n_:bnode_lcc rdf:type :LCCUseCase ;\r\n            welcome:hasParticipants \r\n            \"majanAgent1\", \"majanAgent2\", \"majanAgent3\", \"majanAgent4\", \"majanAgent5\" ,\r\n            \"majanAgent6\", \"majanAgent7\", \"majanAgent8\", \"majanAgent9\", \"majanAgent10\" ,\r\n            \"majanAgent11\", \"majanAgent12\", \"majanAgent13\", \"majanAgent14\", \"majanAgent15\" ;  \r\n#            \"majanAgent16\", \"majanAgent17\", \"majanAgent18\", \"majanAgent19\", \"majanAgent20\";\r\n            welcome:hasLessonId     \"3\" ;\r\n            welcome:hasDedicatedAgent   \"majanAgent1\" ;\r\n            welcome:hasSdWeight    \"0.75\" ;\r\n            welcome:hasId       \"1234\" ."
+				},
+				"url": {
+					"raw": "http://localhost:8060/welcome/integration/coordination/ajan/agents/majanAgent6?capability=startLCC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8060",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						"majanAgent6"
+					],
+					"query": [
+						{
+							"key": "capability",
+							"value": "startLCC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StartLcc_MajanAgent7",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/welcome_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> .\r\n\r\n_:bnode_lcc rdf:type :LCCUseCase ;\r\n            welcome:hasParticipants \r\n            \"majanAgent1\", \"majanAgent2\", \"majanAgent3\", \"majanAgent4\", \"majanAgent5\" ,\r\n            \"majanAgent6\", \"majanAgent7\", \"majanAgent8\", \"majanAgent9\", \"majanAgent10\" ,\r\n            \"majanAgent11\", \"majanAgent12\", \"majanAgent13\", \"majanAgent14\", \"majanAgent15\" ;  \r\n#            \"majanAgent16\", \"majanAgent17\", \"majanAgent18\", \"majanAgent19\", \"majanAgent20\";\r\n            welcome:hasLessonId     \"3\" ;\r\n            welcome:hasDedicatedAgent   \"majanAgent1\" ;\r\n            welcome:hasSdWeight    \"0.75\" ;\r\n            welcome:hasId       \"1234\" ."
+				},
+				"url": {
+					"raw": "http://localhost:8060/welcome/integration/coordination/ajan/agents/majanAgent7?capability=startLCC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8060",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						"majanAgent7"
+					],
+					"query": [
+						{
+							"key": "capability",
+							"value": "startLCC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StartLcc_MajanAgent8",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/welcome_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> .\r\n\r\n_:bnode_lcc rdf:type :LCCUseCase ;\r\n            welcome:hasParticipants \r\n            \"majanAgent1\", \"majanAgent2\", \"majanAgent3\", \"majanAgent4\", \"majanAgent5\" ,\r\n            \"majanAgent6\", \"majanAgent7\", \"majanAgent8\", \"majanAgent9\", \"majanAgent10\" ,\r\n            \"majanAgent11\", \"majanAgent12\", \"majanAgent13\", \"majanAgent14\", \"majanAgent15\" ;  \r\n#            \"majanAgent16\", \"majanAgent17\", \"majanAgent18\", \"majanAgent19\", \"majanAgent20\";\r\n            welcome:hasLessonId     \"3\" ;\r\n            welcome:hasDedicatedAgent   \"majanAgent1\" ;\r\n            welcome:hasSdWeight    \"0.75\" ;\r\n            welcome:hasId       \"1234\" ."
+				},
+				"url": {
+					"raw": "http://localhost:8060/welcome/integration/coordination/ajan/agents/majanAgent8?capability=startLCC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8060",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						"majanAgent8"
+					],
+					"query": [
+						{
+							"key": "capability",
+							"value": "startLCC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StartLcc_MajanAgent9",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/welcome_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> .\r\n\r\n_:bnode_lcc rdf:type :LCCUseCase ;\r\n            welcome:hasParticipants \r\n            \"majanAgent1\", \"majanAgent2\", \"majanAgent3\", \"majanAgent4\", \"majanAgent5\" ,\r\n            \"majanAgent6\", \"majanAgent7\", \"majanAgent8\", \"majanAgent9\", \"majanAgent10\" ,\r\n            \"majanAgent11\", \"majanAgent12\", \"majanAgent13\", \"majanAgent14\", \"majanAgent15\" ;  \r\n#            \"majanAgent16\", \"majanAgent17\", \"majanAgent18\", \"majanAgent19\", \"majanAgent20\";\r\n            welcome:hasLessonId     \"3\" ;\r\n            welcome:hasDedicatedAgent   \"majanAgent1\" ;\r\n            welcome:hasSdWeight    \"0.75\" ;\r\n            welcome:hasId       \"1234\" ."
+				},
+				"url": {
+					"raw": "http://localhost:8060/welcome/integration/coordination/ajan/agents/majanAgent9?capability=startLCC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8060",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						"majanAgent9"
+					],
+					"query": [
+						{
+							"key": "capability",
+							"value": "startLCC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StartLcc_MajanAgent10",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/welcome_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> .\r\n\r\n_:bnode_lcc rdf:type :LCCUseCase ;\r\n            welcome:hasParticipants \r\n            \"majanAgent1\", \"majanAgent2\", \"majanAgent3\", \"majanAgent4\", \"majanAgent5\" ,\r\n            \"majanAgent6\", \"majanAgent7\", \"majanAgent8\", \"majanAgent9\", \"majanAgent10\" ,\r\n            \"majanAgent11\", \"majanAgent12\", \"majanAgent13\", \"majanAgent14\", \"majanAgent15\" ;  \r\n#            \"majanAgent16\", \"majanAgent17\", \"majanAgent18\", \"majanAgent19\", \"majanAgent20\";\r\n            welcome:hasLessonId     \"3\" ;\r\n            welcome:hasDedicatedAgent   \"majanAgent1\" ;\r\n            welcome:hasSdWeight    \"0.75\" ;\r\n            welcome:hasId       \"1234\" ."
+				},
+				"url": {
+					"raw": "http://localhost:8060/welcome/integration/coordination/ajan/agents/majanAgent10?capability=startLCC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8060",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						"majanAgent10"
+					],
+					"query": [
+						{
+							"key": "capability",
+							"value": "startLCC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StartLcc_MajanAgent11",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/welcome_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> .\r\n\r\n_:bnode_lcc rdf:type :LCCUseCase ;\r\n            welcome:hasParticipants \r\n            \"majanAgent1\", \"majanAgent2\", \"majanAgent3\", \"majanAgent4\", \"majanAgent5\" ,\r\n            \"majanAgent6\", \"majanAgent7\", \"majanAgent8\", \"majanAgent9\", \"majanAgent10\" ,\r\n            \"majanAgent11\", \"majanAgent12\", \"majanAgent13\", \"majanAgent14\", \"majanAgent15\" ;  \r\n#            \"majanAgent16\", \"majanAgent17\", \"majanAgent18\", \"majanAgent19\", \"majanAgent20\";\r\n            welcome:hasLessonId     \"3\" ;\r\n            welcome:hasDedicatedAgent   \"majanAgent1\" ;\r\n            welcome:hasSdWeight    \"0.75\" ;\r\n            welcome:hasId       \"1234\" ."
+				},
+				"url": {
+					"raw": "http://localhost:8060/welcome/integration/coordination/ajan/agents/majanAgent11?capability=startLCC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8060",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						"majanAgent11"
+					],
+					"query": [
+						{
+							"key": "capability",
+							"value": "startLCC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StartLcc_MajanAgent12",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/welcome_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> .\r\n\r\n_:bnode_lcc rdf:type :LCCUseCase ;\r\n            welcome:hasParticipants \r\n            \"majanAgent1\", \"majanAgent2\", \"majanAgent3\", \"majanAgent4\", \"majanAgent5\" ,\r\n            \"majanAgent6\", \"majanAgent7\", \"majanAgent8\", \"majanAgent9\", \"majanAgent10\" ,\r\n            \"majanAgent11\", \"majanAgent12\", \"majanAgent13\", \"majanAgent14\", \"majanAgent15\" ;  \r\n#            \"majanAgent16\", \"majanAgent17\", \"majanAgent18\", \"majanAgent19\", \"majanAgent20\";\r\n            welcome:hasLessonId     \"3\" ;\r\n            welcome:hasDedicatedAgent   \"majanAgent1\" ;\r\n            welcome:hasSdWeight    \"0.75\" ;\r\n            welcome:hasId       \"1234\" ."
+				},
+				"url": {
+					"raw": "http://localhost:8060/welcome/integration/coordination/ajan/agents/majanAgent12?capability=startLCC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8060",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						"majanAgent12"
+					],
+					"query": [
+						{
+							"key": "capability",
+							"value": "startLCC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StartLcc_MajanAgent13",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/welcome_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> .\r\n\r\n_:bnode_lcc rdf:type :LCCUseCase ;\r\n            welcome:hasParticipants \r\n            \"majanAgent1\", \"majanAgent2\", \"majanAgent3\", \"majanAgent4\", \"majanAgent5\" ,\r\n            \"majanAgent6\", \"majanAgent7\", \"majanAgent8\", \"majanAgent9\", \"majanAgent10\" ,\r\n            \"majanAgent11\", \"majanAgent12\", \"majanAgent13\", \"majanAgent14\", \"majanAgent15\" ;  \r\n#            \"majanAgent16\", \"majanAgent17\", \"majanAgent18\", \"majanAgent19\", \"majanAgent20\";\r\n            welcome:hasLessonId     \"3\" ;\r\n            welcome:hasDedicatedAgent   \"majanAgent1\" ;\r\n            welcome:hasSdWeight    \"0.75\" ;\r\n            welcome:hasId       \"1234\" ."
+				},
+				"url": {
+					"raw": "http://localhost:8060/welcome/integration/coordination/ajan/agents/majanAgent13?capability=startLCC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8060",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						"majanAgent13"
+					],
+					"query": [
+						{
+							"key": "capability",
+							"value": "startLCC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StartLcc_MajanAgent14",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/welcome_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> .\r\n\r\n_:bnode_lcc rdf:type :LCCUseCase ;\r\n            welcome:hasParticipants \r\n            \"majanAgent1\", \"majanAgent2\", \"majanAgent3\", \"majanAgent4\", \"majanAgent5\" ,\r\n            \"majanAgent6\", \"majanAgent7\", \"majanAgent8\", \"majanAgent9\", \"majanAgent10\" ,\r\n            \"majanAgent11\", \"majanAgent12\", \"majanAgent13\", \"majanAgent14\", \"majanAgent15\" ;  \r\n#            \"majanAgent16\", \"majanAgent17\", \"majanAgent18\", \"majanAgent19\", \"majanAgent20\";\r\n            welcome:hasLessonId     \"3\" ;\r\n            welcome:hasDedicatedAgent   \"majanAgent1\" ;\r\n            welcome:hasSdWeight    \"0.75\" ;\r\n            welcome:hasId       \"1234\" ."
+				},
+				"url": {
+					"raw": "http://localhost:8060/welcome/integration/coordination/ajan/agents/majanAgent14?capability=startLCC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8060",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						"majanAgent14"
+					],
+					"query": [
+						{
+							"key": "capability",
+							"value": "startLCC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "StartLcc_MajanAgent15",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/welcome_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> .\r\n\r\n_:bnode_lcc rdf:type :LCCUseCase ;\r\n            welcome:hasParticipants \r\n            \"majanAgent1\", \"majanAgent2\", \"majanAgent3\", \"majanAgent4\", \"majanAgent5\" ,\r\n            \"majanAgent6\", \"majanAgent7\", \"majanAgent8\", \"majanAgent9\", \"majanAgent10\" ,\r\n            \"majanAgent11\", \"majanAgent12\", \"majanAgent13\", \"majanAgent14\", \"majanAgent15\" ;  \r\n#            \"majanAgent16\", \"majanAgent17\", \"majanAgent18\", \"majanAgent19\", \"majanAgent20\";\r\n            welcome:hasLessonId     \"3\" ;\r\n            welcome:hasDedicatedAgent   \"majanAgent1\" ;\r\n            welcome:hasSdWeight    \"0.75\" ;\r\n            welcome:hasId       \"1234\" ."
+				},
+				"url": {
+					"raw": "http://localhost:8060/welcome/integration/coordination/ajan/agents/majanAgent15?capability=startLCC",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8060",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						"majanAgent15"
+					],
+					"query": [
+						{
+							"key": "capability",
+							"value": "startLCC"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

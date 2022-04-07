@@ -1,0 +1,78 @@
+{
+	"info": {
+		"_postman_id": "1d62a79f-bd67-4485-8b00-0da8b6088a40",
+		"name": "MAJAN - Logging",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "MAJAN-Log (variables)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix mac: <http://localhost:8090/rdf4j/repositories/ajan_mac_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n\r\n_:bnode     rdf:type    mac:Log ;\r\n            mac:hasAgentId     \"{{agentId}}\" ;\r\n            mac:hasUseCase     \"{{useCase}}\" ;\r\n            mac:hasSolver   \"{{solver}}\" ;\r\n            mac:hasActivity \"{{activity}}\" ;\r\n            mac:hasActivityStatus   \"{{status}}\" .\r\n\r\n\r\n\r\n\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:4202/post",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4202",
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MAJAN-Log (values)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix mac: <http://localhost:8090/rdf4j/repositories/ajan_mac_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n\r\n_:bnode     rdf:type    mac:Log ;\r\n            mac:hasAgentId     \"agent2\" ;\r\n            mac:hasUseCase     \"ABC\" ;\r\n            mac:hasSolver   \"Boss\" ;\r\n            mac:hasActivity \"MAC Problem Instance: \\nID:123,\\nParticipants: majanAgent1, 2, 3\" ;\r\n            mac:hasActivityStatus   \"Success\" .\r\n\r\n\r\n\r\n\r\n"
+				},
+				"url": {
+					"raw": "http://localhost:8060/welcome/integration/coordination/ajan/agents/majanAgent1?capability=sendCoordRequest",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8060",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						"majanAgent1"
+					],
+					"query": [
+						{
+							"key": "capability",
+							"value": "sendCoordRequest"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

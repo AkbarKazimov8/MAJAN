@@ -1,0 +1,49 @@
+{
+	"info": {
+		"_postman_id": "50b6c9dc-d7f0-4d32-a588-71f41968260a",
+		"name": "Run_CHC_Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Start_CHC",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/welcome_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> .\r\n\r\nwelcome:subject    welcome:predicate  welcome:object ."
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/welcome/integration/coordination/ajan/agents/{{agentId}}?capability=startCHC",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						"{{agentId}}"
+					],
+					"query": [
+						{
+							"key": "capability",
+							"value": "startCHC"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

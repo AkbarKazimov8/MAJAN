@@ -1,0 +1,809 @@
+
+:TestBigQuery
+	a bt:Write ;
+	rdfs:label "Testing Big Query" ;
+	bt:query [
+				a bt:ConstructQuery ;
+				bt:originBase ajan:AgentKnowledge ;
+				bt:targetBase ajan:AgentKnowledge ;
+				bt:sparql """
+	PREFIX ajan: <http://www.ajan.de/ajan-ns#>
+	PREFIX welcome: <http://localhost:8090/rdf4j/repositories/welcome_ontology#> 
+	PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+	CONSTRUCT{
+		_:bNodeSimilarity ajan:subject ?a1;
+		ajan:object ?a2;
+		welcome:isComputedForProblemId  ?usecaseId;
+		welcome:hasPerfectMatchScore ?perfectMatchScore;
+		welcome:hasNumberOfAgents ?numberOfAgents;
+		ajan:hasSimilarityScore ?totalSml.
+		}
+	WHERE {
+		welcome:UseCase welcome:toBeSolved ?usecase.
+		?usecase 	welcome:hasMacProblemId  ?usecaseId;
+				welcome:hasNumberOfAgents ?numberOfAgents;
+				welcome:hasAgeWeight ?ageWeight;
+				welcome:hasGenderWeight ?genWeight;
+				welcome:hasFamilyWeight	?famWeight;
+				welcome:hasNationalityWeight	?natWeight;
+				welcome:hasReligionWeight	?relWeight;
+				welcome:hasEthnicityWeight	?ethWeight;
+				welcome:hasLocationWeight	?locWeight;
+				welcome:hasAccessibilityWeight	?accWeight;
+				welcome:hasRentPeriodWeight	?rentWeight;
+				welcome:hasShareWithWeight	?shareWeight.
+		?a1 a ajan:Agent.
+		?a1 welcome:isParticipatingIn ?usecaseId.
+	
+		?a2 a ajan:Agent.
+		?a2 welcome:isParticipatingIn ?usecaseId.
+		?a1 welcome:hasAgePreference ?agePrefA1.
+		OPTIONAL {
+			?agePrefA1 welcome:lowerBound ?lowerAgeA1;
+		        welcome:higherBound ?higherAgeA1.
+			}.
+		?a1 welcome:hasGenderPreference ?genPrefA1.
+		?a1 welcome:hasFamilyPreference ?famPrefA1.
+		?a1 welcome:hasNationPreference ?natPrefA1.
+		?a1 welcome:hasNationality ?nationA1.
+		?a1 welcome:hasReligionPreference ?relPrefA1.
+		?a1 welcome:hasReligion ?relA1.
+		?a1 welcome:hasEthnicPreference ?ethPrefA1.
+		?a1 welcome:hasEthnicity ?ethA1.
+		?a1 welcome:hasLocationPreference ?locPrefA1.
+		?a1 welcome:hasAccessibilityPreference ?accPrefA1.
+		?a1 welcome:hasRentPeriodPreference ?rentPrefA1.
+		OPTIONAL {
+			?rentPrefA1 welcome:startDate ?startRentA1;
+		        welcome:endDate ?endRentA1.
+			}.
+		?a1 welcome:hasShareWithPreference ?sharePrefA1.
+		OPTIONAL {
+			?sharePrefA1 welcome:min ?minShareA1;
+		        welcome:max ?maxShareA1.
+			}.
+		?a2 welcome:hasAge ?ageA2.
+		?a2 welcome:hasGender ?genA2.
+		?a2 welcome:hasFamily ?famA2.
+		?a2 welcome:hasNationality ?nationA2.
+		?a2 welcome:hasReligion ?relA2.
+		?a2 welcome:hasEthnicity ?ethA2.
+		?a2 welcome:hasLocationPreference ?locPrefA2.
+		?a2 welcome:hasAccessibilityPreference ?accPrefA2.
+		?a2 welcome:hasRentPeriodPreference ?rentPrefA2.
+		OPTIONAL {
+			?rentPrefA2 welcome:startDate ?startRentA2;
+		        welcome:endDate ?endRentA2.
+			}.
+		?a2 welcome:hasShareWithPreference ?sharePrefA2.
+		OPTIONAL {
+			?sharePrefA2 welcome:min ?minShareA2;
+		        welcome:max ?maxShareA2.
+			}.
+		FILTER(?a1 != ?a2)
+		BIND(1 AS ?matchScore)
+		BIND(0 AS ?unmatchScore)
+		BIND(10 AS ?numberOfPreferences)
+		BIND((?matchScore * (?ageWeight + ?genWeight + ?famWeight + ?natWeight + ?relWeight + ?ethWeight + ?locWeight + ?accWeight + ?rentWeight + ?shareWeight))/?numberOfPreferences AS ?perfectMatchScore)
+	
+		BIND(IF(?agePrefA1="Dont mind" || (xsd:integer(?ageA2) >= xsd:integer(?lowerAgeA1) && xsd:integer(?ageA2) <= xsd:integer(?higherAgeA1)), ?matchScore, ?unmatchScore) AS ?ageSml).
+		BIND(IF(?genPrefA1="Dont mind" || ?genA2=?genPrefA1, ?matchScore, ?unmatchScore) AS ?genSml).
+		BIND(IF(?famPrefA1="Dont mind" || ?famA2=?famPrefA1, ?matchScore, ?unmatchScore) AS ?famSml).
+		BIND(IF(?natPrefA1="Dont mind" || (?natPrefA1="Same" && ?nationA1=?nationA2) || (?natPrefA1="Mixed" && ?nationA1!=?nationA2), ?matchScore, ?unmatchScore) AS ?natSml)
+		BIND(IF(?relPrefA1="Dont mind" || (?relPrefA1="Same" && ?relA1=?relA2) || (?relPrefA1="Mixed" && ?relA1!=?relA2), ?matchScore, ?unmatchScore) AS ?relSml)
+		BIND(IF(?ethPrefA1="Dont mind" || (?ethPrefA1="Same" && ?ethA1=?ethA2) || (?ethPrefA1="Mixed" && ?ethA1!=?ethA2), ?matchScore, ?unmatchScore) AS ?ethSml)
+		
+		BIND(IF(?locPrefA1="Dont mind" || ?locPrefA2="Dont mind" || ?locPrefA1=?locPrefA2, ?matchScore, ?unmatchScore) AS ?locSml)
+		BIND(IF(?accPrefA1="Dont mind" || ?accPrefA2="Dont mind" || ?accPrefA1=?accPrefA2, ?matchScore, ?unmatchScore) AS ?accSml)
+		BIND(((year(xsd:dateTime(?endRentA1)) - year(now()))*365 + 30*(month(xsd:dateTime(?endRentA1))) + day(xsd:dateTime(?endRentA1))) AS ?endRentA1IntValue)
+		BIND(((year(xsd:dateTime(?endRentA2)) - year(now()))*365 + 30*(month(xsd:dateTime(?endRentA2))) + day(xsd:dateTime(?endRentA2))) AS ?endRentA2IntValue)
+		BIND(((year(xsd:dateTime(?startRentA1)) - year(now()))*365 + 30*(month(xsd:dateTime(?startRentA1))) + day(xsd:dateTime(?startRentA1))) AS ?startRentA1IntValue)
+		BIND(((year(xsd:dateTime(?startRentA2)) - year(now()))*365 + 30*(month(xsd:dateTime(?startRentA2))) + day(xsd:dateTime(?startRentA2))) AS ?startRentA2IntValue)
+		BIND(IF(?endRentA1IntValue>?endRentA2IntValue, ?endRentA2IntValue, ?endRentA1IntValue) AS ?smallerEndRent)
+		BIND(IF(?startRentA1IntValue>?startRentA2IntValue, ?startRentA1IntValue, ?startRentA2IntValue) AS ?biggerStartRent)
+		BIND(IF(?startRentA1IntValue>?startRentA2IntValue, ?startRentA2IntValue, ?startRentA1IntValue) AS ?smallerStartRent)
+		BIND(IF(?endRentA1IntValue>?endRentA2IntValue, ?endRentA1IntValue, ?endRentA2IntValue) AS ?biggerEndRent)
+		BIND(?smallerEndRent - ?biggerStartRent + 1 AS ?rentOverlap)
+		BIND(?biggerEndRent - ?smallerStartRent + 1 AS ?rentTotal)
+		BIND(IF(?rentPrefA1="Dont mind" || ?rentPrefA2="Dont mind", ?matchScore, IF(?startRentA1 > ?endRentA2 || ?startRentA2 > ?endRentA1, ?unmatchScore, 
+		xsd:double(?rentOverlap/?rentTotal))) AS ?rentSml)
+		BIND(IF(?maxShareA1>?maxShareA2, ?maxShareA2, ?maxShareA1) AS ?smallerMaxShare)
+		BIND(IF(?minShareA1>?minShareA2, ?minShareA1, ?minShareA2) AS ?biggerMinShare)
+		BIND(IF(?minShareA1>?minShareA2, ?minShareA2, ?minShareA1) AS ?smallerMinShare)
+		BIND(IF(?maxShareA1>?maxShareA2, ?maxShareA1, ?maxShareA2) AS ?biggerMaxShare)
+		BIND(?smallerMaxShare - ?biggerMinShare + 1 AS ?shareOverlap)
+		
+		BIND(?biggerMaxShare - ?smallerMinShare + 1 AS ?shareTotal)
+		BIND(IF(?sharePrefA1="Dont mind" || ?sharePrefA2="Dont mind", ?matchScore, IF(?minShareA1 > ?maxShareA2 || ?minShareA2 > ?maxShareA1, ?unmatchScore, 
+		xsd:double(?shareOverlap/?shareTotal))) AS ?shareSml)
+	
+		BIND(xsd:float(((?ageSml * ?ageWeight) + (?genSml * ?genWeight) + (?famSml * ?famWeight) + (?natSml * ?natWeight) + (?relSml * ?relWeight) + 
+		(?ethSml * ?ethWeight) + (?locSml * ?locWeight) + (?accSml * ?accWeight) + (?rentSml * ?rentWeight) + (?shareSml * ?shareWeight))/10.0) AS ?totalSml).		
+		}
+					"""^^xsd:string ;
+			] .
+
+
+
+:HDBSCAN
+	a bt:HDBSCAN ;
+	rdfs:label "Run HDBSCAN" ;
+	bt:query [
+				a bt:ConstructQuery ;
+				bt:originBase ajan:AgentKnowledge ;
+				bt:targetBase ajan:AgentKnowledge ;
+				bt:sparql """
+			PREFIX ajan: <http://www.ajan.de/ajan-ns#>
+			PREFIX welcome: <http://localhost:8090/rdf4j/repositories/welcome_ontology#> 
+			PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+			CONSTRUCT{
+				?usecase 	welcome:hasMacProblemId  ?usecaseID;
+						welcome:hasPerfectMatchScore ?perfectMatchScore;
+						welcome:hasNumberOfAgents ?numberOfAgents;
+						welcome:hasParticipants ?agents.
+				_:bNodeSimilarity 	ajan:hasSubject ?a1;
+							ajan:hasObject ?a2;
+							welcome:isComputedForProblemId  ?usecaseId;
+							ajan:hasSimilarityScore ?totalSml.
+				}
+			WHERE {
+				{
+				welcome:UseCase welcome:toBeSolved ?usecase.
+				?usecase 	welcome:hasNumberOfAgents ?numberOfAgents;
+						welcome:hasParticipants ?agents;
+						welcome:hasMacProblemId  ?usecaseID;
+						welcome:hasAgeWeight ?ageWeight;
+						welcome:hasGenderWeight ?genWeight;
+						welcome:hasFamilyWeight	?famWeight;
+						welcome:hasNationalityWeight	?natWeight;
+						welcome:hasReligionWeight	?relWeight;
+						welcome:hasEthnicityWeight	?ethWeight;
+						welcome:hasLocationWeight	?locWeight;
+						welcome:hasAccessibilityWeight	?accWeight;
+						welcome:hasRentPeriodWeight	?rentWeight;
+						welcome:hasShareWithWeight	?shareWeight.
+				BIND(1 AS ?matchScore)
+				BIND(0 AS ?unmatchScore)
+				BIND(10 AS ?numberOfPreferences)
+				BIND((?matchScore * (?ageWeight + ?genWeight + ?famWeight + ?natWeight + ?relWeight + ?ethWeight + ?locWeight + ?accWeight + ?rentWeight + ?shareWeight))/?numberOfPreferences AS ?perfectMatchScore)
+				} UNION {
+				welcome:UseCase welcome:toBeSolved ?usecase.	
+				?usecase 	welcome:hasMacProblemId  ?usecaseId;
+						welcome:hasAgeWeight ?ageWeight;
+						welcome:hasGenderWeight ?genWeight;
+						welcome:hasFamilyWeight	?famWeight;
+						welcome:hasNationalityWeight	?natWeight;
+						welcome:hasReligionWeight	?relWeight;
+						welcome:hasEthnicityWeight	?ethWeight;
+						welcome:hasLocationWeight	?locWeight;
+						welcome:hasAccessibilityWeight	?accWeight;
+						welcome:hasRentPeriodWeight	?rentWeight;
+						welcome:hasShareWithWeight	?shareWeight.
+				BIND(1 AS ?matchScore)
+				BIND(0 AS ?unmatchScore)
+				?a1 a ajan:Agent.
+				?a1 welcome:isParticipatingIn ?usecaseId.
+	
+				?a2 a ajan:Agent.
+				?a2 welcome:isParticipatingIn ?usecaseId.
+				?a1 welcome:hasAgePreference ?agePrefA1.
+				OPTIONAL {
+					?agePrefA1 welcome:lowerBound ?lowerAgeA1;
+					        welcome:higherBound ?higherAgeA1.
+					}.
+				?a1 welcome:hasGenderPreference ?genPrefA1.
+				?a1 welcome:hasFamilyPreference ?famPrefA1.
+				?a1 welcome:hasNationPreference ?natPrefA1.
+				?a1 welcome:hasNationality ?nationA1.
+				?a1 welcome:hasReligionPreference ?relPrefA1.
+				?a1 welcome:hasReligion ?relA1.
+				?a1 welcome:hasEthnicPreference ?ethPrefA1.
+				?a1 welcome:hasEthnicity ?ethA1.
+				?a1 welcome:hasLocationPreference ?locPrefA1.
+				?a1 welcome:hasAccessibilityPreference ?accPrefA1.
+				?a1 welcome:hasRentPeriodPreference ?rentPrefA1.
+				OPTIONAL {
+					?rentPrefA1 welcome:startDate ?startRentA1;
+				        welcome:endDate ?endRentA1.
+					}.
+				?a1 welcome:hasShareWithPreference ?sharePrefA1.
+					OPTIONAL {
+					?sharePrefA1 welcome:min ?minShareA1;
+		        		welcome:max ?maxShareA1.
+					}.
+				?a2 welcome:hasAge ?ageA2.
+				?a2 welcome:hasGender ?genA2.
+				?a2 welcome:hasFamily ?famA2.
+				?a2 welcome:hasNationality ?nationA2.
+				?a2 welcome:hasReligion ?relA2.
+				?a2 welcome:hasEthnicity ?ethA2.
+				?a2 welcome:hasLocationPreference ?locPrefA2.
+				?a2 welcome:hasAccessibilityPreference ?accPrefA2.
+				?a2 welcome:hasRentPeriodPreference ?rentPrefA2.
+				OPTIONAL {
+					?rentPrefA2 welcome:startDate ?startRentA2;
+				        welcome:endDate ?endRentA2.
+					}.
+				?a2 welcome:hasShareWithPreference ?sharePrefA2.
+				OPTIONAL {
+					?sharePrefA2 welcome:min ?minShareA2;
+				        welcome:max ?maxShareA2.
+					}.
+				FILTER(?a1 != ?a2)
+				BIND(IF(?agePrefA1="Dont mind" || (xsd:integer(?ageA2) >= xsd:integer(?lowerAgeA1) && xsd:integer(?ageA2) <= xsd:integer(?higherAgeA1)), ?matchScore, ?unmatchScore) AS ?ageSml).
+				BIND(IF(?genPrefA1="Dont mind" || ?genA2=?genPrefA1, ?matchScore, ?unmatchScore) AS ?genSml).
+				BIND(IF(?famPrefA1="Dont mind" || ?famA2=?famPrefA1, ?matchScore, ?unmatchScore) AS ?famSml).
+				BIND(IF(?natPrefA1="Dont mind" || (?natPrefA1="Same" && ?nationA1=?nationA2) || (?natPrefA1="Mixed" && ?nationA1!=?nationA2), ?matchScore, ?unmatchScore) AS ?natSml)
+				BIND(IF(?relPrefA1="Dont mind" || (?relPrefA1="Same" && ?relA1=?relA2) || (?relPrefA1="Mixed" && ?relA1!=?relA2), ?matchScore, ?unmatchScore) AS ?relSml)
+				BIND(IF(?ethPrefA1="Dont mind" || (?ethPrefA1="Same" && ?ethA1=?ethA2) || (?ethPrefA1="Mixed" && ?ethA1!=?ethA2), ?matchScore, ?unmatchScore) AS ?ethSml)
+		
+				BIND(IF(?locPrefA1="Dont mind" || ?locPrefA2="Dont mind" || ?locPrefA1=?locPrefA2, ?matchScore, ?unmatchScore) AS ?locSml)
+				BIND(IF(?accPrefA1="Dont mind" || ?accPrefA2="Dont mind" || ?accPrefA1=?accPrefA2, ?matchScore, ?unmatchScore) AS ?accSml)
+				BIND(((year(xsd:dateTime(?endRentA1)) - year(now()))*365 + 30*(month(xsd:dateTime(?endRentA1))) + day(xsd:dateTime(?endRentA1))) AS ?endRentA1IntValue)
+				BIND(((year(xsd:dateTime(?endRentA2)) - year(now()))*365 + 30*(month(xsd:dateTime(?endRentA2))) + day(xsd:dateTime(?endRentA2))) AS ?endRentA2IntValue)
+				BIND(((year(xsd:dateTime(?startRentA1)) - year(now()))*365 + 30*(month(xsd:dateTime(?startRentA1))) + day(xsd:dateTime(?startRentA1))) AS ?startRentA1IntValue)
+				BIND(((year(xsd:dateTime(?startRentA2)) - year(now()))*365 + 30*(month(xsd:dateTime(?startRentA2))) + day(xsd:dateTime(?startRentA2))) AS ?startRentA2IntValue)
+				BIND(IF(?endRentA1IntValue>?endRentA2IntValue, ?endRentA2IntValue, ?endRentA1IntValue) AS ?smallerEndRent)
+				BIND(IF(?startRentA1IntValue>?startRentA2IntValue, ?startRentA1IntValue, ?startRentA2IntValue) AS ?biggerStartRent)
+				BIND(IF(?startRentA1IntValue>?startRentA2IntValue, ?startRentA2IntValue, ?startRentA1IntValue) AS ?smallerStartRent)
+				BIND(IF(?endRentA1IntValue>?endRentA2IntValue, ?endRentA1IntValue, ?endRentA2IntValue) AS ?biggerEndRent)
+				BIND(?smallerEndRent - ?biggerStartRent + 1 AS ?rentOverlap)
+				BIND(?biggerEndRent - ?smallerStartRent + 1 AS ?rentTotal)
+				BIND(IF(?rentPrefA1="Dont mind" || ?rentPrefA2="Dont mind", ?matchScore, IF(?startRentA1 > ?endRentA2 || ?startRentA2 > ?endRentA1, ?unmatchScore, 
+				xsd:double(?rentOverlap/?rentTotal))) AS ?rentSml)
+				BIND(IF(?maxShareA1>?maxShareA2, ?maxShareA2, ?maxShareA1) AS ?smallerMaxShare)
+				BIND(IF(?minShareA1>?minShareA2, ?minShareA1, ?minShareA2) AS ?biggerMinShare)
+				BIND(IF(?minShareA1>?minShareA2, ?minShareA2, ?minShareA1) AS ?smallerMinShare)
+				BIND(IF(?maxShareA1>?maxShareA2, ?maxShareA1, ?maxShareA2) AS ?biggerMaxShare)
+				BIND(?smallerMaxShare - ?biggerMinShare + 1 AS ?shareOverlap)
+		
+				BIND(?biggerMaxShare - ?smallerMinShare + 1 AS ?shareTotal)
+				BIND(IF(?sharePrefA1="Dont mind" || ?sharePrefA2="Dont mind", ?matchScore, IF(?minShareA1 > ?maxShareA2 || ?minShareA2 > ?maxShareA1, ?unmatchScore, 
+				xsd:double(?shareOverlap/?shareTotal))) AS ?shareSml)
+	
+				BIND(xsd:float(((?ageSml * ?ageWeight) + (?genSml * ?genWeight) + (?famSml * ?famWeight) + (?natSml * ?natWeight) + (?relSml * ?relWeight) + 
+				(?ethSml * ?ethWeight) + (?locSml * ?locWeight) + (?accSml * ?accWeight) + (?rentSml * ?rentWeight) + (?shareSml * ?shareWeight))/10.0) AS ?totalSml).		
+				}}
+					"""^^xsd:string ;
+			] .
+
+
+:CoalitionGenerator
+	a bt:CoalitionGenerator ;
+	rdfs:label "Generating Coalitions" ;
+	bt:query [
+				a bt:ConstructQuery ;
+				bt:originBase ajan:AgentKnowledge ;
+				bt:targetBase ajan:AgentKnowledge ;
+				bt:sparql """
+					PREFIX welcome: <http://localhost:8090/rdf4j/repositories/welcome_ontology#> 
+					Construct {
+						welcome:LCC1 ?p ?o.
+						?o2 ?p3 ?o3.
+					}
+					Where{
+						{ welcome:LCC1 ?p ?o. }   UNION 
+						{ welcome:LCC1 ?p2 ?o2.
+						  ?o2 ?p3 ?o3.}
+					}
+					"""^^xsd:string ;
+			] .
+
+:CSGPSolver
+	a bt:CSGPSolver ;
+	rdfs:label "Solve CSGP" ;
+	bt:query [
+				a bt:ConstructQuery ;
+				bt:originBase ajan:AgentKnowledge ;
+				bt:targetBase ajan:AgentKnowledge ;
+				bt:sparql """
+					PREFIX welcome: <http://localhost:8090/rdf4j/repositories/welcome_ontology#> 
+					Construct {
+						welcome:LCC1 ?p ?o.
+						?o2 ?p3 ?o3.
+					}
+					Where{
+						{ welcome:LCC1 ?p ?o. }   UNION 
+						{ welcome:LCC1 ?p2 ?o2.
+						  ?o2 ?p3 ?o3.}
+					}
+					"""^^xsd:string ;
+			] .
+
+#------------LCC Protocol Nodes -------------------------------
+
+#-----------------CHCProtocolBT Nodes--------------------------------------
+:HandleCHCProtocolEvent
+	a bt:HandleEvent ;
+	rdfs:label "EventHandler: CHC Protocol BT" ;
+	bt:event agents:CHCProtocolEvent ;
+	bt:validate [
+					a bt:ConstructQuery ;
+					bt:targetBase ajan:ExecutionKnowledge ;
+					bt:sparql """
+						PREFIX welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> 
+						CONSTRUCT {
+							?s ?p ?o .
+						}
+						WHERE { 
+							?s ?p ?o .				
+						}"""^^xsd:string ;
+				] .
+
+:ConditionAgentRunningCHCProcess
+	a bt:Condition ;
+	rdfs:label "Condition: Is Agent Running a CHC Process as Dedicated Agent?" ;
+	bt:query ( [
+		a bt:AskQuery ;
+		bt:originBase ajan:AgentKnowledge ;
+		bt:sparql """
+					PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+					PREFIX ajan: <http://www.ajan.de/ajan-ns#>
+					PREFIX welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> 
+					ASK
+					WHERE {
+						?agent welcome:isRunningCHC "true"^^xsd:boolean .
+						?agent rdf:type ajan:Agent .					
+						}"""^^xsd:string ;
+		]) .
+
+:ConditionAgentInvolvedInCHCProcess
+	a bt:Condition ;
+	rdfs:label "Condition: Is agent involved in a CHC process?" ;
+	bt:query ( [
+		a bt:AskQuery ;
+		bt:originBase ajan:AgentKnowledge ;
+		bt:sparql """
+					PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+					PREFIX ajan: <http://www.ajan.de/ajan-ns#>
+					PREFIX welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> 
+					ASK
+					WHERE {
+						?agent welcome:isInvolvedInCHC "true"^^xsd:boolean .
+						?agent rdf:type ajan:Agent .					
+						}"""^^xsd:string ;
+		]) .
+		
+:ConditionStillWantToStartCHC
+	a bt:Condition ;
+	rdfs:label "Condition: Does TCN want to start a CHC even though he/she is already involved in one?" ;
+	bt:query ( [
+		a bt:AskQuery ;
+		bt:originBase ajan:ExecutionKnowledge ;
+		bt:sparql """
+					PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+					PREFIX ajan: <http://www.ajan.de/ajan-ns#>
+					PREFIX welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> 
+					ASK
+					WHERE {
+						GRAPH ?g { ?agent welcome:startCHC "true"^^xsd:boolean . }
+					}"""^^xsd:string ;
+		]) .
+		
+		
+:MessageAlreadyRunningCHCProcess
+	a bt:Message ;
+	rdfs:label "Message: Send Already running a CHC Process to TCN"^^xsd:string ;
+	rdfs:comment "Message: Send Already running a CHC Process to TCN"^^xsd:string ;
+	bt:targetBase ajan:ExecutionKnowledge ;  
+	bt:binding [
+		a http-core:Request ;
+		http-core:httpVersion "1.1"^^xsd:string ;
+		http-core:mthd http-methods:POST ;
+		bt:headers [
+			a bt:SelectQuery;
+			a bt:QueryUri ;
+			bt:originBase ajan:AgentKnowledge ;
+			bt:sparql """
+				PREFIX welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> 
+				SELECT ?hdrName ?userID
+				WHERE {
+					   VALUES ?hdrName {"X-User-ID"}
+					   ?du rdf:type welcome:DialogueUser .
+					   ?du welcome:hasUserId ?userID .
+				}"""^^xsd:string
+		] ;
+		http-core:headers ([
+					a http-core:Header ;						
+					http-core:hdrName http-headers:accept ;
+					http-core:fieldValue "application/ld+json; charset=UTF-8"^^xsd:string 
+				][
+					a http-core:Header ;
+					http-core:hdrName http-headers:content-type ;
+					http-core:fieldValue "application/ld+json"
+				][
+					a http-core:Header ;
+					http-core:hdrName http-headers:to ;
+					http-core:fieldValue "APP"
+			]
+		) ;	
+		http-core:body [
+			a actn:Payload ;
+			bt:query [
+				rdf:type bt:ConstructQuery ;
+				bt:originBase ajan:AgentKnowledge ;
+				bt:sparql """
+						PREFIX ajan: <http://www.ajan.de/ajan-ns#>
+						PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+						PREFIX welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> 
+						CONSTRUCT {
+							?agent welcome:informTCN "Already running CHC. Cannot start a new one now."^^xsd:string.
+						}
+						WHERE {
+							?agent rdf:type ajan:Agent .
+						}"""^^xsd:string
+			]
+		] ;    
+	] ;
+	bt:queryUri [
+		a bt:SelectQuery ;
+		a bt:QueryUri ;
+		bt:originBase ajan:AgentKnowledge ;
+		bt:sparql """
+					SELECT ?requestURI
+					WHERE {
+					  VALUES ?requestURI { "http://localhost:8092/app/inform" }
+					}"""^^xsd:string
+	] .
+	
+	
+:MessageWantToStartNewCHCProcess
+	a bt:Message ;
+	rdfs:label "Message: Send already involved in a CHC process. Still want to start a new one? to TCN"^^xsd:string ;
+	rdfs:comment "Message: Send already involved in a CHC process. Still want to start a new one? to TCN"^^xsd:string ;
+	bt:targetBase ajan:ExecutionKnowledge ;  
+	bt:binding [
+		a http-core:Request ;
+		http-core:httpVersion "1.1"^^xsd:string ;
+		http-core:mthd http-methods:POST ;
+		bt:headers [
+			a bt:SelectQuery;
+			a bt:QueryUri ;
+			bt:originBase ajan:AgentKnowledge ;
+			bt:sparql """
+				PREFIX welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> 
+				SELECT ?hdrName ?userID
+				WHERE {
+					   VALUES ?hdrName {"X-User-ID"}
+					   ?du rdf:type welcome:DialogueUser .
+					   ?du welcome:hasUserId ?userID .
+				}"""^^xsd:string
+		] ;
+		http-core:headers ([
+					a http-core:Header ;						
+					http-core:hdrName http-headers:accept ;
+					http-core:fieldValue "application/ld+json"^^xsd:string 
+				][
+					a http-core:Header ;
+					http-core:hdrName http-headers:content-type ;
+					http-core:fieldValue "application/ld+json"
+				][
+					a http-core:Header ;
+					http-core:hdrName http-headers:to ;
+					http-core:fieldValue "APP"
+			]
+		) ;	
+		http-core:body [
+			a actn:Payload ;
+			bt:query [
+				rdf:type bt:ConstructQuery ;
+				bt:originBase ajan:AgentKnowledge ;
+				bt:sparql """
+						PREFIX ajan: <http://www.ajan.de/ajan-ns#>
+						PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+						PREFIX welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> 
+						CONSTRUCT {
+							?agent welcome:askTCN "I am involved in a CHC. Do you want to start a new CHC process?" .
+							?agent rdf:type ajan:Agent .
+						}
+						WHERE {
+							?agent rdf:type ajan:Agent .
+						}"""^^xsd:string
+			]
+		] ;    
+	] ;
+	bt:queryUri [
+		a bt:SelectQuery ;
+		a bt:QueryUri ;
+		bt:originBase ajan:AgentKnowledge ;
+		bt:sparql """
+					SELECT ?requestURI
+					WHERE {
+					  VALUES ?requestURI { "http://localhost:8092/app/ask" }
+					}"""^^xsd:string
+	] .
+	
+	
+:EventProducerExecuteCHCProcessEvent
+	a bt:EventProducer ;
+	rdfs:label "EventProducer: Execute CHC Process" ;
+	ajan:event agents:ExecuteCHCProcessEvent ;
+	bt:content [
+					a bt:ConstructQuery ;
+					bt:originBase ajan:ExecutionKnowledge;
+					bt:sparql """
+						PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+						PREFIX ajan: <http://www.ajan.de/ajan-ns#>
+						PREFIX welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> 
+						CONSTRUCT {
+							?s ?p ?o .
+						}
+						WHERE {
+							?s ?p ?o .
+						}"""^^xsd:string ;
+				] .	
+	
+
+#-----------------CHCProtocolBT Nodes--------------------------------------
+
+
+#-----------------ExecutingCHCProcessBT Nodes--------------------------------------
+:HandleExecuteCHCProcessEvent
+	a bt:HandleEvent ;
+	rdfs:label "EventHandler: Execute CHC Process BT" ;
+	bt:event agents:ExecuteCHCProcessEvent ;
+	bt:validate [
+					a bt:ConstructQuery ;
+					bt:targetBase ajan:ExecutionKnowledge ;
+					bt:sparql """
+						PREFIX welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> 
+						CONSTRUCT {
+							?s ?p ?o .
+						}
+						WHERE { 
+							?s ?p ?o .				
+						}"""^^xsd:string ;
+				] .
+													
+:Message2AppStartingCHC
+	a bt:Message ;
+	rdfs:label "Message: Inform TCN that agent is starting CHC"^^xsd:string ;
+	rdfs:comment "Message: Inform TCN that agent is starting CHC"^^xsd:string ;
+	bt:targetBase ajan:ExecutionKnowledge ;  
+	bt:binding [
+		a http-core:Request ;
+		http-core:httpVersion "1.1"^^xsd:string ;
+		http-core:mthd http-methods:POST ;
+		bt:headers [
+			a bt:SelectQuery;
+			a bt:QueryUri ;
+			bt:originBase ajan:AgentKnowledge ;
+			bt:sparql """
+				PREFIX welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> 
+				SELECT ?hdrName ?userID
+				WHERE {
+					   VALUES ?hdrName {"X-User-ID"}
+					   ?du rdf:type welcome:DialogueUser .
+					   ?du welcome:hasUserId ?userID .
+				}"""^^xsd:string
+		] ;
+		http-core:headers ([
+					a http-core:Header ;						
+					http-core:hdrName http-headers:accept ;
+					http-core:fieldValue "application/ld+json"^^xsd:string 
+				][
+					a http-core:Header ;
+					http-core:hdrName http-headers:content-type ;
+					http-core:fieldValue "application/ld+json"
+				][
+					a http-core:Header ;
+					http-core:hdrName http-headers:to ;
+					http-core:fieldValue "APP"
+			]
+		) ;	
+		http-core:body [
+			a actn:Payload ;
+			bt:query [
+				rdf:type bt:ConstructQuery ;
+				bt:originBase ajan:AgentKnowledge ;
+				bt:sparql """
+						PREFIX ajan: <http://www.ajan.de/ajan-ns#>
+						PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+						PREFIX welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> 
+						CONSTRUCT {
+							?agent welcome:informTCN "I am starting a CHC and will let you know its result." .
+							?agent rdf:type ajan:Agent .
+						}
+						WHERE {
+							?agent rdf:type ajan:Agent .
+						}"""^^xsd:string
+			]
+		] ;    
+	] ;
+	bt:queryUri [
+		a bt:SelectQuery ;
+		a bt:QueryUri ;
+		bt:originBase ajan:AgentKnowledge ;
+		bt:sparql """
+					SELECT ?requestURI
+					WHERE {
+					  VALUES ?requestURI { "http://localhost:8092/app/inform" }
+					}"""^^xsd:string
+	] .
+	
+:Message2WPMUpdateStatus2InCoordination
+	a bt:Message ;
+	rdfs:label "Message: Update Agent status to In_Coordination in WAR"^^xsd:string ;
+	rdfs:comment "Message: Update Agent status to In_Coordination in WAR"^^xsd:string ;
+	bt:targetBase ajan:ExecutionKnowledge ;  
+	bt:binding [
+		a http-core:Request ;
+		http-core:httpVersion "1.1"^^xsd:string ;
+		http-core:mthd http-methods:POST ;
+		bt:headers [
+			a bt:SelectQuery;
+			a bt:QueryUri ;
+			bt:originBase ajan:AgentKnowledge ;
+			bt:sparql """
+				PREFIX welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> 
+				SELECT ?hdrName ?userID
+				WHERE {
+					   VALUES ?hdrName {"X-User-ID"}
+					   ?du rdf:type welcome:DialogueUser .
+					   ?du welcome:hasUserId ?userID .
+				}"""^^xsd:string
+		] ;
+		http-core:headers ([
+					a http-core:Header ;						
+					http-core:hdrName http-headers:accept ;
+					http-core:fieldValue "application/ld+json"^^xsd:string 
+				][
+					a http-core:Header ;
+					http-core:hdrName http-headers:content-type ;
+					http-core:fieldValue "application/ld+json"
+				][
+					a http-core:Header ;
+					http-core:hdrName http-headers:to ;
+					http-core:fieldValue "WPM"
+			]
+		) ;	
+		http-core:body [
+			a actn:Payload ;
+			bt:query [
+				rdf:type bt:ConstructQuery ;
+				bt:originBase ajan:AgentKnowledge ;
+				bt:sparql """
+						PREFIX ajan: <http://www.ajan.de/ajan-ns#>
+						PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+						PREFIX welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> 
+						CONSTRUCT {
+							?agent welcome:hasStatus "In_Coordination"^^xsd:string .
+						}
+						WHERE {
+							?agent rdf:type ajan:Agent .
+						}"""^^xsd:string
+			]
+		] ;    
+	] ;
+	bt:queryUri [
+		a bt:SelectQuery ;
+		a bt:QueryUri ;
+		bt:originBase ajan:AgentKnowledge ;
+		bt:sparql """
+					SELECT ?requestURI
+					WHERE {
+					  VALUES ?requestURI { "http://localhost:8092/wpm/updateAgentStatus" }
+					}"""^^xsd:string
+	] .
+
+:Wait4LAR 
+	a bt:Wait ;
+	rdfs:label "Wait: wait for LAR to be populated" ;
+	rdfs:comment "no comment" ;
+	bt:milliseconds "5000"^^xsd:int .
+
+
+:WriteCHCProblemInstance
+	a bt:Write ;
+	rdfs:label "Write: CHC Problem Instance to Agent Knowledge" ;
+	bt:query [
+		a bt:ConstructQuery ;
+		bt:originBase ajan:AgentKnowledge ;
+		bt:targetBase ajan:AgentKnowledge ;
+		bt:sparql """
+			PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+			PREFIX welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> 	
+			PREFIX ajan: <http://www.ajan.de/ajan-ns#>
+			CONSTRUCT  {
+				?agentName rdf:type ajan:Agent .
+			}
+			WHERE { 
+				?agentName rdf:type ajan:Agent .
+			} """^^xsd:string ;
+	] .
+
+
+:UpdateAgentRunningCHC
+	a bt:Update ;
+	rdfs:label "Update: Insert the id of CHC problem instance to Agent Knowledge" ;
+	bt:query ([
+		a bt:UpdateQuery ;
+		bt:originBase ajan:AgentKnowledge ;
+		bt:sparql """
+					PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+					PREFIX ajan: <http://www.ajan.de/ajan-ns#>
+					PREFIX welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#>
+					PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>									
+					INSERT {
+						?agent welcome:hasCHCRunning "chc1"^^xsd:string .
+					}
+					 WHERE {
+						?agent rdf:type ajan:Agent .
+					}"""^^xsd:string ;
+		]) .
+
+
+:Message2Agents4PersonalInfo
+	a bt:Message ;
+	rdfs:label "Message: Request agents to return Personal Info for CHC"^^xsd:string ;
+	rdfs:comment "Message:  agents to return Personal Info for CHC"^^xsd:string ;
+	bt:targetBase ajan:ExecutionKnowledge ;  
+	bt:binding [
+		a http-core:Request ;
+		http-core:httpVersion "1.1"^^xsd:string ;
+		http-core:mthd http-methods:POST ;
+		bt:headers [
+			a bt:SelectQuery;
+			a bt:QueryUri ;
+			bt:originBase ajan:AgentKnowledge ;
+			bt:sparql """
+				PREFIX welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> 
+				SELECT ?hdrName ?userID
+				WHERE {
+					   VALUES ?hdrName {"X-User-ID"}
+					   ?du rdf:type welcome:DialogueUser .
+					   ?du welcome:hasUserId ?userID .
+				}"""^^xsd:string
+		] ;
+		http-core:headers ([
+					a http-core:Header ;						
+					http-core:hdrName http-headers:accept ;
+					http-core:fieldValue "text/turtle"^^xsd:string 
+				][
+					a http-core:Header ;
+					http-core:hdrName http-headers:content-type ;
+					http-core:fieldValue "text/turtle"
+				]
+		) ;	
+		http-core:body [
+			a actn:Payload ;
+			bt:query [
+				rdf:type bt:ConstructQuery ;
+				bt:originBase ajan:AgentKnowledge ;
+				bt:sparql """
+						PREFIX ajan: <http://www.ajan.de/ajan-ns#>
+						PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+						PREFIX welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> 
+						CONSTRUCT {
+							?agent welcome:hasMacRole "Dedicated"^^xsd:string .
+							?agent welcome:isStarting "chc1".							 
+						}
+						WHERE {
+							?agent rdf:type ajan:Agent .
+						}"""^^xsd:string
+			]
+		] ;    
+	] ;
+	bt:queryUri [
+		a bt:SelectQuery ;
+		a bt:QueryUri ;
+		bt:originBase ajan:AgentKnowledge ;
+		bt:sparql """
+					SELECT ?requestURI
+					WHERE {
+					  VALUES ?requestURI { "http://localhost:8060/welcome/integration/coordination/ajan/agents/testAgent2?capability=shareCHCPersonalInfo",
+					  "http://localhost:8060/welcome/integration/coordination/ajan/agents/testAgent3?capability=shareCHCPersonalInfo" }
+					}"""^^xsd:string
+	] .
+	
+
+
+:Wait4PersonalInfo 
+	a bt:Wait ;
+	rdfs:label "Wait: wait for agents to return their Personal Info for CHC" ;
+	rdfs:comment "no comment" ;
+	bt:milliseconds "5000"^^xsd:int .
+#-----------------ExecutingCHCProcessBT Nodes--------------------------------------
+
+	
+#------------MAJAN Stuff----------------------

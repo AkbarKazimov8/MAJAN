@@ -1,0 +1,455 @@
+<div id="evaluation-action-bar">
+    {{majan/action-bar}}
+</div>
+
+<div id="evaluation">
+
+  <head>
+      <meta charset="UTF-8">
+      <title>Title</title>
+      <link rel="stylesheet" href="public\majan\css\bootstrap.min.css">
+      <link rel="stylesheet" href="public\majan\css\font.css">
+      <link rel="stylesheet" href="public\majan\css\style.css">
+      <style>
+*
+      .tooltip {
+        position: relative;
+        border-bottom: 1px dotted black;
+        background-color: #000;
+        width: 20px;
+        height: 20px;
+        margin-right:5px;
+        color: #FFF;
+        text-align: center;
+        border-radius: 25%;
+      }
+      /* tooltip text shown place */
+      .tooltip span {
+        visibility: hidden;
+        min-height: 300px;
+        min-width: 300px;
+        resize: both;
+        /* display: inline-block; */
+        overflow: scroll;
+         /* max-height: fit-content; */
+         /* max-width: fit-content;  */
+        width: 350px;
+        height: 400px;
+        background-color: #32EFB6;
+        color: #000;
+        text-align: left;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 9;
+        top: -1em;
+        left:  100%;
+        /* margin-left:1em; */
+        opacity: 0;
+        transition: opacity 1s;
+        overflow-x: scroll;
+      }
+      .tooltip span::after {
+        content: "";
+        position: absolute;
+        top: 1.5em;
+        right: 100%;
+        margin-top: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent black transparent transparent;
+      }
+      .tooltip input {
+        display:none;
+      }
+      .tooltip input:checked+span {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      </style>
+  </head>
+
+  <body>
+      <div local-class="tab-block">
+          <div local-class="tab-content">
+              <div local-class="row">
+                  <div local-class="col-4">
+                      <div local-class="tab-content-in">
+                          <div local-class="mac-block">
+                              <div local-class="flex-center">
+                                  <div local-class="title"><strong>MAC Solution</strong></div>
+                              </div>
+                              <form onsubmit="return false">
+                                  <div local-class="flex">
+                                      <div local-class="form-group">
+                                          <select local-class="form-select" aria-label="Select Repository" onchange={{action "macRepoSelection" value="target.value"}} >
+                                            {{#each macReposList as |macRepo|}}
+                                            <option value={{macRepo.id}}>{{macRepo.name}}</option>
+                                            {{/each}}
+                                          </select>
+                                      </div>
+                                      <div local-class="form-group ">
+                                          {{input type="text" class="form-control" aria-label="algorithm"
+                                                        placeholder="Specify Repository…" value=mac_repo_tobesaved}}
+                                      </div>
+                                  </div>
+                                  <div local-class="flex-end">
+                                      <button type="submit" local-class="btn-save" onclick={{action "save_repo"}}>
+                                          Save
+                                      </button>
+                                  </div>
+                                  <div local-class="flex-end">
+                                      {{!-- <button type="submit" local-class="btn-reload-mac" onclick={{action "reload_mac"}}>
+                                          Reload
+                                      </button> --}}
+                                      <span local-class="nmi-reload-button" onclick={{action "reload_mac"}}><b>&#x21bb;</b></span>
+                                      {{!-- <li> --}}
+                                          {{!-- <button type="button" local-class="btn-send" onclick={{action "save_repo"}}>Save</button> --}}
+                                      {{!-- </li> --}}
+                                  </div>
+                              </form>
+                          </div>
+                          <div local-class="scrollable-block">
+                              <p local-class="title">
+                                  Problem Instances
+                              </p>
+                              <div local-class="item-list">
+                                {{#each macProblemInstances as |macInstance index| }}
+                                <div local-class="item flex-center">
+                                    <div local-class="item-info w-100"><b>{{inc index}}.</b> {{macInstance.useCase}}_{{macInstance.id}}</div>
+                                    <div local-class="form-check">
+                                        <input local-class="form-check-input" type="radio" name="instance"
+                                               value={{index}} aria-label="instance" onclick={{action "problemInstanceRadioClick" value="target.value"}}>
+                                    </div>
+                                </div>
+                                {{/each}}
+                              </div>
+                          </div>
+                          <div local-class="data-block flex">
+                              <div local-class="left w-100">
+                                  <p local-class="m-0"><b>Use-case:</b> {{selectedMacInstanceUseCase}}</p>
+                                  <p local-class="m-0"><b>Solver:</b> {{selectedMacInstanceSolver}}</p>
+                                  <p local-class="m-0"><b>Runtime (sec):</b> {{selectedMacInstanceRuntime}}</p>
+                                  <p local-class="m-0"><b>No. of Agents:</b> {{selectedMacInstanceAgentsCount}}</p>
+                                  <p local-class="m-0"><b>No. of Exchanged Messages:</b> {{selectedMacInstanceMessagesCount}}</p>
+                              </div>
+                              {{!-- <div local-class="right w-100"> --}}
+                                  {{!-- <p local-class="m-0">{{selectedMacInstanceUseCase}}</p> --}}
+                                  {{!-- <p local-class="m-0">{{selectedMacInstanceSolver}}</p> --}}
+                                  {{!-- <p local-class="m-0">{{selectedMacInstanceRuntime}}</p> --}}
+                                  {{!-- <p local-class="m-0">{{selectedMacInstaneAgentsCount}}</p> --}}
+                                  {{!-- <p local-class="m-0">{{selectedMacInstanceMessagesCount}}</p> --}}
+                              {{!-- </div> --}}
+                          </div>
+                          {{!-- <div local-class="my_parent"> --}}
+                          <div local-class=" scrollable-block m-0 solutions-specific-block">
+                              <p local-class="title">
+                                  Solutions
+                              </p>
+                              <div local-class="item-list">
+                                  {{#each selectedMacInstanceSolutions as |solution index| }}
+                                  <div local-class="item flex-center">
+                                      <div local-class="item-info w-100"><b>{{inc index}}. Grouping:</b> {{solution.macSolutionContent}}
+                                        <br><b>Value:</b> {{solution.macSolutionValue}}</div>
+                                      <div local-class="form-check">
+                                          <input local-class="form-check-input" type="radio" name="solution"
+                                                 value={{index}} aria-label="solution" onclick={{action "handleMacSolutionChange" value="target.value"}}>
+                                      </div>
+                                  </div>
+                                  {{/each}}
+                                  {{!-- <div local-class="item flex-center"> --}}
+                                      {{!-- <div local-class="item-info w-100">1. Use-Case-Name, Solver-Name, Problem-ID</div> --}}
+                                      {{!-- <div local-class="form-check"> --}}
+                                          {{!-- <input local-class="form-check-input" type="radio" name="solution" --}}
+                                                 {{!-- value="option2" aria-label="solution"> --}}
+                                      {{!-- </div> --}}
+                                  {{!-- </div> --}}
+                              {{!-- </div> --}}
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                  <div local-class="col-4">
+                      <div local-class="tab-content-in">
+                          <div local-class="central-block">
+                              <div local-class="flex-center">
+                                  <div local-class="title"><strong>Central Solution</strong></div>
+                              </div>
+                              <form onsubmit="return false">
+                                  <div local-class="central-top">
+                                    <div local-class="left w-100 flex-center">
+                                      <label class="tooltip"><i>i</i><input type="checkbox">
+                                          <span>{{{tooltipInputStructure}}}{{{tooltipDescriptions}}}{{{tooltipExampleInput}}}</span>
+                                      </label>
+                                          <div local-class="form-group">
+                                            <select local-class="form-select" aria-label="Algorithms" onchange={{action "centralAlgoSelection" value="target.value"}} >
+                                              {{#each centralAlgorithmList as |centralAlgorithm|}}
+                                              <option value={{centralAlgorithm.id}}>{{centralAlgorithm.name}}</option>
+                                              {{/each}}
+                                            </select>
+
+                                            {{!-- <select local-class="form-select" aria-label="Algorithms">
+                                              <option selected>Algorithms</option>
+                                              <option value="1">Algorithms_1</option>
+                                              <option value="2">Algorithms_2</option>
+                                            </select> --}}
+                                          </div>
+                                          <div local-class="upload position-relative flex-center">
+                                              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#000" local-class="bi bi-plus" viewBox="0 0 16 16">
+                                                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                              </svg>
+                                              <input type="file" local-class="form-control" onchange={{action "upload_file"}}>
+                                          </div>
+                                      </div>
+                                      <div local-class="right w-100">
+                                          <div local-class="right-content">
+
+                                            {{!-- <div local-class="form-group">
+                                                <select local-class="form-select" aria-label="Select Repository" onchange={{action "setSelection" value="target.value"}} >
+                                                  {{#each macReposList as |macRepo|}}
+                                                  <option value={{macRepo.id}}>{{macRepo.name}}</option>
+                                                  {{/each}}
+                                                </select>
+                                            </div>
+                                            <div local-class="form-group ">
+                                                {{input type="text" class="form-control" aria-label="algorithm"
+                                                              placeholder="Specify Repository…" value=mac_repo_tobesaved}}
+                                            </div> --}}
+
+                                              <div local-class="form-group">
+                                                  <select local-class="form-select" aria-label="Inputs" onchange={{action "setCentralInputSelection" value="target.value"}}>
+                                                      {{#each centralInputsList as |centralInput|}}
+                                                      <option value={{centralInput.id}}>{{centralInput.title}}</option>
+                                                      {{/each}}
+                                                  </select>
+                                              </div>
+                                              <div local-class="central-input-title">
+                                                  <div local-class="form-group ">
+                                                      {{input type="text" local-class="form-control" aria-label="centralInputTitle"
+                                                             placeholder="Input Title…" value=centralInputTitleToBeSaved}}
+                                                  </div>
+                                                  <button type="submit" local-class="btn-save m-0" onclick={{action "save_input"}}>
+                                                      Save
+                                                  </button>
+                                              </div>
+                                          </div>
+                                          <button type="submit" local-class="btn-send"  onclick={{action "runAlgorithm"}}></button>
+                                      </div>
+                                  </div>
+                                  {{!-- <div local-class="central-resizable" style="padding-bottom: 80px;"> --}}
+                                    <div local-class="central-resizable">
+
+                                      {{!-- <div local-class="col-4 offset-6"> --}}
+                                          <div local-class="input-detail">
+                                              <div local-class="textarea">
+                                                  <div local-class="mb-3">
+                                                          {{!-- <textarea local-class="form-control" aria-label="comment"
+                                                                    placeholder="Enter Input for Algorithm… (free text)"
+                                                                    rows="3" >{{input value=centralInputBody}}</textarea> --}}
+                                                          {{textarea type="text" local-class="form-control " aria-label="comment"
+                                                                           placeholder="Enter Input for Algorithm… (free text)" value=centralInputBody}}
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      {{!-- </div> --}}
+                                  </div>
+                              </form>
+                          </div>
+                          <div local-class="data-block flex" >
+                              <div local-class="left w-100">
+                                  <p local-class="m-0"><b>Algorithm:</b> {{selectedCentralAlgorithm.name}}</p>
+                                  <p local-class="m-0"><b>Input:</b> {{selectedInputTitle}}</p>
+                                  <p local-class="m-0"><b>Runtime (sec):</b> {{selectedCentralAlgorithm.runtime}}</p>
+                                  <p local-class="m-0"><b>No. of Agents:</b> {{selectedCentralAlgorithm.agentCount}}</p>
+                              </div>
+                          </div>
+                          <div local-class="scrollable-block m-0 solutions-specific-block">
+                              <p local-class="title">
+                                  Solutions
+                              </p>
+                              <div local-class="item-list">
+                                {{#each centralAlgorithmSolutionsList as |centralSolution index| }}
+                                <div local-class="item flex-center">
+                                    <div local-class="item-info w-100"><b>{{inc index}}. Grouping:</b> {{centralSolution.groupingSolutionContent}}
+                                      <br><b>Value:</b> {{centralSolution.groupingValue}}</div>
+                                    <div local-class="form-check">
+                                        <input local-class="form-check-input" type="radio" name="cntrlSolution"
+                                               value={{index}} aria-label="solution" onclick={{action "handleCentralSolutionChange" value="target.value"}}>
+                                    </div>
+                                </div>
+                                {{/each}}
+                                  {{!-- <div local-class="item flex-center">
+                                      <div local-class="item-info w-100">1. Use-Case-Name, Solver-Name, Problem-ID</div>
+                                      <div local-class="form-check">
+                                          <input local-class="form-check-input" type="radio" name="solutionCentral" aria-label="check"
+                                                 value="option1" checked>
+                                      </div>
+                                  </div>
+                                  <div local-class="item flex-center">
+                                      <div local-class="item-info w-100">1. Use-Case-Name, Solver-Name, Problem-ID</div>
+                                      <div local-class="form-check">
+                                          <input local-class="form-check-input" type="radio" name="solutionCentral" aria-label="check"
+                                                 value="option2">
+                                      </div>
+                                  </div> --}}
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div local-class="col-4">
+                      <div local-class="tab-content-in">
+                          <div local-class="comparison-block">
+                              <div local-class="flex-center">
+                                  <div local-class="title"><strong>Compare Solutions</strong></div>
+                              </div>
+                              <div local-class="comparison-score">
+                                  <ul local-class="list-unstyled">
+                                      <li local-class="flex-start">
+                                          <span local-class="selected-solution-title flex-center">Selected MAC:</span>
+                                          <span local-class="selected-solution-text flex-center"><b>{{selectedSolutionsForComparison.mac}}</b></span>
+                                      </li>
+                                      <li local-class="flex-start">
+                                          <span local-class="selected-solution-title flex-center">Selected Central:</span>
+                                          <span local-class="selected-solution-text flex-center"><b>{{selectedSolutionsForComparison.central}}</b></span>
+                                      </li>
+                                  </ul>
+                              </div>
+                              <div id="chartdiv" style="width: 100%;  max-height: 350px; padding-top: 20px;" ></div>
+                              <form onsubmit="return false" style="padding-top:10px;">
+                                <div local-class="flex">
+                                    <div local-class="form-group">
+                                      <select local-class="form-select" aria-label="AgentNameMappings" onchange={{action "handleAgentIdMappingSelection" value="target.value"}}>
+                                        {{#each comparisonAgentIdMappingsList as |agentIdMapping|}}
+                                        <option value={{agentIdMapping.id}}>{{agentIdMapping.title}}</option>
+                                        {{/each}}
+                                      </select>
+                                    </div>
+                                    <div local-class="form-group ">
+                                      <span local-class="nmi-reload-button" onclick={{action "reloadNmiScore"}}><b>&#x21bb;</b></span>
+                                    </div>
+                                    <div local-class="form-group ">
+                                    {{input type="text" local-class="form-control" style="width:100%" aria-label="agentIdMappingTitle"
+                                    placeholder="Input Title…" value=agentIdMappingTitleValue}}
+                                  </div>
+                                  <div local-class="form-group ">
+                                    <div local-class="flex-end">
+                                    <button type="submit" local-class="btn-save m-0" onclick={{action "saveAgentIdMappingInput"}}>
+                                      Save
+                                    </button>
+                                  </div>
+                                  </div>
+                                </div>
+                                <div local-class="flex">
+                                  <div local-class="form-group ">
+                                    <div local-class="flex-start" style="padding-top: 25px;">
+                                      <label class="tooltip"><i>i</i><input type="checkbox">
+                                        <span>
+                                          <a href="https://nlp.stanford.edu/IR-book/html/htmledition/evaluation-of-clustering-1.html" style="color:rgb(51,51,255);"><u>Normalized Mutual Information</u></a>
+                                          (NMI) is a clustering evalaution
+                                          metric which allows computing the similarity between two clustering.
+                                          <br>NMI score ranges between <b>0 (no similarity)</b> and <b>1 (maximum similarity)</b>.
+                                          </span>
+                                      </label>
+                                      <span local-class="score-title flex-center">NMI:</span>
+                                      <span local-class="score-text flex-center">{{nmiScore}}</span>
+                                  </div>
+                                </div>
+                                <div local-class="form-group ">
+                                  <div local-class="central-resizable">
+                                        <div local-class="input-detail" style="width: 100%;">
+                                            <div local-class="textarea">
+                                                <div local-class="mb-3">
+                                                        {{!-- <textarea local-class="form-control" aria-label="comment"
+                                                                  placeholder="Enter Input for Algorithm… (free text)"
+                                                                  rows="3" >{{input value=centralInputBody}}</textarea> --}}
+                                                        {{textarea type="text" local-class="form-control" aria-label="comment"
+                                                                         placeholder='Add mapping of IDs and agent names where IDs represent agents in central solution and agent names represent respective agents in MAC solution. Example:
+1. agent1
+2. agent2
+3. agent3
+...' value=agentIdMappingInputValue}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {{!-- </div> --}}
+                                </div>
+                                </div>
+
+                                </div>
+<!--
+                                  <div local-class="central-top" style="padding-top:50px;">
+                                  {{!-- <div> --}}
+                                    <div local-class="left w-100">
+                                      <ul local-class="list-unstyled">
+                                          <li local-class="flex-start" style="max-width: 200px;">
+                                            <div local-class="form-group">
+                                            <select local-class="form-select" aria-label="AgentNameMappings" onchange={{action "handleAgentIdMappingSelection" value="target.value"}}>
+                                              {{#each comparisonAgentIdMappingsList as |agentIdMapping|}}
+                                              <option value={{agentIdMapping.id}}>{{agentIdMapping.title}}</option>
+                                              {{/each}}
+                                            </select>
+                                          </div>
+                                            <span local-class="nmi-reload-button" onclick={{action "reloadNmiScore"}}><b>&#x21bb;</b></span>
+                                        </li>
+                                    <li local-class="flex-start" style="padding-top: 25px;">
+                                      <label class="tooltip"><i>i</i><input type="checkbox">
+                                        <span>
+                                          <a href="https://nlp.stanford.edu/IR-book/html/htmledition/evaluation-of-clustering-1.html" style="color:rgb(51,51,255);"><u>Normalized Mutual Information</u></a>
+                                          (NMI) is a clustering evalaution
+                                          metric which allows computing the similarity between two clustering.
+                                          <br>NMI score ranges between <b>0 (no similarity)</b> and <b>1 (maximum similarity)</b>.
+                                          </span>
+                                      </label>
+                                      <span local-class="score-title flex-center">NMI:</span>
+                                      <span local-class="score-text flex-center">{{nmiScore}}</span>
+                                  </li>
+                                </ul>
+                                    </div>
+                                      <div local-class="right w-100" >
+                                        <ul local-class="list-unstyled">
+                                            <li local-class="flex-start">
+                                              <div local-class="form-group">
+                                                {{input type="text" local-class="form-control" aria-label="agentIdMappingTitle"
+                                                placeholder="Input Title…" value=agentIdMappingTitleValue}}
+                                              </div>
+                                              <button type="submit" local-class="btn-save m-0" onclick={{action "saveAgentIdMappingInput"}}>
+                                                Save
+                                              </button>
+                                            </li>
+                                            <li local-class="flex-start" style="padding-top: 25px;">
+                                              <div local-class="central-resizable">
+                                                    <div local-class="input-detail" style="min-width: 300px;">
+                                                        <div local-class="textarea">
+                                                            <div local-class="mb-3">
+                                                                    {{!-- <textarea local-class="form-control" aria-label="comment"
+                                                                              placeholder="Enter Input for Algorithm… (free text)"
+                                                                              rows="3" >{{input value=centralInputBody}}</textarea> --}}
+                                                                    {{textarea type="text" local-class="form-control" aria-label="comment"
+                                                                                     placeholder='Add mapping of IDs and agent names where IDs represent agents in central solution and agent names represent respective agents in MAC solution. Example:
+1. agent1
+2. agent2
+3. agent3
+...' value=agentIdMappingInputValue}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {{!-- </div> --}}
+                                            </div>
+                                            </li>
+                                          </ul>
+
+                                      </div>
+                                    </div> -->
+                                  {{!-- </div> --}}
+                                  {{!-- <div local-class="central-resizable" style="padding-bottom: 80px;"> --}}
+
+                              </form>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </body>
+</div>

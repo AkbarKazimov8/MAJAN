@@ -1,0 +1,73 @@
+{
+	"algorithm":"Example",
+	"pathToJarFile":"/home/lexi/Desktop/Projects/MAJAN-Files/Example.jar",
+	"timeout": "5",
+	"keywords":[
+		{
+			"keyword":{
+				"type":"Number of agents",
+				"description":"Represents the amount of agents given in the input",
+				"element":{
+					"item":{
+						"name":"n",
+						"example_value":"10",
+						"datatype":"int",
+						"description":"Represents the value for number of agents"
+					}
+				}
+			}
+		},
+		{
+			"keyword":{
+				"type":"CoalitionValue",
+				"description":"Represents the values for coalitions",
+				"elements":[
+					{
+						"element":{
+							"items":[
+								{
+									"item":{
+										"name":"coalitionID",
+										"example_value":"0",
+										"datatype":"int",
+										"description":"ID of coalitions. Starting from 0"
+									}
+								},
+								{
+									"item":{
+										"name":"coalitionValue",
+										"example_value":"1.4",
+										"datatype":"float",
+										"description":"Value of a coalition"
+									}
+								}
+							]
+						}
+					},
+					{
+						"element":{
+							"items":[
+								{
+									"item":{
+										"name":"coalitionID2",
+										"example_value":"1",
+										"datatype":"int",
+										"description":"ID of coalitions. Starting from 0"
+									}
+								},
+								{
+									"item":{
+										"name":"coalitionValue2",
+										"example_value":"1",
+										"datatype":"float",
+										"description":"Value of a coalition"
+									}
+								}
+							]
+						}
+					}
+				]
+			}
+		}
+	]
+}

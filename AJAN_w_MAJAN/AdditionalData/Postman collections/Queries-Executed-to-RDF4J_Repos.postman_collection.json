@@ -1,0 +1,171 @@
+{
+	"info": {
+		"_postman_id": "eb1f19b1-a118-407a-85ab-2df76334986f",
+		"name": "Queries-Executed-to-RDF4J_Repos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "SPARQLQuery",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/sparql-query",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \r\n\t\t\tPREFIX welcome: <http://localhost:8090/rdf4j/repositories/welcome_ontology#>\r\n\t\t\tPREFIX ajan: <http://www.ajan.de/ajan-ns#>\r\n\t\t\tPREFIX welcome-git: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> \r\n\r\n\t\t\tCONSTRUCT  {\r\n\t\t\t\t\t?agent\trdf:type\tajan:Agent ;\r\n\t\t\t\t\t\t\twelcome:isRunningCHC ?chcId ;\r\n\t\t\t\t\t\t\tajan:agentId\t?dAgentId.\t\r\n\t\t\t\t\t\t\t\r\n\t\t\t\t\t?bnode\trdf:type\twelcome:CHCUseCase;\r\n\t\t\t\t\t\t\twelcome:hasId\t\t?chcId;\r\n\t\t\t\t\t\t\twelcome:hasNumberOfAgents\t?numOfAgents;\r\n\t\t\t\t\t\t\twelcome:hasParticipants\t\t?pAgentId ;\r\n\t\t\t\t\t\t\twelcome:hasAgeWeight ?ageWeight;\r\n\t\t\t\t\t\t\twelcome:hasGenderWeight ?genWeight;\r\n\t\t\t\t\t\t\twelcome:hasFamilyWeight\t?famWeight;\r\n\t\t\t\t\t\t\twelcome:hasNationalityWeight\t?natWeight;\r\n\t\t\t\t\t\t\twelcome:hasReligionWeight\t?relWeight;\r\n\t\t\t\t\t\t\twelcome:hasEthnicityWeight\t?ethWeight;\r\n\t\t\t\t\t\t\twelcome:hasLocationWeight\t?locWeight;\r\n\t\t\t\t\t\t\twelcome:hasAccessibilityWeight\t?accWeight;\r\n\t\t\t\t\t\t\twelcome:hasRentPeriodWeight\t?rentWeight;\r\n\t\t\t\t\t\t\twelcome:hasShareWithWeight\t?shareWeight.\r\n\t\t\t\t\t\t\t\r\n\t\t\t\t\t?rrsBnode\trdf:type\twelcome:CHCReciprocalScore ;\r\n\t\t\t\t\t\t\t\tajan:hasSubject ?pAgentId ;\r\n\t\t\t\t\t\t\t\tajan:hasObject ?objectAgentId ;\r\n\t\t\t\t\t\t\t\twelcome:isComputedForProblemId  ?chcId ;\r\n\t\t\t\t\t\t\t\tajan:hasReciprocalScore\t?bReciprocalScore .\r\n\t\t\t\t\t}\r\n\t\t\tWHERE { \r\n\t\t\t\t\t?agent\trdf:type\tajan:Agent ;\r\n\t\t\t\t\t\t\t#welcome:isRunningCHC ?chcId ;\r\n\t\t\t\t\t\t\tajan:agentId\t?dAgentId.\t\r\n\r\n\t\t\t\t\t?bnode\trdf:type\twelcome:CHCUseCase;\r\n\t\t\t\t\t\t\twelcome:hasId\t\t?chcId;\r\n\t\t\t\t\t\t\twelcome:hasNumberOfAgents\t?numOfAgents;\r\n\t\t\t\t\t\t\twelcome:hasParticipants\t\t?pAgentId, ?pAgentId2 ;\r\n\t\t\t\t\t\t\twelcome:hasAgeWeight ?ageWeight;\r\n\t\t\t\t\t\t\twelcome:hasGenderWeight ?genWeight;\r\n\t\t\t\t\t\t\twelcome:hasFamilyWeight\t?famWeight;\r\n\t\t\t\t\t\t\twelcome:hasNationalityWeight\t?natWeight;\r\n\t\t\t\t\t\t\twelcome:hasReligionWeight\t?relWeight;\r\n\t\t\t\t\t\t\twelcome:hasEthnicityWeight\t?ethWeight;\r\n\t\t\t\t\t\t\twelcome:hasLocationWeight\t?locWeight;\r\n\t\t\t\t\t\t\twelcome:hasAccessibilityWeight\t?accWeight;\r\n\t\t\t\t\t\t\twelcome:hasRentPeriodWeight\t?rentWeight;\r\n\t\t\t\t\t\t\twelcome:hasShareWithWeight\t?shareWeight.\r\n\t\t\t\t\tFILTER(?pAgentId!=?pAgentId2)\r\n\t\t\t\t\tOPTIONAL {\r\n\t\t\t\t\t\t?agentUri\twelcome:hasCHCSimilarityValue\t?smlBnode .\r\n\t\t\t\t\t\t?smlBnode\trdf:type\twelcome:CHCSimilarityValue ;\r\n\t\t\t\t\t\t\t\t\tajan:hasSubject ?pAgentId ;\r\n\t\t\t\t\t\t\t\t\tajan:hasObject ?oAgentId ;\r\n\t\t\t\t\t\t\t\t\twelcome:isComputedForProblemId  ?chcId ;\r\n\t\t\t\t\t\t\t\t\tajan:hasSimilarityScore ?smlValue .\r\n\t\t\t\t\t}\r\n\t\t\t\t\t\r\n\t\t\t\t\tOPTIONAL {\r\n\t\t\t\t\t\t?agentUri2 welcome:hasCHCSimilarityValue\t?smlBnode2 .\r\n\t\t\t\t\t\t?smlBnode2\trdf:type\twelcome:CHCSimilarityValue ;\r\n\t\t\t\t\t\t\t\t\tajan:hasSubject ?oAgentId ;\r\n\t\t\t\t\t\t\t\t\tajan:hasObject ?pAgentId ;\r\n\t\t\t\t\t\t\t\t\twelcome:isComputedForProblemId  ?chcId ;\r\n\t\t\t\t\t\t\t\t\tajan:hasSimilarityScore ?smlValue2 .\r\n\t\t\t\t\t}\r\n\t\t\t\t\t\r\n\t\t\t\t\tBIND(0 AS ?reciprocalScore) .\r\n\t\t\t\t\tBIND(IF(!BOUND(?smlValue), 0, ?smlValue) AS ?bSmlValue) .\r\n\t\t\t\t\tBIND(IF(!BOUND(?smlValue2), 0, ?smlValue2) AS ?bSmlValue2) .\r\n\t\t\t\t\t\r\n\t\t\t\t\tBIND(IF(?bSmlValue > 0 && ?bSmlValue2 > 0, 2/((1/?bSmlValue)+(1/?bSmlValue2)), ?reciprocalScore) AS ?bReciprocalScore) .\r\n\t\t\t\t\t\r\n\t\t\t\t\tBIND(BNODE() AS ?rrsBnode) .\r\n\t\t\t\t\tBIND(IF(!BOUND(?oAgentId), ?pAgentId2, ?oAgentId) AS ?objectAgentId)\r\n\t\t\t\t\t\t\t\t}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/rdf4j/repositories/majanAgent1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"rdf4j",
+						"repositories",
+						"majanAgent1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Compute-CHC-Constraints-Query",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/sparql-query",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \r\n\t\t\t\t\t\tPREFIX ajan: <http://www.ajan.de/ajan-ns#>\r\n\t\t\t\t\t\tPREFIX welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> \r\n\t\t\t\t\t\tPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\r\n\t\t\t\t\t\tPREFIX mac: <http://localhost:8090/rdf4j/repositories/ajan_mac_ontology#>\r\n\t\t\t\t\t\tSELECT ?pAgentId ?pAgentId2 ?finalCanSpeakSameLang\r\n\t\t\t\t\t\tWHERE {\t\t\r\n\t\t\t\t\t\t\t{\r\n\t\t\t\t\t\t\t\tSELECT ?bnode ?pAgentId ?pAgentId2 (SUM(?canSpeakSameLang) AS ?finalCanSpeakSameLang)\r\n\t\t\t\t\t\t\t\tWHERE{\r\n\t\t\t\t\t\t\t\t\t{\r\n\t\t\t\t\t\t\t\t\t\tSELECT ?bnode ?pAgentId ?pAgentId2 ?canSpeakSameLang\r\n\t\t\t\t\t\t\t\t\t\tWHERE{\r\n\t\t\t\t\t\t\t\t\t\t\t?bnode\trdf:type\twelcome:CHCUseCase;\r\n\t\t\t\t\t\t\t\t\t\t\t\t\tmac:hasId\t\t?chcId;\r\n\t\t\t\t\t\t\t\t\t\t\t\t\tmac:hasParticipants\t\t?pAgentId, ?pAgentId2 .\r\n\t\t\t\t\t\t\t\t\t\t\tFILTER(?pAgentId != ?pAgentId2)\r\n\t\t\t\t\t\t\t\t\t\t\tFILTER(?pAgentId < ?pAgentId2)\r\n\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t?agentUri\tajan:agentId\t?pAgentId ;\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\twelcome:hasCHCPersonalInfo\t?bnode2 .\r\n\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t?bnode2\trdf:type\twelcome:CHCPersonalInfo;\r\n\t\t\t\t\t\t\t\t\t\t\t\t\tmac:hasId\t?chcId ;\r\n\t\t\t\t\t\t\t\t\t\t\t\t\twelcome:speaksLanguage\t?lang .\r\n\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t?agentUri2\tajan:agentId\t?pAgentId2 ;\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\twelcome:hasCHCPersonalInfo\t?bnode3 .\r\n\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t?bnode3\trdf:type\twelcome:CHCPersonalInfo;\r\n\t\t\t\t\t\t\t\t\t\t\t\t\tmac:hasId\t?chcId ;\r\n\t\t\t\t\t\t\t\t\t\t\t\t\twelcome:speaksLanguage\t?lang2 .\r\n\t\t\t\t\t\t\t\t\t\t\tBIND(IF(?lang = ?lang2, 1, 0) AS ?canSpeakSameLang)\r\n\t\t\t\t\t\t\t\t\t\t} GROUP BY ?bnode ?pAgentId ?pAgentId2 ?canSpeakSameLang\r\n\t\t\t\t\t\t\t\t\t}\r\n\t\t\t\t\t\t\t\t}GROUP BY ?bnode ?pAgentId ?pAgentId2 \r\n\t\t\t\t\t\t\t}\r\n\t\t\t\t\t\t\tFILTER(?finalCanSpeakSameLang=0)\r\n\t\t\t\t\t\t\tBIND(BNODE() AS ?cannotLinkBnode)}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/rdf4j/repositories/majanAgent1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"rdf4j",
+						"repositories",
+						"majanAgent1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sparql Query 2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/sparql-query",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \r\n\t\t\t\t\t\tPREFIX ajan: <http://www.ajan.de/ajan-ns#>\r\n\t\t\t\t\t\tPREFIX welcome: <http://localhost:8090/rdf4j/repositories/welcome_ontology#> \r\n\t\t\t\t\t\tPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\r\n\t\t\t\t\t\t\r\n                        CONSTRUCT {\r\n\t\t\t\t\t\t\t\t?bnode\trdf:type\twelcome:CHCUseCase;\r\n\t\t\t\t\t\t\t\t\t\twelcome:hasId\t\t?chcId;\r\n\t\t\t\t\t\t\t\t\t\twelcome:hasNumberOfAgents\t?numOfAgents;\r\n\t\t\t\t\t\t\t\t\t\twelcome:hasParticipants\t\t?pAgentId ;\r\n\t\t\t\t\t\t\t\t\t\twelcome:hasPerfectMatchScore ?perfectMatchScore .\r\n\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t?dsnBnode\trdf:type\twelcome:CHCDistanceScore ;\r\n\t\t\t\t\t\t\t\t\t\t\tajan:hasSubject ?pAgentId ;\r\n\t\t\t\t\t\t\t\t\t\t\tajan:hasObject ?oAgentId ;\r\n\t\t\t\t\t\t\t\t\t\t\twelcome:isComputedForProblemId  ?chcId ;\r\n\t\t\t\t\t\t\t\t\t\t\tajan:hasDistanceScore\t?distanceScore .\t\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t\t#SELECT ?bnode ?chcId ?numOfAgents ?perfectMatchScore ?dsnBnode ?pAgentId ?oAgentId ?distanceScore\r\n\t\t\t\t\t\tWHERE {\r\n                           {\r\n                            SELECT DISTINCT ?bnode ?chcId ?numOfAgents ?perfectMatchScore ?pAgentId ?oAgentId ?distanceScore\r\n                            {\r\n\t\t\t\t\t\t\t\t?agent\trdf:type\tajan:Agent ;\r\n\t\t\t\t\t\t\t\t\t\twelcome:isRunningCHC ?chcId ;\r\n\t\t\t\t\t\t\t\t\t\tajan:agentId\t?dAgentId.\t\r\n\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t?bnode\trdf:type\twelcome:CHCUseCase;\r\n\t\t\t\t\t\t\t\t\t\twelcome:hasId\t\t?chcId;\r\n\t\t\t\t\t\t\t\t\t\twelcome:hasNumberOfAgents\t?numOfAgents;\r\n\t\t\t\t\t\t\t\t\t\twelcome:hasParticipants\t\t?pAgentId ;\r\n\t\t\t\t\t\t\t\t\t\twelcome:hasAgeWeight ?ageWeight;\r\n\t\t\t\t\t\t\t\t\t\twelcome:hasGenderWeight ?genWeight;\r\n\t\t\t\t\t\t\t\t\t\twelcome:hasFamilyWeight\t?famWeight;\r\n\t\t\t\t\t\t\t\t\t\twelcome:hasNationalityWeight\t?natWeight;\r\n\t\t\t\t\t\t\t\t\t\twelcome:hasReligionWeight\t?relWeight;\r\n\t\t\t\t\t\t\t\t\t\twelcome:hasEthnicityWeight\t?ethWeight;\r\n\t\t\t\t\t\t\t\t\t\twelcome:hasLocationWeight\t?locWeight;\r\n\t\t\t\t\t\t\t\t\t\twelcome:hasAccessibilityWeight\t?accWeight;\r\n\t\t\t\t\t\t\t\t\t\twelcome:hasRentPeriodWeight\t?rentWeight;\r\n\t\t\t\t\t\t\t\t\t\twelcome:hasShareWithWeight\t?shareWeight.\r\n\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tBIND(1 AS ?matchScore)\r\n\t\t\t\t\t\t\t\t\t\tBIND(0 AS ?unmatchScore)\r\n\t\t\t\t\t\t\t\t\t\tBIND(10 AS ?numberOfPreferences)\r\n\t\t\t\t\t\t\t\t\t\tBIND((?matchScore * (?ageWeight + ?genWeight + ?famWeight + ?natWeight + ?relWeight + ?ethWeight + ?locWeight + ?accWeight + ?rentWeight + ?shareWeight))/?numberOfPreferences AS ?perfectMatchScore)\r\n\r\n\t\t\t\t\t\t\t\t?rrsBnode\trdf:type\twelcome:CHCReciprocalScore ;\r\n\t\t\t\t\t\t\t\t\t\t\tajan:hasSubject ?pAgentId ;\r\n\t\t\t\t\t\t\t\t\t\t\tajan:hasObject ?oAgentId ;\r\n\t\t\t\t\t\t\t\t\t\t\twelcome:isComputedForProblemId  ?chcId ;\r\n\t\t\t\t\t\t\t\t\t\t\tajan:hasReciprocalScore\t?bReciprocalScore .\r\n\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\tBIND((?perfectMatchScore - ?bReciprocalScore) AS ?distanceScore)\r\n                            }\r\n                                }\r\n\t\t\t\t\t\t\t\tBIND(BNODE() AS ?dsnBnode)\r\n\t\t\t\t}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/rdf4j/repositories/majanAgent1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"rdf4j",
+						"repositories",
+						"majanAgent1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ComputeCHCSimilarities",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/sparql-query",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \r\n\t\t\t\tPREFIX welcome: <http://localhost:8090/rdf4j/repositories/welcome_ontology#>\r\n\t\t\t\tPREFIX ajan: <http://www.ajan.de/ajan-ns#>\r\n\t\t\t\tPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\r\n\t\t\t\tPREFIX welcome-git: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> \r\n\r\n\t\t\t\t\t\t \r\n                        SELECT \t?pAgentId ?maxTotalSml \r\n                        #?ageSml ?genSml ?famSml ?natSml ?relSml ?ethSml ?locSml ?accSml ?rentSml ?shareSml \r\n                        WHERE { \r\n\t\t\t\t\t\t{\r\n\t\t\t\t\t\tSELECT ?subAgent ?subAgentId ?pAgentId ?chcId (MAX(?totalSml) AS ?maxTotalSml) ?ageSml ?subAgePref  ?subLowerAge ?subHigherAge ?genSml ?famSml ?natSml ?relSml ?ethSml ?locSml ?accSml ?rentSml ?shareSml \r\n\t\t\t\t\t\tWHERE {\r\n\t\t\t\t\t\t{\r\n\t\t\t\t\t\tSELECT ?subAgent ?subAgentId ?pAgentId ?chcId  ?totalSml ?ageSml ?subAgePref  ?subLowerAge ?subHigherAge ?genSml ?famSml ?natSml ?relSml ?ethSml ?locSml ?accSml ?rentSml ?shareSml \r\n\t\t\t\t\t\tWHERE { \r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t# to retrieve Preferences of the subject agent from Execution. \r\n\t\t\t\t\t\t?subAgent\trdf:type ajan:Agent ;\r\n\t\t\t\t\t\t\t\tajan:agentId\t?subAgentId .\r\n\t\t\t\t\t\t\t\t#welcome:hasCHCPreferencesInfo\t?prefBNode .\r\n\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t?prefBNode\trdf:type\twelcome-git:Registered  ;\r\n\t\t\t\t\t\t\t\t\twelcome:hasChcAgePreference ?subAgePref ;\r\n\t\t\t\t\t\t\t\t\twelcome:hasChcGenderPreference ?subGenPref ;\r\n\t\t\t\t\t\t\t\t\twelcome:hasChcFamilyPreference ?subFamPref ;\r\n\t\t\t\t\t\t\t\t\twelcome:hasChcNationPreference ?subNatPref ;\r\n\t\t\t\t\t\t\t\t\twelcome:hasChcReligionPreference ?subRelPref ;\r\n\t\t\t\t\t\t\t\t\twelcome:hasChcEthnicPreference ?subEthPref .\r\n\t\t\t\t\t\tOPTIONAL {\t\t\r\n\t\t\t\t\t\t\t\t?subAgePref\t  welcome:lowerBound\t?subLowerAge;\r\n\t\t\t\t\t\t\t\t\t\t\twelcome:higherBound ?subHigherAge.\r\n\t\t\t\t\t\t\t\t}\r\n\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t# to retrieve participant agent id\r\n\t\t\t\t\t\t?pAgentUri\twelcome:hasCHCPersonalInfo\t?personalInfoBNode ;\r\n\t\t\t\t\t\t\t\t\tajan:agentId\t?pAgentId .\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t# to rule out agent computing similarity with itself\r\n\t\t\t\t\t\tFILTER(?subAgentId != ?pAgentId)\t\t\t\r\n\r\n\r\n\t\t\t\t\t\t# to retrieve Personal Info of the subject agent \r\n\t\t\t\t\t\t?subAgentUri\twelcome:hasCHCPersonalInfo\t?subPersonalInfoBNode ;\r\n\t\t\t\t\t\t\t\t\t\tajan:agentId\t?subAgentId .\r\n\t\t\t\t\t\t?subPersonalInfoBNode\trdf:type\twelcome:CHCPersonalInfo ;\r\n\t\t\t\t\t\t\t\t\t\t\t\twelcome:hasCHCId\t?chcId ;\r\n\t\t\t\t\t\t\t\t\t\t\t\twelcome:hasAge\t?subAge;\r\n\t\t\t\t\t\t\t\t\t\t\t\twelcome:hasGender\t?subGender;\r\n\t\t\t\t\t\t\t\t\t\t\t\twelcome:hasFamily\t?subFamily;\r\n\t\t\t\t\t\t\t\t\t\t\t\twelcome:hasNationality\t?subNationality;\r\n\t\t\t\t\t\t\t\t\t\t\t\twelcome:hasReligion\t\t?subReligion;\r\n\t\t\t\t\t\t\t\t\t\t\t\twelcome:hasEthnicity \t?subEthnicity;\r\n\t\t\t\t\t\t\t\t\t\t\t\twelcome:hasChcLocationPreference\t?subLocPref;\r\n\t\t\t\t\t\t\t\t\t\t\t\twelcome:hasChcAccessibilityPreference\t?subAccessPref;\r\n\t\t\t\t\t\t\t\t\t\t\t\twelcome:hasChcRentPeriodPreference\t\t?subRentPref;\r\n\t\t\t\t\t\t\t\t\t\t\t\twelcome:hasChcShareWithPreference\t\t?subSharePref.\r\n\r\n\t\t\t\t\t\tOPTIONAL {\r\n\t\t\t\t\t\t\t?subRentPref\t  welcome:startDate ?subStartRent ;\r\n\t\t\t\t\t\t\t\t\t\t\t  welcome:endDate ?subEndRent .\r\n\t\t\t\t\t\t\t\t}\r\n\t\t\t\t\t\tOPTIONAL {\r\n\t\t\t\t\t\t\t?subSharePref\twelcome:min ?subMinShare ;\r\n\t\t\t\t\t\t\t\t\t\t\twelcome:max ?subMaxShare .\r\n\t\t\t\t\t\t\t\t}\r\n\r\n\t\t\t\t\t\t# to retrieve Personal Info of the participant (object) agent \r\n\t\t\t\t\t\t?personalInfoBNode\t\trdf:type\twelcome:CHCPersonalInfo ;\r\n\t\t\t\t\t\t\t\t\t\t\t\twelcome:hasCHCId\t?chcId ;\r\n\t\t\t\t\t\t\t\t\t\t\t\twelcome:hasAge\t?objAge;\r\n\t\t\t\t\t\t\t\t\t\t\t\twelcome:hasGender\t?objGender;\r\n\t\t\t\t\t\t\t\t\t\t\t\twelcome:hasFamily\t?objFamily;\r\n\t\t\t\t\t\t\t\t\t\t\t\twelcome:hasNationality\t?objNationality;\r\n\t\t\t\t\t\t\t\t\t\t\t\twelcome:hasReligion\t\t?objReligion;\r\n\t\t\t\t\t\t\t\t\t\t\t\twelcome:hasEthnicity \t?objEthnicity;\r\n\t\t\t\t\t\t\t\t\t\t\t\twelcome:hasChcLocationPreference\t?objLocPref;\r\n\t\t\t\t\t\t\t\t\t\t\t\twelcome:hasChcAccessibilityPreference\t?objAccessPref;\r\n\t\t\t\t\t\t\t\t\t\t\t\twelcome:hasChcRentPeriodPreference\t\t?objRentPref;\r\n\t\t\t\t\t\t\t\t\t\t\t\twelcome:hasChcShareWithPreference\t\t?objSharePref.\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\tOPTIONAL {\r\n\t\t\t\t\t\t\t?objRentPref\t  welcome:startDate ?objStartRent ;\r\n\t\t\t\t\t\t\t\t\t\t\t  welcome:endDate ?objEndRent .\r\n\t\t\t\t\t\t\t\t}\t\r\n\t\t\t\t\t\tOPTIONAL {\r\n\t\t\t\t\t\t\t?objSharePref\twelcome:min ?objMinShare ;\r\n\t\t\t\t\t\t\t\t\t\t\twelcome:max ?objMaxShare .\r\n\t\t\t\t\t\t\t\t}\t\r\n\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t# to assign/retrieve preference weight values\r\n\t\t\t\t\t\tVALUES ?ageWeight {\"10\"^^xsd:int}\r\n\t\t\t\t\t\tVALUES ?genWeight {\"9\"^^xsd:int}\r\n\t\t\t\t\t\tVALUES ?famWeight {\"5\"^^xsd:int}\r\n\t\t\t\t\t\tVALUES ?natWeight {\"8\"^^xsd:int}\r\n\t\t\t\t\t\tVALUES ?relWeight {\"6\"^^xsd:int}\r\n\t\t\t\t\t\tVALUES ?ethWeight {\"7\"^^xsd:int}\r\n\t\t\t\t\t\tVALUES ?locWeight {\"2\"^^xsd:int}\r\n\t\t\t\t\t\tVALUES ?accWeight {\"3\"^^xsd:int}\r\n\t\t\t\t\t\tVALUES ?rentWeight {\"1\"^^xsd:int}\r\n\t\t\t\t\t\tVALUES ?shareWeight {\"4\"^^xsd:int}\r\n\r\n\t\t\t\t\t\t# to assign/retrieve configuration values\r\n\t\t\t\t\t\tBIND(1 AS ?matchScore)\r\n\t\t\t\t\t\tBIND(0 AS ?unmatchScore)\r\n\t\t\t\t\t\t#BIND(10 AS ?numOfPreferences)\r\n\t\t\t\t\t\t\r\n\t\t\t\t\t\t# to compute similarity value of subject agent for object agent \r\n\t\t\t\t\t\t# age similarity\r\n\t\t\t\t\t\tBIND(IF(?subAgePref = \"Dont mind\" || (xsd:integer(?objAge) >= xsd:integer(?subLowerAge) && xsd:integer(?objAge) <= xsd:integer(?subHigherAge)), ?matchScore, ?unmatchScore) AS ?ageSml).\r\n\t\t\t\t\t\t# gender similarity\r\n\t\t\t\t\t\tBIND(IF(?subGenPref = \"Dont mind\" || LCASE(STR(?objGender)) = LCASE(STR(?subGenPref)), ?matchScore, ?unmatchScore) AS ?genSml).\r\n\t\t\t\t\t\t# family similarity\r\n\t\t\t\t\t\tBIND(IF(?subFamPref = \"Dont mind\" || LCASE(STR(?objFamily)) = LCASE(STR(?subFamPref)), ?matchScore, ?unmatchScore) AS ?famSml).\r\n\t\t\t\t\t\t# nationality similarity\r\n\t\t\t\t\t\tBIND(IF(?subNatPref = \"Dont mind\" || (?subNatPref = \"Same\" && ?subNationality = ?objNationality) || (?subNatPref = \"Mixed\" && ?subNationality != ?objNationality), ?matchScore, ?unmatchScore) AS ?natSml)\r\n\t\t\t\t\t\t#religion similarity \r\n\t\t\t\t\t\tBIND(IF(?subRelPref = \"Dont mind\" || (?subRelPref = \"Same\" && ?subReligion = ?objReligion) || (?subRelPref = \"Mixed\" && ?subReligion != ?objReligion), ?matchScore, ?unmatchScore) AS ?relSml)\r\n\t\t\t\t\t\t# ethnicity similarity\r\n\t\t\t\t\t\tBIND(IF(?subEthPref = \"Dont mind\" || (?subEthPref = \"Same\" && ?subEthnicity = ?objEthnicity) || (?subEthPref = \"Mixed\" && ?subEthnicity != ?objEthnicity), ?matchScore, ?unmatchScore) AS ?ethSml)\r\n\t\t\t\t\t\t# location similarity\r\n\t\t\t\t\t\tBIND(IF(?subLocPref = \"Dont mind\" || ?objLocPref = \"Dont mind\" || ?subLocPref = ?objLocPref, ?matchScore, ?unmatchScore) AS ?locSml)\r\n\t\t\t\t\t\t# accessibility similarity\r\n\t\t\t\t\t\tBIND(IF(?subAccessPref = \"Dont mind\" || ?objAccessPref = \"Dont mind\" || LCASE(STR(?subAccessPref)) = LCASE(STR(?objAccessPref)), ?matchScore, ?unmatchScore) AS ?accSml)\r\n\t\t\t\t\t\t# rental period similarity\r\n\t\t\t\t\t\tBIND(((year(xsd:dateTime(?subEndRent)) - year(now()))*365 + 30*(month(xsd:dateTime(?subEndRent))) + day(xsd:dateTime(?subEndRent))) AS ?subEndRentIntValue)\r\n\t\t\t\t\t\tBIND(((year(xsd:dateTime(?objEndRent)) - year(now()))*365 + 30*(month(xsd:dateTime(?objEndRent))) + day(xsd:dateTime(?objEndRent))) AS ?objEndRentIntValue)\r\n\t\t\t\t\t\tBIND(((year(xsd:dateTime(?subStartRent)) - year(now()))*365 + 30*(month(xsd:dateTime(?subStartRent))) + day(xsd:dateTime(?subStartRent))) AS ?subStartRentIntValue)\r\n\t\t\t\t\t\tBIND(((year(xsd:dateTime(?objStartRent)) - year(now()))*365 + 30*(month(xsd:dateTime(?objStartRent))) + day(xsd:dateTime(?objStartRent))) AS ?objStartRentIntValue)\r\n\t\t\t\t\t\tBIND(IF(?subEndRentIntValue > ?objEndRentIntValue, ?objEndRentIntValue, ?subEndRentIntValue) AS ?smallerEndRent)\r\n\t\t\t\t\t\tBIND(IF(?subStartRentIntValue > ?objStartRentIntValue, ?subStartRentIntValue, ?objStartRentIntValue) AS ?biggerStartRent)\r\n\t\t\t\t\t\tBIND(IF(?subStartRentIntValue > ?objStartRentIntValue, ?objStartRentIntValue, ?subStartRentIntValue) AS ?smallerStartRent)\r\n\t\t\t\t\t\tBIND(IF(?subEndRentIntValue > ?objEndRentIntValue, ?subEndRentIntValue, ?objEndRentIntValue) AS ?biggerEndRent)\r\n\t\t\t\t\t\tBIND(?smallerEndRent - ?biggerStartRent + 1 AS ?rentOverlap)\r\n\t\t\t\t\t\tBIND(?biggerEndRent - ?smallerStartRent + 1 AS ?rentTotal)\r\n\t\t\t\t\t\tBIND(IF(?subRentPref = \"Dont mind\" || ?objRentPref = \"Dont mind\", ?matchScore, IF(?subStartRent > ?objEndRent || ?objStartRent > ?subEndRent, ?unmatchScore, \r\n\t\t\t\t\t\txsd:double(?rentOverlap/?rentTotal))) AS ?rentSml)\r\n\t\t\t\t\t\t# share with similarity\r\n\t\t\t\t\t\tBIND(IF(?subMaxShare > ?objMaxShare, ?objMaxShare, ?subMaxShare) AS ?smallerMaxShare)\r\n\t\t\t\t\t\tBIND(IF(?subMinShare > ?objMinShare, ?subMinShare, ?objMinShare) AS ?biggerMinShare)\r\n\t\t\t\t\t\tBIND(IF(?subMinShare > ?objMinShare, ?objMinShare, ?subMinShare) AS ?smallerMinShare)\r\n\t\t\t\t\t\tBIND(IF(?subMaxShare > ?objMaxShare, ?subMaxShare, ?objMaxShare) AS ?biggerMaxShare)\r\n\t\t\t\t\t\tBIND(?smallerMaxShare - ?biggerMinShare + 1 AS ?shareOverlap)\r\n\t\t\t\t\t\tBIND(?biggerMaxShare - ?smallerMinShare + 1 AS ?shareTotal)\r\n\t\t\t\t\t\tBIND(IF(?subSharePref = \"Dont mind\" || ?objSharePref = \"Dont mind\", ?matchScore, IF(?subMinShare > ?objMaxShare || ?objMinShare > ?subMaxShare, ?unmatchScore, \r\n\t\t\t\t\t\txsd:double(?shareOverlap/?shareTotal))) AS ?shareSml)\r\n\t\t\t\t\t\t# total similarity\r\n\t\t\t\t\t\tBIND(xsd:float(((?ageSml * ?ageWeight) + (?genSml * ?genWeight) + (?famSml * ?famWeight) + (?natSml * ?natWeight) + (?relSml * ?relWeight) + \r\n\t\t\t\t\t\t(?ethSml * ?ethWeight) + (?locSml * ?locWeight) + (?accSml * ?accWeight) + (?rentSml * ?rentWeight) + (?shareSml * ?shareWeight))/10.0) AS ?totalSml).\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t} GROUP BY ?subAgentId ?pAgentId ?chcId ?subAgent ?totalSml ?ageSml ?subAgePref  ?subLowerAge ?subHigherAge ?genSml ?famSml ?natSml ?relSml ?ethSml ?locSml ?accSml ?rentSml ?shareSml  \r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t\t} GROUP BY  ?subAgent ?subAgentId ?pAgentId ?chcId ?ageSml ?subAgePref  ?subLowerAge ?subHigherAge ?genSml ?famSml ?natSml ?relSml ?ethSml ?locSml ?accSml ?rentSml ?shareSml \r\n\t\t\t\t\t\t}\r\n                        BIND(BNODE() AS ?smlBnode)\t\r\n\t\t\t\t\t\t} "
+				},
+				"url": {
+					"raw": "http://localhost:8090/rdf4j/repositories/majanAgent16",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"rdf4j",
+						"repositories",
+						"majanAgent16"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ComputeDistances",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/sparql-query",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \r\n\t\t\t\t\t\tPREFIX ajan: <http://www.ajan.de/ajan-ns#>\r\n\t\t\t\t\t\tPREFIX welcome: <http://localhost:8090/rdf4j/repositories/welcome_ontology#> \r\n\t\t\t\t\t\tPREFIX xsd: <http://www.w3.org/2001/XMLSchema#>\r\n                        CONSTRUCT {\r\n\t\t\t\t\t\t\t\t?bnode\trdf:type\twelcome:CHCUseCase;\r\n\t\t\t\t\t\t\t\t\t\twelcome:hasId\t\t?chcId;\r\n\t\t\t\t\t\t\t\t\t\twelcome:hasNumberOfAgents\t?numOfAgents;\r\n\t\t\t\t\t\t\t\t\t\twelcome:hasParticipants\t\t?pAgentId ;\r\n\t\t\t\t\t\t\t\t\t\twelcome:hasPerfectMatchScore ?perfectMatchScore .\r\n\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t?dsnBnode\trdf:type\twelcome:CHCDistanceScore ;\r\n\t\t\t\t\t\t\t\t\t\t\tajan:hasSubject ?pAgentId ;\r\n\t\t\t\t\t\t\t\t\t\t\tajan:hasObject ?oAgentId ;\r\n\t\t\t\t\t\t\t\t\t\t\twelcome:isComputedForProblemId  ?chcId ;\r\n\t\t\t\t\t\t\t\t\t\t\tajan:hasDistanceScore\t?distanceScore .\t\r\n\t\t\t\t\t\t}\r\n\r\n\t\t\t\t\t\t#SELECT ?bnode ?chcId ?numOfAgents ?perfectMatchScore ?dsnBnode ?pAgentId ?oAgentId ?distanceScore\r\n\t\t\t\t\t\tWHERE {\r\n                           {\r\n                            SELECT DISTINCT ?bnode ?chcId ?numOfAgents ?perfectMatchScore ?pAgentId ?oAgentId ?distanceScore\r\n                            {\r\n\t\t\t\t\t\t\t\t?agent\trdf:type\tajan:Agent ;\r\n\t\t\t\t\t\t\t\t\t\t#welcome:isRunningCHC ?chcId ;\r\n\t\t\t\t\t\t\t\t\t\tajan:agentId\t?dAgentId.\t\r\n\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t?bnode\trdf:type\twelcome:CHCUseCase;\r\n\t\t\t\t\t\t\t\t\t\twelcome:hasId\t\t?chcId;\r\n\t\t\t\t\t\t\t\t\t\twelcome:hasNumberOfAgents\t?numOfAgents;\r\n\t\t\t\t\t\t\t\t\t\twelcome:hasParticipants\t\t?pAgentId ;\r\n\t\t\t\t\t\t\t\t\t\twelcome:hasAgeWeight ?ageWeight;\r\n\t\t\t\t\t\t\t\t\t\twelcome:hasGenderWeight ?genWeight;\r\n\t\t\t\t\t\t\t\t\t\twelcome:hasFamilyWeight\t?famWeight;\r\n\t\t\t\t\t\t\t\t\t\twelcome:hasNationalityWeight\t?natWeight;\r\n\t\t\t\t\t\t\t\t\t\twelcome:hasReligionWeight\t?relWeight;\r\n\t\t\t\t\t\t\t\t\t\twelcome:hasEthnicityWeight\t?ethWeight;\r\n\t\t\t\t\t\t\t\t\t\twelcome:hasLocationWeight\t?locWeight;\r\n\t\t\t\t\t\t\t\t\t\twelcome:hasAccessibilityWeight\t?accWeight;\r\n\t\t\t\t\t\t\t\t\t\twelcome:hasRentPeriodWeight\t?rentWeight;\r\n\t\t\t\t\t\t\t\t\t\twelcome:hasShareWithWeight\t?shareWeight.\r\n\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\tBIND(1 AS ?matchScore)\r\n\t\t\t\t\t\t\t\t\t\tBIND(0 AS ?unmatchScore)\r\n\t\t\t\t\t\t\t\t\t\tBIND(10 AS ?numberOfPreferences)\r\n\t\t\t\t\t\t\t\t\t\tBIND((?matchScore * (?ageWeight + ?genWeight + ?famWeight + ?natWeight + ?relWeight + ?ethWeight + ?locWeight + ?accWeight + ?rentWeight + ?shareWeight))/?numberOfPreferences AS ?perfectMatchScore)\r\n\r\n\t\t\t\t\t\t\t\t?rrsBnode\trdf:type\twelcome:CHCReciprocalScore ;\r\n\t\t\t\t\t\t\t\t\t\t\tajan:hasSubject ?pAgentId ;\r\n\t\t\t\t\t\t\t\t\t\t\tajan:hasObject ?oAgentId ;\r\n\t\t\t\t\t\t\t\t\t\t\twelcome:isComputedForProblemId  ?chcId ;\r\n\t\t\t\t\t\t\t\t\t\t\tajan:hasReciprocalScore\t?bReciprocalScore .\r\n\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\tBIND((?perfectMatchScore - ?bReciprocalScore) AS ?distanceScore)\r\n                            }\r\n                                }\r\n\t\t\t\t\t\t\t\tBIND(BNODE() AS ?dsnBnode)\r\n\t\t\t\t}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/rdf4j/repositories/majanAgent1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"rdf4j",
+						"repositories",
+						"majanAgent1"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

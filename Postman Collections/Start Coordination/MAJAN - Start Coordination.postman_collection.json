@@ -1,0 +1,129 @@
+{
+	"info": {
+		"_postman_id": "093fd3a0-77e4-45a1-95a6-afd621d72090",
+		"name": "MAJAN - Start Coordination",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Start Request Coordination Protocol",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/welcome_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix mac: <http://localhost:8090/rdf4j/repositories/ajan_mac_ontology#> .\r\n\r\n:someSubject rdf:type    mac:MACProblemInstance ;\r\n        mac:hasUseCase  \"Simple use case\" ;\r\n\t\tmac:hasParticipants\t'majanAgent1', 'majanAgent2', 'majanAgent3' ;\r\n\t\tmac:hasNotificationNecessary\t'true' ;\r\n\t\tmac:hasTimeout\t'2022-03-29T18:58:00'^^xsd:dateTime ;\r\n\t\tmac:hasQuorum\t2 ."
+				},
+				"url": {
+					"raw": "http://localhost:8060/welcome/integration/coordination/ajan/agents/majanAgent1?capability=sendCoordRequest",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8060",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						"majanAgent1"
+					],
+					"query": [
+						{
+							"key": "capability",
+							"value": "sendCoordRequest"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Start CSGP Coordination Protocol",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/domain_specific_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix mac: <http://localhost:8090/rdf4j/repositories/ajan_mac_ontology#> .\r\n\r\n:someSubject rdf:type    mac:MACProblemInstance ;\r\n        mac:hasUseCase  \"CSGP Coordination Use Case\" ;\r\n\t\tmac:hasParticipants\t'majanAgent1', 'majanAgent2', 'majanAgent3' ;\r\n\t\tmac:hasNotificationNecessary\t'true' ;\r\n\t\tmac:hasTimeout\t'2022-03-29T14:58:00'^^xsd:dateTime ;\r\n\t\tmac:hasQuorum\t2 ."
+				},
+				"url": {
+					"raw": "http://localhost:8060/welcome/integration/coordination/ajan/agents/majanAgent1?capability=sendCsgpCoordRequest",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8060",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						"majanAgent1"
+					],
+					"query": [
+						{
+							"key": "capability",
+							"value": "sendCsgpCoordRequest"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Start Clustering Coordination Protocol",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/domain_specific_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix mac: <http://localhost:8090/rdf4j/repositories/ajan_mac_ontology#> .\r\n\r\n:someSubject rdf:type    mac:MACProblemInstance ;\r\n        mac:hasUseCase  \"clustering use case\" ;\r\n\t\tmac:hasParticipants\t'majanAgent1', 'majanAgent2', 'majanAgent3' ;\r\n\t\tmac:hasNotificationNecessary\t'true' ;\r\n\t\tmac:hasTimeout\t'2022-03-29T14:57:00'^^xsd:dateTime ;\r\n\t\tmac:hasQuorum\t2 ;\r\n        mac:hasMinPoints    1 ;\r\n        mac:hasMinClusterSize   1 ."
+				},
+				"url": {
+					"raw": "http://localhost:8060/welcome/integration/coordination/ajan/agents/majanAgent1?capability=sendClusteringCoordRequest",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8060",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						"majanAgent1"
+					],
+					"query": [
+						{
+							"key": "capability",
+							"value": "sendClusteringCoordRequest"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

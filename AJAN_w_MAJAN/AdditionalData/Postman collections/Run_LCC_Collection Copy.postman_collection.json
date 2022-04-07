@@ -1,0 +1,529 @@
+{
+	"info": {
+		"_postman_id": "3568d7b1-c5b2-46a2-8d88-b53a1c1b84f6",
+		"name": "Run_LCC_Collection Copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Submit-LCC-Final-Result Copy",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> welcome:LCC1234 rdf:type welcome:LCCUseCase;                                  welcome:hasId \"1234\";                                  welcome:hasFinalSolution _:bnode1 . _:bnode1                          rdf:type welcome:Grouping ;                                  welcome:hasSolutionOf welcome:LCC1234 ;                                  welcome:hasMembers  _:bnode2,_:bnode3 . _:bnode2 rdf:type welcome:Group ; welcome:hasMembers \"agent4\", \"agent5\" .  _:bnode3 rdf:type welcome:Group ; welcome:hasMembers \"agent1\", \"agent2\", \"agent3\" ."
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/welcome/integration/coordination/ajan/agents/{{agentId}}?capability=submitFinalLccResult",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						"{{agentId}}"
+					],
+					"query": [
+						{
+							"key": "capability",
+							"value": "submitFinalLccResult"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Start-LCC-5-agents_1",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/welcome_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> .\r\n\r\n_:bnode_lcc rdf:type welcome:LCCUseCase ;\r\n            welcome:hasParticipants \r\n            \"majanAgent1\", \"majanAgent2\", \"majanAgent3\", \"majanAgent4\", \"majanAgent5\" ;\r\n            welcome:hasLessonId     \"3\" ;\r\n            welcome:hasDedicatedAgent   \"majanAgent1\" ;\r\n            welcome:hasCPLWeight    \"0.75\" ;\r\n            welcome:hasId       \"12347\" ;\r\n            welcome:hasMinSize\t\t '2'^^xsd:integer ; \r\n\t\t    welcome:hasMaxSize\t\t '5'^^xsd:integer ; \r\n\t\t    welcome:hasAbsenceAllowance\t '4'^^xsd:integer ."
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/welcome/integration/coordination/ajan/agents/{{agentId}}?capability=startLCC",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						"{{agentId}}"
+					],
+					"query": [
+						{
+							"key": "capability",
+							"value": "startLCC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Start-LCC-5-agents_1asd",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> _:bnode_lccUseCase     rdf:type                         welcome:LCCUseCase ; welcome:hasParticipants       \"majanAgent1\",\"majanAgent2\",\"majanAgent3\",\"majanAgent4\",\"majanAgent5\"; welcome:hasLessonId                \"1\"^^xsd:integer; welcome:hasDedicatedAgent      \"majanAgent1\"; welcome:hasId                 \"1642496344422\"^^xsd:string; welcome:hasCPLWeight                \"0\"^^xsd:float; welcome:hasMinSize           \"2\"^^xsd:integer ; welcome:hasMaxSize           \"5\"^^xsd:integer ; welcome:hasAbsenceAllowance  \"1\"^^xsd:integer ."
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/welcome/integration/coordination/ajan/agents/{{agentId}}?capability=startLCC",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						"{{agentId}}"
+					],
+					"query": [
+						{
+							"key": "capability",
+							"value": "startLCC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Start-LCC-5-agents_3",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/welcome_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> .\r\n\r\n_:bnode_lcc rdf:type welcome:LCCUseCase ;\r\n            welcome:hasParticipants \r\n            \"majanAgent1\", \"majanAgent2\", \"majanAgent3\", \"majanAgent4\", \"majanAgent5\" ;\r\n            welcome:hasLessonId     \"3\" ;\r\n            welcome:hasDedicatedAgent   \"majanAgent5\" ;\r\n            welcome:hasSdWeight    \"0.75\" ;\r\n            welcome:hasId       \"123456\" ;\r\n            welcome:hasMinSize\t\t '2'^^xsd:integer ; \r\n\t\t    welcome:hasMaxSize\t\t “5“^^xsd:integer ; \r\n\t\t    welcome:hasAbsenceAllowance\t “1“^^xsd:integer ."
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/welcome/integration/coordination/ajan/agents/{{agentId}}?capability=startLCC",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						"{{agentId}}"
+					],
+					"query": [
+						{
+							"key": "capability",
+							"value": "startLCC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Start-LCC-10-agents_1",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/welcome_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> .\r\n\r\n_:bnode_lcc rdf:type welcome:LCCUseCase ;\r\n            welcome:hasParticipants \r\n            \"majanAgent1\", \"majanAgent2\", \"majanAgent3\", \"majanAgent4\", \"majanAgent5\", \r\n            \"majanAgent6\", \"majanAgent7\", \"majanAgent8\", \"majanAgent9\", \"majanAgent10\" ;\r\n            welcome:hasLessonId     \"3\" ;\r\n            welcome:hasDedicatedAgent   \"majanAgent1\" ;\r\n            welcome:hasSdWeight    \"0.75\" ;\r\n            welcome:hasId       \"1234\" ;\r\n            welcome:hasMinSize\t\t \"2\"^^xsd:integer ; \r\n\t\t    welcome:hasMaxSize\t\t \"2\"^^xsd:integer ; \r\n\t\t    welcome:hasAbsenceAllowance\t \"1\"^^xsd:integer ."
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/welcome/integration/coordination/ajan/agents/{{agentId}}?capability=startLCC",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						"{{agentId}}"
+					],
+					"query": [
+						{
+							"key": "capability",
+							"value": "startLCC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Start-LCC-10-agents_2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/welcome_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> .\r\n\r\n_:bnode_lcc rdf:type welcome:LCCUseCase ;\r\n            welcome:hasParticipants \r\n            \"majanAgent1\", \"majanAgent2\", \"majanAgent3\", \"majanAgent4\", \"majanAgent5\", \r\n            \"majanAgent6\", \"majanAgent7\", \"majanAgent8\", \"majanAgent9\", \"majanAgent10\" ;\r\n            welcome:hasLessonId     \"3\" ;\r\n            welcome:hasDedicatedAgent   \"majanAgent3\" ;\r\n            welcome:hasSdWeight    \"0.75\" ;\r\n            welcome:hasId       \"12345\" ;\r\n            welcome:hasMinSize\t\t '2'^^xsd:integer ; \r\n\t\t    welcome:hasMaxSize\t\t “5“^^xsd:integer ; \r\n\t\t    welcome:hasAbsenceAllowance\t “1“^^xsd:integer ."
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/welcome/integration/coordination/ajan/agents/{{agentId}}?capability=startLCC",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						"{{agentId}}"
+					],
+					"query": [
+						{
+							"key": "capability",
+							"value": "startLCC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Start-LCC-10-agents_3",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/welcome_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> .\r\n\r\n_:bnode_lcc rdf:type welcome:LCCUseCase ;\r\n            welcome:hasParticipants \r\n            \"majanAgent1\", \"majanAgent2\", \"majanAgent3\", \"majanAgent4\", \"majanAgent5\", \r\n            \"majanAgent6\", \"majanAgent7\", \"majanAgent8\", \"majanAgent9\", \"majanAgent10\" ;\r\n            welcome:hasLessonId     \"3\" ;\r\n            welcome:hasDedicatedAgent   \"majanAgent5\" ;\r\n            welcome:hasSdWeight    \"0.75\" ;\r\n            welcome:hasId       \"123456\" ;\r\n            welcome:hasMinSize\t\t '2'^^xsd:integer ; \r\n\t\t    welcome:hasMaxSize\t\t “5“^^xsd:integer ; \r\n\t\t    welcome:hasAbsenceAllowance\t “1“^^xsd:integer ."
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/welcome/integration/coordination/ajan/agents/{{agentId}}?capability=startLCC",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						"{{agentId}}"
+					],
+					"query": [
+						{
+							"key": "capability",
+							"value": "startLCC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Start-LCC-15-agents_1",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/welcome_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> .\r\n\r\n_:bnode_lcc rdf:type welcome:LCCUseCase ;\r\n            welcome:hasParticipants \r\n            \"majanAgent1\", \"majanAgent2\", \"majanAgent3\", \"majanAgent4\", \"majanAgent5\",\r\n            \"majanAgent6\", \"majanAgent7\", \"majanAgent8\", \"majanAgent9\", \"majanAgent10\" ,\r\n            \"majanAgent11\", \"majanAgent12\", \"majanAgent13\", \"majanAgent14\", \"majanAgent15\" ;\r\n            welcome:hasLessonId     \"3\" ;\r\n            welcome:hasDedicatedAgent   \"majanAgent1\" ;\r\n            welcome:hasSdWeight    \"0.75\" ;\r\n            welcome:hasId       \"1234\" ;\r\n            welcome:hasMinSize\t\t '2'^^xsd:integer ; \r\n\t\t    welcome:hasMaxSize\t\t “5“^^xsd:integer ; \r\n\t\t    welcome:hasAbsenceAllowance\t “1“^^xsd:integer ."
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/welcome/integration/coordination/ajan/agents/{{agentId}}?capability=startLCC",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						"{{agentId}}"
+					],
+					"query": [
+						{
+							"key": "capability",
+							"value": "startLCC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Start-LCC-15-agents_2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/welcome_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> .\r\n\r\n_:bnode_lcc rdf:type welcome:LCCUseCase ;\r\n            welcome:hasParticipants \r\n            \"majanAgent1\", \"majanAgent2\", \"majanAgent3\", \"majanAgent4\", \"majanAgent5\",\r\n            \"majanAgent6\", \"majanAgent7\", \"majanAgent8\", \"majanAgent9\", \"majanAgent10\" ,\r\n            \"majanAgent11\", \"majanAgent12\", \"majanAgent13\", \"majanAgent14\", \"majanAgent15\" ;\r\n            welcome:hasLessonId     \"3\" ;\r\n            welcome:hasDedicatedAgent   \"majanAgent3\" ;\r\n            welcome:hasSdWeight    \"0.75\" ;\r\n            welcome:hasId       \"12345\" ;\r\n            welcome:hasMinSize\t\t '2'^^xsd:integer ; \r\n\t\t    welcome:hasMaxSize\t\t “5“^^xsd:integer ; \r\n\t\t    welcome:hasAbsenceAllowance\t “1“^^xsd:integer ."
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/welcome/integration/coordination/ajan/agents/{{agentId}}?capability=startLCC",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						"{{agentId}}"
+					],
+					"query": [
+						{
+							"key": "capability",
+							"value": "startLCC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Start-LCC-15-agents_3",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/welcome_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> .\r\n\r\n_:bnode_lcc rdf:type welcome:LCCUseCase ;\r\n            welcome:hasParticipants \r\n            \"majanAgent1\", \"majanAgent2\", \"majanAgent3\", \"majanAgent4\", \"majanAgent5\",\r\n            \"majanAgent6\", \"majanAgent7\", \"majanAgent8\", \"majanAgent9\", \"majanAgent10\" ,\r\n            \"majanAgent11\", \"majanAgent12\", \"majanAgent13\", \"majanAgent14\", \"majanAgent15\" ;\r\n            welcome:hasLessonId     \"3\" ;\r\n            welcome:hasDedicatedAgent   \"majanAgent5\" ;\r\n            welcome:hasSdWeight    \"0.75\" ;\r\n            welcome:hasId       \"123456\" ;\r\n            welcome:hasMinSize\t\t '2'^^xsd:integer ; \r\n\t\t    welcome:hasMaxSize\t\t “5“^^xsd:integer ; \r\n\t\t    welcome:hasAbsenceAllowance\t “1“^^xsd:integer ."
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/welcome/integration/coordination/ajan/agents/{{agentId}}?capability=startLCC",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						"{{agentId}}"
+					],
+					"query": [
+						{
+							"key": "capability",
+							"value": "startLCC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Start-LCC-20-agents_1",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/welcome_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> .\r\n\r\n_:bnode_lcc rdf:type welcome:LCCUseCase ;\r\n            welcome:hasParticipants \r\n            \"majanAgent1\", \"majanAgent2\", \"majanAgent3\", \"majanAgent4\", \"majanAgent5\", \r\n            \"majanAgent6\", \"majanAgent7\", \"majanAgent8\", \"majanAgent9\", \"majanAgent10\",\r\n            \"majanAgent11\", \"majanAgent12\", \"majanAgent13\", \"majanAgent14\", \"majanAgent15\",\r\n            \"majanAgent16\", \"majanAgent17\", \"majanAgent18\", \"majanAgent19\", \"majanAgent20\" ;\r\n            welcome:hasLessonId     \"3\" ;\r\n            welcome:hasDedicatedAgent   \"majanAgent1\" ;\r\n            welcome:hasSdWeight    \"0.75\" ;\r\n            welcome:hasId       \"1234\" ;\r\n            welcome:hasMinSize\t\t '2'^^xsd:integer ; \r\n\t\t    welcome:hasMaxSize\t\t “5“^^xsd:integer ; \r\n\t\t    welcome:hasAbsenceAllowance\t “1“^^xsd:integer ."
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/welcome/integration/coordination/ajan/agents/{{agentId}}?capability=startLCC",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						"{{agentId}}"
+					],
+					"query": [
+						{
+							"key": "capability",
+							"value": "startLCC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Start-LCC-20-agents_2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/welcome_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> .\r\n\r\n_:bnode_lcc rdf:type welcome:LCCUseCase ;\r\n            welcome:hasParticipants \r\n            \"majanAgent1\", \"majanAgent2\", \"majanAgent3\", \"majanAgent4\", \"majanAgent5\", \r\n            \"majanAgent6\", \"majanAgent7\", \"majanAgent8\", \"majanAgent9\", \"majanAgent10\",\r\n            \"majanAgent11\", \"majanAgent12\", \"majanAgent13\", \"majanAgent14\", \"majanAgent15\",\r\n            \"majanAgent16\", \"majanAgent17\", \"majanAgent18\", \"majanAgent19\", \"majanAgent20\" ;\r\n            welcome:hasLessonId     \"3\" ;\r\n            welcome:hasDedicatedAgent   \"majanAgent3\" ;\r\n            welcome:hasSdWeight    \"0.75\" ;\r\n            welcome:hasId       \"12345\" ;\r\n            welcome:hasMinSize\t\t '2'^^xsd:integer ; \r\n\t\t    welcome:hasMaxSize\t\t “5“^^xsd:integer ; \r\n\t\t    welcome:hasAbsenceAllowance\t “1“^^xsd:integer ."
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/welcome/integration/coordination/ajan/agents/{{agentId}}?capability=startLCC",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						"{{agentId}}"
+					],
+					"query": [
+						{
+							"key": "capability",
+							"value": "startLCC"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Start-LCC-20-agents_3",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/turtle",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "@prefix : <http://localhost:8090/rdf4j/repositories/welcome_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n@prefix welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#> .\r\n\r\n_:bnode_lcc rdf:type welcome:LCCUseCase ;\r\n            welcome:hasParticipants \r\n            \"majanAgent1\", \"majanAgent2\", \"majanAgent3\", \"majanAgent4\", \"majanAgent5\", \r\n            \"majanAgent6\", \"majanAgent7\", \"majanAgent8\", \"majanAgent9\", \"majanAgent10\",\r\n            \"majanAgent11\", \"majanAgent12\", \"majanAgent13\", \"majanAgent14\", \"majanAgent15\",\r\n            \"majanAgent16\", \"majanAgent17\", \"majanAgent18\", \"majanAgent19\", \"majanAgent20\" ;\r\n            welcome:hasLessonId     \"3\" ;\r\n            welcome:hasDedicatedAgent   \"majanAgent5\" ;\r\n            welcome:hasSdWeight    \"0.75\" ;\r\n            welcome:hasId       \"123456\" ;\r\n            welcome:hasMinSize\t\t '2'^^xsd:integer ; \r\n\t\t    welcome:hasMaxSize\t\t “5“^^xsd:integer ; \r\n\t\t    welcome:hasAbsenceAllowance\t “1“^^xsd:integer ."
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{port}}/welcome/integration/coordination/ajan/agents/{{agentId}}?capability=startLCC",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"welcome",
+						"integration",
+						"coordination",
+						"ajan",
+						"agents",
+						"{{agentId}}"
+					],
+					"query": [
+						{
+							"key": "capability",
+							"value": "startLCC"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

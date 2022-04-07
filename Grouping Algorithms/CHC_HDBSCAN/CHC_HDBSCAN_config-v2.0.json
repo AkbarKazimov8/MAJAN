@@ -1,0 +1,495 @@
+{
+	"algorithm":"CHC_HDBSCAN_for_MAJAN_v2.0",
+	"pathToJarFile":"/home/lexi/Desktop/Projects/MAJAN-Files/CHC_HDBSCAN_for_MAJAN-v2.0.jar",
+	"timeout": "10",
+	"keywords":[
+		{
+			"keyword":{
+				"type":"Weights",
+				"description":"description of Weights",
+				"element":{
+					"items":[
+						{
+							"item":{
+								"name":"age_pref",
+								"example_value":"10",
+								"datatype":"int",
+								"description":"description of age_pref"
+							}
+						},
+						{
+							"item":{
+								"name":"gender_pref",
+								"example_value":"9",
+								"datatype":"int",
+								"description":"description of gender_pref"
+							}
+						},
+						{
+							"item":{
+								"name":"famil_pref",
+								"example_value":"5",
+								"datatype":"int",
+								"description":"description of famil_pref"
+							}
+						},
+						{
+							"item":{
+								"name":"nat_pref",
+								"example_value":"8",
+								"datatype":"int",
+								"description":"description of nat_pref"
+							}
+						},
+						{
+							"item":{
+								"name":"rel_pref",
+								"example_value":"6",
+								"datatype":"int",
+								"description":"description of rel_pref"
+							}
+						},
+						{
+							"item":{
+								"name":"eth_pref",
+								"example_value":"7",
+								"datatype":"int",
+								"description":"description of eth_pref"
+							}
+						},
+						{
+							"item":{
+								"name":"loc_pref",
+								"example_value":"2",
+								"datatype":"int",
+								"description":"description of loc_pref"
+							}
+						},
+						{
+							"item":{
+								"name":"acces_pref",
+								"example_value":"3",
+								"datatype":"int",
+								"description":"description of acces_pref"
+							}
+						},
+						{
+							"item":{
+								"name":"rent_pref",
+								"example_value":"1",
+								"datatype":"int",
+								"description":"description of rent_pref"
+							}
+						},
+						{
+							"item":{
+								"name":"share_pref",
+								"example_value":"4",
+								"datatype":"int",
+								"description":"description of share_pref"
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"keyword":{
+				"type":"Agent Profiles",
+				"description":"description of profiles",
+				"elements":[
+					{
+						"element":{
+							"items":[
+								{
+									"item":{
+										"name":"agentId1",
+										"example_value":"1",
+										"datatype":"int",
+										"description":"description of agentId"
+									}
+								},
+								{
+									"item":{
+										"name":"age",
+										"example_value":"23",
+										"datatype":"int",
+										"description":"description of age"
+									}
+								},
+								{
+									"item":{
+										"name":"gender",
+										"example_value":"Female",
+										"datatype":"string",
+										"description":"description of gender"
+									}
+								},
+								{
+									"item":{
+										"name":"family",
+										"example_value":"Extended",
+										"datatype":"string",
+										"description":"description of family"
+									}
+								},
+								{
+									"item":{
+										"name":"nation",
+										"example_value":"nat2",
+										"datatype":"string",
+										"description":"description of nation"
+									}
+								},
+								{
+									"item":{
+										"name":"relig",
+										"example_value":"rel4",
+										"datatype":"string",
+										"description":"description of relig"
+									}
+								},
+								{
+									"item":{
+										"name":"ethni",
+										"example_value":"eth3",
+										"datatype":"string",
+										"description":"description of ethni"
+									}
+								},
+								{
+									"item":{
+										"name":"age_pref",
+										"example_value":"44-50",
+										"datatype":"string",
+										"description":"description of age_pref"
+									}
+								},
+								{
+									"item":{
+										"name":"gender_pref",
+										"example_value":"Dont mind",
+										"datatype":"string",
+										"description":"description of gender_pref"
+									}
+								},
+								{
+									"item":{
+										"name":"family_pref",
+										"example_value":"Nuclear",
+										"datatype":"string",
+										"description":"description of family_pref"
+									}
+								},
+								{
+									"item":{
+										"name":"nation_pref",
+										"example_value":"Mixed",
+										"datatype":"string",
+										"description":"description of nation_pref"
+									}
+								},
+								{
+									"item":{
+										"name":"relig_pref",
+										"example_value":"Dont mind",
+										"datatype":"string",
+										"description":"description of relig_pref"
+									}
+								},
+								{
+									"item":{
+										"name":"ethni_pref",
+										"example_value":"Same",
+										"datatype":"string",
+										"description":"description of ethni_pref"
+									}
+								},
+								{
+									"item":{
+										"name":"locat_pref",
+										"example_value":"L1",
+										"datatype":"string",
+										"description":"description of locat_pref"
+									}
+								},
+								{
+									"item":{
+										"name":"acces_pref",
+										"example_value":"yes",
+										"datatype":"string",
+										"description":"description of acces_pref"
+									}
+								},
+								{
+									"item":{
+										"name":"rentper_pref",
+										"example_value":"1/3/2021-1/7/2022",
+										"datatype":"string",
+										"description":"description of rentper_pref"
+									}
+								},
+								{
+									"item":{
+										"name":"shrwth_pref",
+										"example_value":"2-3",
+										"datatype":"string",
+										"description":"description of shrwth_pref"
+									}
+								}
+
+							]
+						}
+					},
+					{
+						"element":{
+							"items":[
+								{
+									"item":{
+										"name":"agentId2",
+										"example_value":"1",
+										"datatype":"int",
+										"description":"description of agentId"
+									}
+								},
+								{
+									"item":{
+										"name":"age",
+										"example_value":"23",
+										"datatype":"int",
+										"description":"description of age"
+									}
+								},
+								{
+									"item":{
+										"name":"gender",
+										"example_value":"Female",
+										"datatype":"string",
+										"description":"description of gender"
+									}
+								},
+								{
+									"item":{
+										"name":"family",
+										"example_value":"Extended",
+										"datatype":"string",
+										"description":"description of family"
+									}
+								},
+								{
+									"item":{
+										"name":"nation",
+										"example_value":"nat2",
+										"datatype":"string",
+										"description":"description of nation"
+									}
+								},
+								{
+									"item":{
+										"name":"relig",
+										"example_value":"rel4",
+										"datatype":"string",
+										"description":"description of relig"
+									}
+								},
+								{
+									"item":{
+										"name":"ethni",
+										"example_value":"eth3",
+										"datatype":"string",
+										"description":"description of ethni"
+									}
+								},
+								{
+									"item":{
+										"name":"age_pref",
+										"example_value":"44-50",
+										"datatype":"string",
+										"description":"description of age_pref"
+									}
+								},
+								{
+									"item":{
+										"name":"gender_pref",
+										"example_value":"Dont mind",
+										"datatype":"string",
+										"description":"description of gender_pref"
+									}
+								},
+								{
+									"item":{
+										"name":"family_pref",
+										"example_value":"Nuclear",
+										"datatype":"string",
+										"description":"description of family_pref"
+									}
+								},
+								{
+									"item":{
+										"name":"nation_pref",
+										"example_value":"Mixed",
+										"datatype":"string",
+										"description":"description of nation_pref"
+									}
+								},
+								{
+									"item":{
+										"name":"relig_pref",
+										"example_value":"Dont mind",
+										"datatype":"string",
+										"description":"description of relig_pref"
+									}
+								},
+								{
+									"item":{
+										"name":"ethni_pref",
+										"example_value":"Same",
+										"datatype":"string",
+										"description":"description of ethni_pref"
+									}
+								},
+								{
+									"item":{
+										"name":"locat_pref",
+										"example_value":"L1",
+										"datatype":"string",
+										"description":"description of locat_pref"
+									}
+								},
+								{
+									"item":{
+										"name":"acces_pref",
+										"example_value":"yes",
+										"datatype":"string",
+										"description":"description of acces_pref"
+									}
+								},
+								{
+									"item":{
+										"name":"rentper_pref",
+										"example_value":"1/3/2021-1/7/2022",
+										"datatype":"string",
+										"description":"description of rentper_pref"
+									}
+								},
+								{
+									"item":{
+										"name":"shrwth_pref",
+										"example_value":"2-3",
+										"datatype":"string",
+										"description":"description of shrwth_pref"
+									}
+								}
+
+							]
+						}
+					}
+				]
+			}
+		},
+		{
+			"keyword":{
+				"type":"ML",
+				"description":"must link",
+				"elements":[
+					{
+						"element":{
+							"items":[
+								{
+									"item":{
+										"name":"agentId1",
+										"example_value":"1",
+										"datatype":"int",
+										"description":"description of agentId"
+									}
+								},
+								{
+									"item":{
+										"name":"agentId2",
+										"example_value":"2",
+										"datatype":"int",
+										"description":"description of agentId"
+									}
+								}
+							]
+						}
+					},
+					{
+						"element":{
+							"items":[
+								{
+									"item":{
+										"name":"agentIdx",
+										"example_value":"5",
+										"datatype":"int",
+										"description":"id of one of the agents"
+									}
+								},
+								{
+									"item":{
+										"name":"agentIdy",
+										"example_value":"14",
+										"datatype":"int",
+										"description":"id of one of the agents"
+									}
+								}
+							]
+						}
+					}
+				]
+			}
+		},
+		{
+			"keyword":{
+				"type":"CL",
+				"description":"cannot link",
+				"elements":[
+					{
+						"element":{
+							"items":[
+								{
+									"item":{
+										"name":"agentId1",
+										"example_value":"1",
+										"datatype":"int",
+										"description":"description of agentId"
+									}
+								},
+								{
+									"item":{
+										"name":"agentId2",
+										"example_value":"2",
+										"datatype":"int",
+										"description":"description of agentId"
+									}
+								}
+							]
+						}
+					},
+					{
+						"element":{
+							"items":[
+								{
+									"item":{
+										"name":"agentIdx",
+										"example_value":"5",
+										"datatype":"int",
+										"description":"id of one of the agents"
+									}
+								},
+								{
+									"item":{
+										"name":"agentIdy",
+										"example_value":"14",
+										"datatype":"int",
+										"description":"id of one of the agents"
+									}
+								}
+							]
+						}
+					}
+				]
+			}
+		}
+	]
+}

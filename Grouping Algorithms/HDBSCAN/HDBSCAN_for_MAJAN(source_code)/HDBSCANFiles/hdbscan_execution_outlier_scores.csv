@@ -1,0 +1,13 @@
+----------------------------------------------- WARNING -----------------------------------------------
+With your current settings, the K-NN density estimate is discontinuous as it is not well-defined
+(infinite) for some data objects, either due to replicates in the data (not a set) or due to numerical
+roundings. This does not affect the construction of the density-based clustering hierarchy, but
+it affects the computation of cluster stability by means of relative excess of mass. For this reason,
+the post-processing routine to extract a flat partition containing the most stable clusters may
+produce unexpected results. It may be advisable to increase the value of MinPts and/or M_clSize.
+-------------------------------------------------------------------------------------------------------
+0.0,0
+0.0,1
+0.0,3
+0.0,2
+0.0,4
