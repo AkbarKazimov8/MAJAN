@@ -3,16 +3,19 @@
 MAJAN is an extension of **AJAN** agent engineering tool to support
 SPARQL-BT-based **multiagent** **coordination** **into** **groups**.
 
-MAJAN consists of **MAJAN Plugin** and **MAJAN** **Web** for AJAN
-Service and AJAN Editor, respectively. These extensions are integrated
-to AJAN and can be found in AJAN\_w\_MAJAN and AJAN\_Editor\_w\_MAJAN
-folders.
+MAJAN consists of **MAJAN Plugin** and **MAJAN** **Web** for [AJAN
+Service](https://github.com/aantakli/AJAN-service) and [AJAN
+Editor](https://github.com/aantakli/AJAN-editor), respectively. These
+extensions are integrated to AJAN and can be found in AJAN\_w\_MAJAN and
+AJAN\_Editor\_w\_MAJAN folders.
 
 Moreover, MAJAN provides **postman collections** in “Postman
 Collections” folder to create and execute MAC use-cases easily.
 
 Additionally, **MAJAN Web** supports **executing centrally running
-grouping algorithms** such as HDBSCAN to solve Clustering and BOSS to
+grouping algorithms** such as
+[HDBSCAN](https://dl.acm.org/doi/10.1145/2733381) to solve Clustering
+and [BOSS](https://ojs.aaai.org/index.php/AAAI/article/view/17879) to
 solve CSGP. Necessary configuration files for MAJAN Web and source code
 of algorithms are provided in Grouping Algorithms folder.
 
