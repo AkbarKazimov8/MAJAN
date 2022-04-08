@@ -1,0 +1,603 @@
+# @base <http://localhost/rdf4j/repositories/agents> .
+
+@prefix : <http://localhost:8090/rdf4j/repositories/agents#> .
+@prefix behaviors: <http://localhost:8090/rdf4j/repositories/behaviors#> .
+@prefix beliefs: <http://localhost:8090/rdf4j/repositories/beliefs#> .
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix http: <http://www.w3.org/2011/http#> .
+@prefix ajan: <http://www.ajan.de/ajan-ns#> .
+@prefix sp: <http://spinrdf.org/sp#> .
+@prefix test: <http://test/> .
+@prefix mosim: <http://www.dfki.de/mosim-ns#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+
+# ----------- Endpoint ------------
+
+# localhost:8080/ajan/agents/ | POST | text/turtle
+
+# ------------- Body --------------
+
+
+
+
+################## MAJAN Template Coordination BTs ################## START 
+
+:MajanAgent
+	a ajan:AgentTemplate ;
+	rdfs:label	"Agent Template with MAJAN Coordination Capabilities" ;
+
+######### Simple Coordination Stuff ######### START
+
+	ajan:event 	:SendCoordRequestEvent ;
+	ajan:event 	:HandleCoordRequestEvent ;
+	ajan:endpoint 	:HandleCoordRequestEndpoint ;
+	ajan:endpoint 	:SendCoordRequestEndpoint ;
+	ajan:behavior 	:SendCoordRequestBehavior ;
+	ajan:behavior 	:HandleCoordRequestBehavior ;
+
+######### Simple Coordination Stuff ######### END
+
+######### CSGP Coordination Stuff ######### START
+
+	ajan:event 	:StartCsgpCoordEvent ;
+	ajan:event 	:StartCsgpCoordRequestEvent ;
+	ajan:event 	:ComputeCsgpCoalitionsEvent ;
+	ajan:event 	:CsgpUtilitiesRequestEvent ;
+	ajan:event 	:SolveCsgpEvent ;
+	ajan:endpoint 	:StartCsgpCoordEndpoint ;
+	ajan:endpoint 	:CsgpUtilitiesRequestEndpoint ;
+	ajan:endpoint 	:SendCsgpCoordRequestEndpoint ;
+	ajan:behavior 	:CsgpUtilitiesRequestBehavior ;
+	ajan:behavior 	:ComputeCsgpCoalitionsBehavior ;
+	ajan:behavior 	:SendCsgpCoordRequestBehavior ;
+	ajan:behavior 	:StartCsgpCoordBehavior ;
+	ajan:behavior 	:SolveCsgpBehavior ;
+######### CSGP Coordination Stuff ######### END
+
+######### Clustering Coordination Stuff ######### START
+
+	ajan:event 		:StartClusteringCoordRequestEvent ;
+	ajan:event 		:CollectClusteringDistancesEvent ;
+	ajan:event 		:HandleClusteringDistancesRequestEvent ;
+	ajan:event 		:SolveClusteringEvent ;
+ 	ajan:endpoint 	:HandleClusteringDistancesEndpoint ;
+	ajan:endpoint 	:SendClusteringCoordRequestEndpoint ;
+	ajan:behavior 	:SolveClusteringBehavior ;
+	ajan:behavior 	:HandleClusteringDistancesBehavior ;
+	ajan:behavior 	:CollectClusteringDistancesBehavior ;
+	ajan:behavior 	:SendClusteringCoordRequestBehavior ;
+
+######### Clustering Coordination Stuff ######### END
+
+
+######### Common Coordination Stuff ######### START
+
+	ajan:event 		:ReceiveCoordRequestResponseEvent ;
+	ajan:event 		:FinalizeCoordinationEvent ;
+	ajan:event 		:AgentProfileInfoRequestEvent ;
+	ajan:event 		:PopulateLAREvent ;	
+	ajan:event 		:ReceiveLocalAgentsEvent;
+	ajan:endpoint 	:ReceiveCoordRequestResponseEndpoint ;
+	ajan:endpoint 	:AgentProfileInfoRequestEndpoint ;
+	ajan:endpoint 	:populateLAR ;
+	ajan:behavior 	:AgentProfileInfoRequestBehavior ;
+	ajan:behavior 	:FinalizeCoordinationBehavior ;
+	ajan:behavior 	:ReceiveCoordRequestResponseBehavior ;
+	ajan:behavior 	:PopulateLARRepos .
+
+######### Common Coordination Stuff ######### END
+
+
+######### Coordination with Goal node Stuff ######### START
+# THESE WERE DEVELOPED AT FIRST BUT SINCE AJAN DOESN'T SUPPORT RUNNING MULTIPLE INSTANCES OF SAME BT IN PARALLEL, THESE STUFF ARE NOT NECESSARY FOR NOW. 
+
+#	ajan:event	:StartCoordEvent ;
+#	ajan:event 	:ReceiveRequestEvent ;
+#	ajan:event 	:ReceiveParticipantReplyEvent ;
+#	ajan:event 	:HandlePrsInfoRequestEvent ;
+#	ajan:endpoint	:StartCoordEndpoint ;
+#	ajan:endpoint 	:HandlePrsInfoRequestEndpoint ;
+#	ajan:endpoint 	:ReceiveRequestEndpoint ;
+#	ajan:endpoint 	:ReceiveParticipantResponseEndpoint ;
+#	ajan:behavior 	:ReceiveRequestBehavior ;
+#	ajan:behavior	:StartCoordBehavior ;
+#	ajan:behavior 	:HandlePrsInfoRequestBehavior ;
+######### Coordination with Goal node Stuff ######### END
+
+################## MAJAN Template Coordination BTs ################## END 
+
+################## MAJAN BTs with GOALs ################## START
+
+################## MAJAN BTs with GOALs ################## END 
+
+################## MAJAN and WELCOME Common BTs ################## START
+
+:ReceiveLocalAgentsEvent
+	a ajan:ModelEvent ;
+	rdfs:label "Receive Local Agents Event" .
+:populateLAR
+	a ajan:Endpoint ;
+	rdfs:label "populate LAR Repo Endpoint" ;
+	ajan:capability "populateLAR" ;
+	ajan:event :ReceiveLocalAgentsEvent .
+:PopulateLAREvent
+	a ajan:ModelEvent ;
+	rdfs:label "Populate LAR Event" .
+:PopulateLARRepos
+	a ajan:Behavior ;
+	rdfs:label "Populate LAR Repos" ;
+	ajan:trigger :PopulateLAREvent ;
+	ajan:trigger :ReceiveLocalAgentsEvent ;
+	ajan:bt behaviors:PopulateLARRepos .
+################## MAJAN and WELCOME Common BTs ################## END 
+
+################## WELCOME BTs ################## START
+
+
+# ----------- Clustering Coordination stuff -------------------
+:StartClusteringCoordRequestEvent
+	a ajan:ModelQueueEvent ;
+	rdfs:label "Send Clustering Coord. Request Event" .
+
+:SendClusteringCoordRequestEndpoint
+	a ajan:Endpoint ;
+	rdfs:label "Send Clustering Coord. Request Endpoint" ;
+	ajan:capability "sendClusteringCoordRequest" ;
+	ajan:event :StartClusteringCoordRequestEvent .
+
+:SendClusteringCoordRequestBehavior
+	a ajan:Behavior ;
+	rdfs:label "Send Clustering Coord. Request Behavior" ;
+	ajan:trigger :StartClusteringCoordRequestEvent ;
+	ajan:bt behaviors:SendClusteringCoordRequestTempBt .
+
+
+:CollectClusteringDistancesEvent
+	a ajan:ModelQueueEvent ;
+	rdfs:label "Collect Clustering Distances Event" .
+
+:CollectClusteringDistancesBehavior
+	a ajan:Behavior ;
+	rdfs:label "Collect Clustering Distances Behavior" ;
+	ajan:trigger :CollectClusteringDistancesEvent ;
+	ajan:bt behaviors:CollectClusteringDistancesTemplBt .
+
+
+:HandleClusteringDistancesRequestEvent
+	a ajan:ModelQueueEvent ;
+	rdfs:label "Handle Clustering Distances Request Event" .
+
+:HandleClusteringDistancesEndpoint
+	a ajan:Endpoint ;
+	rdfs:label "Send Clustering Distances Request Endpoint" ;
+	ajan:capability "clusteringDistanceScores" ;
+	ajan:event :HandleClusteringDistancesRequestEvent .
+
+:HandleClusteringDistancesBehavior
+	a ajan:Behavior ;
+	rdfs:label "Handle Clustering Distances Request Behavior" ;
+	ajan:trigger :HandleClusteringDistancesRequestEvent ;
+	ajan:bt behaviors:HandleClusteringDistancesRequestTemplBT .
+
+
+:SolveClusteringEvent
+	a ajan:ModelQueueEvent ;
+	rdfs:label "Solve Clustering Event" .
+
+:SolveClusteringBehavior
+	a ajan:Behavior ;
+	rdfs:label "Solve Clustering Behavior" ;
+	ajan:trigger :SolveClusteringEvent ;
+	ajan:bt behaviors:SolveClusteringTemplBT .
+
+:FinalizeCoordinationEvent
+	a ajan:ModelQueueEvent ;
+	rdfs:label "Finalize Coordination Event" .
+
+:FinalizeCoordinationBehavior
+	a ajan:Behavior ;
+	rdfs:label "Finalize Coordination Behavior" ;
+	ajan:trigger :FinalizeCoordinationEvent ;
+	ajan:bt behaviors:FinalizeCoordinationToGroupsBT .
+# ----------- Clustering Coordination stuff -------------------
+
+# ----------- CSGP Coordination stuff -------------------
+
+:StartCsgpCoordRequestEvent
+	a ajan:ModelQueueEvent ;
+	rdfs:label "Send Csgp Coord. Request Event" .
+
+:SendCsgpCoordRequestEndpoint
+	a ajan:Endpoint ;
+	rdfs:label "Send CSGP Coord. Request Endpoint" ;
+	ajan:capability "sendCsgpCoordRequest" ;
+	ajan:event :StartCsgpCoordRequestEvent .
+
+:SendCsgpCoordRequestBehavior
+	a ajan:Behavior ;
+	rdfs:label "Send CSGP Coord. Request Behavior" ;
+	ajan:trigger :StartCsgpCoordRequestEvent ;
+	ajan:bt behaviors:SendCsgpCoordRequestTempBt .
+
+:AgentProfileInfoRequestEvent
+	a ajan:ModelQueueEvent ;
+	rdfs:label "Agent Profile Info Request Event" .
+
+:AgentProfileInfoRequestEndpoint
+	a ajan:Endpoint ;
+	rdfs:label "Agent Profile Info Request Endpoint" ;
+	ajan:capability "agentProfileInfoRequest" ;
+	ajan:event :AgentProfileInfoRequestEvent .
+
+:AgentProfileInfoRequestBehavior
+	a ajan:Behavior ;
+	rdfs:label "Agent Profile Info Request Behavior" ;
+	ajan:trigger :AgentProfileInfoRequestEvent ;
+	ajan:bt behaviors:HandleAgentProfileInfoRequestTempBT .
+
+:SolveCsgpEvent
+	a ajan:ModelQueueEvent ;
+	rdfs:label "Solve CSGP Coordination Event" .
+
+:SolveCsgpBehavior
+	a ajan:Behavior ;
+	rdfs:label "Solve CSGP Behavior" ;
+	ajan:trigger :SolveCsgpEvent ;
+	ajan:bt behaviors:SolveCsgpTemplBT .
+
+
+:ComputeCsgpCoalitionsEvent
+	a ajan:ModelQueueEvent ;
+	rdfs:label "Compute Csgp Coalitions Event" .
+
+
+:ComputeCsgpCoalitionsBehavior
+	a ajan:Behavior ;
+	rdfs:label "Compute Csgp Coalitions Templ Behavior" ;
+	ajan:trigger :ComputeCsgpCoalitionsEvent ;
+	ajan:bt behaviors:ComputeCsgpCoalitionsTemplBT .
+
+:CsgpUtilitiesRequestEvent
+	a ajan:ModelQueueEvent ;
+	rdfs:label "Csgp Utilities Request Event" .
+
+:CsgpUtilitiesRequestEndpoint
+	a ajan:Endpoint ;
+	rdfs:label "Csgp Utilities Request Endpoint" ;
+	ajan:capability "csgpUtilities" ;
+	ajan:event :CsgpUtilitiesRequestEvent .
+
+:CsgpUtilitiesRequestBehavior
+	a ajan:Behavior ;
+	rdfs:label "Csgp Utilities Request Behavior" ;
+	ajan:trigger :CsgpUtilitiesRequestEvent ;
+	ajan:bt behaviors:HandleCsgpUtilitiesRequestTemplBT .
+# ----------- CSGP Coordination stuff -------------------
+
+# -------------Grouping Template BTs ---------------
+
+
+
+
+
+:SendCoordRequestEvent
+	a ajan:ModelQueueEvent ;
+	rdfs:label "Send Coord. Request Event" .
+
+:SendCoordRequestEndpoint
+	a ajan:Endpoint ;
+	rdfs:label "Send Coord. Request Endpoint" ;
+	ajan:capability "sendCoordRequest" ;
+	ajan:event :SendCoordRequestEvent .
+
+:SendCoordRequestBehavior
+	a ajan:Behavior ;
+	rdfs:label "Send Coord. Request Behavior" ;
+	ajan:trigger :SendCoordRequestEvent ;
+	ajan:bt behaviors:SendCoordRequestTempBT .
+
+:HandleCoordRequestEvent
+	a ajan:ModelQueueEvent ;
+	rdfs:label "Handle Coord. Request Event" .
+
+:HandleCoordRequestEndpoint
+	a ajan:Endpoint ;
+	rdfs:label "Send Coord. Request Endpoint" ;
+	ajan:capability "handleCoordRequest" ;
+	ajan:event :HandleCoordRequestEvent .
+
+:HandleCoordRequestBehavior
+	a ajan:Behavior ;
+	rdfs:label "Handle Coord. Request Behavior" ;
+	ajan:trigger :HandleCoordRequestEvent ;
+	ajan:bt behaviors:HandleCoordRequestTempBT .
+
+
+:ReceiveCoordRequestResponseEvent
+	a ajan:ModelQueueEvent ;
+	rdfs:label "Receive Coord. Request Response Event" .
+
+:ReceiveCoordRequestResponseEndpoint
+	a ajan:Endpoint ;
+	rdfs:label "Receive Coord. Request Response Endpoint" ;
+	ajan:capability "receiveCoordRequestResponse" ;
+	ajan:event :ReceiveCoordRequestResponseEvent .
+
+:ReceiveCoordRequestResponseBehavior
+	a ajan:Behavior ;
+	rdfs:label "Receive Coord. Request Response Behavior" ;
+	ajan:trigger :ReceiveCoordRequestResponseEvent ;
+	ajan:bt behaviors:ReceiveCoordRequestResponseTempBT .
+
+
+
+
+:StartCoordEvent
+	a ajan:ModelEvent ;
+	rdfs:label "Custom Start Coordination Event" .
+
+:StartCoordEndpoint
+	a ajan:Endpoint ;
+	rdfs:label "Start Coordination endpoint" ;
+	ajan:capability "startCoordination" ;
+	ajan:event :StartCoordEvent .
+
+:StartCoordBehavior
+	a ajan:Behavior ;
+	rdfs:label "Start Coordination Behavior" ;
+	ajan:trigger :StartCoordEvent ;
+	ajan:bt behaviors:TempStartCoordinationBT .
+
+
+
+
+:StartCsgpCoordEvent
+	a ajan:ModelEvent ;
+	rdfs:label "Start Csgp-solver Coordination Event" .
+
+:StartCsgpCoordEndpoint
+	a ajan:Endpoint ;
+	rdfs:label "Start Csgp-solver Coordination endpoint" ;
+	ajan:capability "startCsgpCoordination" ;
+	ajan:event :StartCsgpCoordEvent .
+
+:StartCsgpCoordBehavior
+	a ajan:Behavior ;
+	rdfs:label "Start Csgp-solver Coordination Behavior" ;
+	ajan:trigger :StartCsgpCoordEvent ;
+	ajan:bt behaviors:TempStartCsgpCoordinationBT .
+
+
+:HandlePrsInfoRequestEvent
+	a ajan:ModelEvent ;
+	rdfs:label "Handle Personal Info Request Event" .
+
+:HandlePrsInfoRequestEndpoint
+	a ajan:Endpoint ;
+	rdfs:label "Handle Personal Info Request endpoint" ;
+	ajan:capability "personalInfo" ;
+	ajan:event :HandlePrsInfoRequestEvent .
+
+:HandlePrsInfoRequestBehavior
+	a ajan:Behavior ;
+	rdfs:label "Handle Personal Info Request Behavior" ;
+	ajan:trigger :HandlePrsInfoRequestEvent ;
+	ajan:bt behaviors:TempHandlePrsInfoRequestBT .
+
+
+
+:InitiatorSendRequestBehavior
+	a ajan:Behavior ;
+	rdfs:label "Request protocol Initiator Behavior to send requests" ;
+	ajan:trigger :InitiatorSendRequestGoal ;
+	ajan:bt behaviors:RP_InitiatorSendRequestBT .
+
+
+:InitiatorSendRequestGoal
+	a ajan:Goal ;
+	rdfs:label "Goal to trigger Initator Send Request BT" ;
+	ajan:precondition """
+		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+		PREFIX ajan: <http://www.ajan.de/ajan-ns#>
+		PREFIX mac: <http://localhost:8090/rdf4j/repositories/ajan_mac_ontology#>
+		ASK
+		WHERE {
+
+			?bnode	rdf:type	mac:RequestMessage ;
+				#	mac:hasInitiator	?initiatorId ;
+					mac:hasParticipant	?participantId ;
+					mac:hasConversationId	?conversationId ;
+					mac:hasParticipantCapability	?capability ;
+					mac:hasNotificationNecessary	?notifNecessary ;
+					mac:hasTimeout	?timeout ;
+					mac:hasQuorum	?quorum . 
+
+			OPTIONAL {
+
+				?bnode	mac:hasContent	?requestContent . 
+				
+				# Ensures that Content is attached to RequestInput such that it doesn't get lost or mixed. 
+				?requestContent	?predicate	?object .
+			}
+					
+
+
+		}"""^^xsd:string ;
+		
+	ajan:postcondition """
+		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+		PREFIX ajan: <http://www.ajan.de/ajan-ns#>
+		ASK
+		WHERE {
+			?s	?p 	?o .
+#			?bnode	rdf:type	ajan:GoalStatus ;
+#					ajan:hasStatus	?status .
+
+#			FILTER(?status = "Completed" || ?status = "completed")
+		}"""^^xsd:string .
+
+:ParticipantHandleRequestBehavior
+	a ajan:Behavior ;
+	rdfs:label "Request protocol Participant Behavior to handle requests" ;
+	ajan:trigger :ParticipantHandleRequestGoal ;
+	ajan:bt behaviors:RP_ParticipantHandleRequestBT .
+
+
+:ParticipantHandleRequestGoal
+	a ajan:Goal ;
+	rdfs:label "Goal to trigger Participant Handle Request BT" ;
+	ajan:precondition """
+		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+		PREFIX ajan: <http://www.ajan.de/ajan-ns#>
+		PREFIX mac: <http://localhost:8090/rdf4j/repositories/ajan_mac_ontology#>
+		ASK
+		WHERE {
+			?bnode	rdf:type	mac:RequestMessage ;
+					mac:hasInitiator	?initiatorId ;
+				#	mac:hasParticipant	?participantId ;
+					mac:hasConversationId	?conversationId ;
+					mac:hasAgreement	?agreement ;
+					mac:hasInitiatorCapability	?capability ;
+					mac:hasNotificationNecessary	?notifNecessary ;
+					mac:hasTimeout	?timeout .
+
+		}"""^^xsd:string ;
+		
+	ajan:postcondition """
+		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+		PREFIX ajan: <http://www.ajan.de/ajan-ns#>
+		ASK
+		WHERE {
+			?s	?p 	?o .
+#			?bnode	rdf:type	ajan:GoalStatus ;
+#					ajan:hasStatus	?status .
+
+#			FILTER(?status = "Completed" || ?status = "completed")
+		}"""^^xsd:string .
+
+:ReceiveRequestEndpoint
+	a ajan:Endpoint ;
+	rdfs:label "Custom Receive and Handle Request endpoint" ;
+	ajan:capability "handleRequest" ;
+	ajan:event :ReceiveRequestEvent .
+
+:ReceiveRequestEvent
+	a ajan:ModelEvent ;
+	rdfs:label "Custom Receive Request Event" .
+
+:ReceiveRequestBehavior
+	a ajan:Behavior ;
+	rdfs:label "Custom Receive Request Behavior" ;
+	ajan:trigger :ReceiveRequestEvent ;
+	ajan:bt behaviors:TempReceiveRequestBT .
+
+:InitiatorReceiveReplyBehavior
+	a ajan:Behavior ;
+	rdfs:label "Request protocol Initiator Behavior to receive reply" ;
+	ajan:trigger :InitiatorReceiveReplyGoal ;
+	ajan:bt behaviors:RP_InitiatorReceiveReplyBT .
+
+
+:InitiatorReceiveReplyGoal
+	a ajan:Goal ;
+	rdfs:label "Goal to trigger Initiator Receive Reply BT" ;
+	ajan:precondition """
+		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+		PREFIX ajan: <http://www.ajan.de/ajan-ns#>
+		PREFIX mac: <http://localhost:8090/rdf4j/repositories/ajan_mac_ontology#>
+		ASK
+		WHERE {
+			?bnode	rdf:type	mac:RequestResponse, ?responseType ;
+					mac:hasParticipant	?senderId ;
+					mac:hasConversationId	?conversationId .
+
+			OPTIONAL {
+				?bnode	mac:hasContent	?resultContent .
+				?resultContent	?predicate	?object .
+			}
+			FILTER (?responseType != mac:RequestResponse)
+
+			}"""^^xsd:string ;
+		
+	ajan:postcondition """
+		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+		PREFIX ajan: <http://www.ajan.de/ajan-ns#>
+		ASK
+		WHERE {
+			?s	?p 	?o .
+#			?bnode	rdf:type	ajan:GoalStatus ;
+#					ajan:hasStatus	?status .
+
+#			FILTER(?status = "Completed" || ?status = "completed")
+		}"""^^xsd:string .
+
+:ReceiveParticipantResponseEndpoint
+	a ajan:Endpoint ;
+	rdfs:label "Endpoint to Receive participant replies" ;
+	ajan:capability "participantResponse" ;
+	ajan:event :ReceiveParticipantReplyEvent .
+
+:ReceiveParticipantReplyEvent
+	a ajan:ModelQueueEvent ;
+	rdfs:label "Custom Receive Request Event" .
+
+:ReceiveParticipantReplyBehavior
+	a ajan:Behavior ;
+	rdfs:label "Receive Participant reply custom behavior" ;
+	ajan:trigger :ReceiveParticipantReplyEvent ;
+	ajan:bt behaviors:TempReceiveParticipantReplyBT .
+
+
+:ParticipantSendResultBehavior
+	a ajan:Behavior ;
+	rdfs:label "Request protocol Participant Behavior to send result" ;
+	ajan:trigger :ParticipantSendResultGoal ;
+	ajan:bt behaviors:RP_ParticipantSendResultBT .
+
+
+:ParticipantSendResultGoal
+	a ajan:Goal ;
+	rdfs:label "Goal to trigger Participant Send Reult BT" ;
+	ajan:precondition """
+		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+		PREFIX ajan: <http://www.ajan.de/ajan-ns#>
+		PREFIX mac: <http://localhost:8090/rdf4j/repositories/ajan_mac_ontology#>
+		ASK
+		WHERE {
+			?bnode	rdf:type	mac:RequestMessage ;
+					mac:hasInitiator	?initiatorId ;
+					mac:hasConversationId	?conversationId ;
+					mac:hasInitiatorCapability	?capability ;
+					mac:hasTimeout	?timeout ;
+					mac:hasContent	?requestResult .
+
+			?requestResult	?predicate ?object .
+
+			}"""^^xsd:string ;
+		
+	ajan:postcondition """
+		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+		PREFIX ajan: <http://www.ajan.de/ajan-ns#>
+		ASK
+		WHERE {
+			?s	?p 	?o .
+	#			?bnode	rdf:type	ajan:GoalStatus ;
+	#				ajan:hasStatus	?status .
+
+	#		FILTER(?status = "Completed" || ?status = "completed")
+		}"""^^xsd:string .
+
+
+# ----------- MAJAN BTs -----------
+
+
+# ----------- Templates -----------
+
+
+
+
+
+
