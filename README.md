@@ -22,8 +22,9 @@ of algorithms are provided in Grouping Algorithms folder.
 Furthermore, MAJAN provides template SPARQL-BTs in SPARQL-BTs-for-MAC to
 execute FIPA Request, CSGP and Clustering coordination protocols.
 
-1)  **Request Protocol** enables agents to exchange some information
-    through coordination.
+1)  [**Request
+    Protocol**](http://www.fipa.org/specs/fipa00026/SC00026H.html)
+    enables agents to exchange some information through coordination.
 
 2)  **CSGP Protocol** enables agents to coordinate themselves into
     coalitions (i.e. groups) by using BOSS, which is a CSGP solver
@@ -34,10 +35,6 @@ execute FIPA Request, CSGP and Clustering coordination protocols.
     clusters (i.e. groups) by using HDBSCAN which is a Clustering solver
     algorithm. HDBSCAN can be replaced with other Clustering solver
     algorithms easily in the respective BT.
-
-Finally, MAJAN is provided with a guideline document (MAJAN
-Guide-v1.2.pdf) which includes instructions to use MAJAN. As well as, it
-covers the ontology that is used in MAJAN.
 
 Finally, MAJAN is provided with a guideline document which includes
 everything about MAJAN, starting from an overview, MAC ontology, agent
