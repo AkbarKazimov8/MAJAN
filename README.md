@@ -42,3 +42,9 @@ communication, execution of MAC use-cases to evaluation of results.
 Moreover, it provides some extra tips for users which might be helpful
 while designing and executing a MAC use-case. Please refer to “MAJAN
 Guide.pdf” for more detailed information.
+
+Installation
+
+1)  *git init* in an empty folder
+
+2)  git pull https://github.com/AkbarKazimov/MAJAN.git
