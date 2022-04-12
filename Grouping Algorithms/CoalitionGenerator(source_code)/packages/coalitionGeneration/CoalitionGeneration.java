@@ -190,7 +190,7 @@ public class CoalitionGeneration {
 			
 			for (int i = 0; i < pairs.length; i++) {
 
-				cannotLinkConnections[i]=Integer.valueOf(pairs[i]);
+				cannotLinkConnections[i]=Integer.valueOf(pairs[i].trim());
 			}
 			
 			//int[] cannotLinkPairs=new int[] {Integer.valueOf(pairs[0]), Integer.valueOf(pairs[1])};
@@ -298,7 +298,7 @@ public class CoalitionGeneration {
 		return coalitions;
 	}
 	
-	public List<Coalition> generateALLCoalitions(CSGPInput csgpInput, int infeasibleCValue) {
+	public List<Coalition> generateALLCoalitions(CSGPInput csgpInput, double infeasibleCValue) {
 		
 		int numberOfAgents = csgpInput.getAgents().size();
 		List<Coalition> coalitions=new ArrayList<Coalition>();

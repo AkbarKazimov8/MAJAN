@@ -241,5 +241,6 @@ let MAJAN = {
 	hasRank: "http://localhost:8090/rdf4j/repositories/ajan_mac_ontology#hasRank",
 	hasMembers: "http://localhost:8090/rdf4j/repositories/ajan_mac_ontology#hasMembers",
   hasNumberOfExchangedMessages: "http://localhost:8090/rdf4j/repositories/ajan_mac_ontology#hasNumberOfExchangedMessages",
+	hasStatus: "http://localhost:8090/rdf4j/repositories/ajan_mac_ontology#hasStatus",
 };
 export {BT, EDITOR, ACTN, ND, RDF, RDFS, DCT, STRIPS, XSD, HTTP, SPIN, AGENTS, MAJAN};

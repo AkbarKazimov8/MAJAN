@@ -53,6 +53,7 @@ export default Ember.Component.extend({
   macReposList: [],
   macProblemInstances: undefined,
   selectedMacInstanceUseCase: "N/A",
+  selectedMacInstanceStatus: "N/A",
   selectedMacInstanceSolver: "N/A",
   selectedMacInstanceRuntime: "N/A" ,
   selectedMacInstanceAgentsCount: "N/A",
@@ -72,10 +73,10 @@ export default Ember.Component.extend({
   chart: null,
   chartData:[{
      "solution": "N/A",
-      "runtime": 0.001
+      "runtime": 0.000
   }, {
      "solution": "N/A",
-      "runtime": 0.001
+      "runtime": 0.000
   }],
   agentIdMappingTitleValue: "",
   agentIdMappingInputValue: "",
@@ -91,7 +92,7 @@ export default Ember.Component.extend({
     // localStorage.centralAlgorithms = [];
     // localStorage.centralInputs = [];
     // localStorage.macRepos = [];
-    // localStorage.agentIdMappings = [];
+    //localStorage.agentIdMappings = [];
     setTriplestoreField();
     initializeGlobals(this);
     loadStoredMacRepos();
@@ -240,8 +241,8 @@ export default Ember.Component.extend({
       console.log("00---"+selected);
       console.log("000---"+selected.value);
       that.set('selected_mac_repo', selected)
-      sendQueryToFetchMacProblems();
       resetMacSolutionPanel();
+      sendQueryToFetchMacProblems();
     },
 
     centralAlgoSelection:function(selected){
@@ -279,7 +280,7 @@ export default Ember.Component.extend({
     that.set('selectedSolutionsForComparison.mac', selectionTitle);
     that.set('selectedSolutionsForComparison.macId', selected);
 
-    that.chartData.splice(0,1,{
+    that.chartData.splice(1,1,{
       solution: selectionTitle,
       runtime: that.get('selectedMacInstanceRuntime')
     });
@@ -298,7 +299,7 @@ export default Ember.Component.extend({
     that.set('selectedSolutionsForComparison.central', selectionTitle);
     that.set('selectedSolutionsForComparison.centralId', selected);
 
-    that.chartData.splice(1,1,{
+    that.chartData.splice(0,1,{
       solution: selectionTitle,
       runtime: that.get('selectedCentralAlgorithm.runtime')
     });
@@ -318,6 +319,8 @@ export default Ember.Component.extend({
   },
 
   reload_mac(){
+    resetMacSolutionPanel();
+    // that.set('selectedMacInstanceSolutions', []);
     sendQueryToFetchMacProblems();
     // displayMacProblemInfo(that.get('macProblemInstances')[selected]);
     // displayMacSolutions(that.get('macProblemInstances')[selected]);
@@ -473,7 +476,7 @@ var categoryAxis = innerChart.yAxes.push(new am4charts.CategoryAxis());
 categoryAxis.renderer.grid.template.location = 0;
 categoryAxis.dataFields.category = "solution";
 categoryAxis.renderer.minGridDistance = 30;
-categoryAxis.title.text = "Solutions";
+// categoryAxis.title.text = "Solutions";
 categoryAxis.title.rotation = 0;
 categoryAxis.title.align = "center";
 categoryAxis.title.valign = "top";
@@ -1028,6 +1031,7 @@ console.log("numberOfAgents: "+macProblemInstance.numberOfAgents);
 function resetMacSolutionPanel(){
   that.set('macProblemInstances', null);
   that.set('selectedMacInstanceUseCase',"N/A");
+  that.set('selectedMacInstanceStatus',"N/A");
   that.set('selectedMacInstanceSolver',"N/A");
   that.set('selectedMacInstanceRuntime',"N/A");
   that.set('selectedMacInstanceAgentsCount',"N/A");
@@ -1090,10 +1094,13 @@ console.log("--11---1--1---",selectedMacInstanceSolutions);
 }
 
 function displayMacProblemInfo(macProblemToBeDisplayed){
-          that.set('selectedMacInstanceUseCase',macProblemToBeDisplayed.useCase);
-          that.set('selectedMacInstanceSolver',macProblemToBeDisplayed.solver);
-          that.set('selectedMacInstanceRuntime',macProblemToBeDisplayed.runtime);
-          that.set('selectedMacInstanceAgentsCount',macProblemToBeDisplayed.numberOfAgents);
+          that.set("macProblemToBeDisplayed", macProblemToBeDisplayed);
+
+          // that.set('selectedMacInstanceUseCase',macProblemToBeDisplayed.useCase);
+          // that.set('selectedMacInstanceStatus',macProblemToBeDisplayed.status);
+          // that.set('selectedMacInstanceSolver',macProblemToBeDisplayed.solver);
+          // that.set('selectedMacInstanceRuntime',macProblemToBeDisplayed.runtime);
+          // that.set('selectedMacInstanceAgentsCount',macProblemToBeDisplayed.numberOfAgents);
 }
 
 function parseRdfTest(rdfInput) {

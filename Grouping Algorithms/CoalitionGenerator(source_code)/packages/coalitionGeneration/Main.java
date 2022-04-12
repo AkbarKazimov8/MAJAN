@@ -11,11 +11,11 @@ import coalitionGeneration.models.Coalition;
 
 
 public class Main {
-	public final static int infeasibleCValue = -100000000;
+	public final static double infeasibleCValue = Double.NEGATIVE_INFINITY;
 
 	public static void main(String[] args) {
-		String inputPath="/home/lexi/Desktop/Thesis_git/Software/EclipseWorkspace/MAC Solution/CoalitionGeneration_For_MAC/Input-Output/input.txt";
-	 	String outputPath="/home/lexi/Desktop/Thesis_git/Software/EclipseWorkspace/MAC Solution/CoalitionGeneration_For_MAC/Input-Output/output.txt";
+		String inputPath="/home/lexi/Desktop/MAJAN/Grouping Algorithms/CoalitionGenerator(source_code)/Input-Output/input.txt";
+	 	String outputPath="/home/lexi/Desktop/MAJAN/Grouping Algorithms/CoalitionGenerator(source_code)/Input-Output/output.txt";
 		
 		//String inputPath = args[0];
 		//String outputPath = args[1];

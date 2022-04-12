@@ -30,6 +30,7 @@ export default {
 			?macProblem	rdf:type	mac:MACProblemInstance ;
 									mac:hasId	?id ;
 									mac:hasUseCase	?useCase ;
+									mac:hasStatus		?status ;
 									mac:hasSolver	?solver ;
 									mac:hasRuntime	?runtime ;
 									mac:hasNumberOfAgents	?agentsAmount .
@@ -43,6 +44,7 @@ WHERE{
 			?macProblem	rdf:type	mac:MACProblemInstance ;
 									mac:hasId	?id ;
 									mac:hasUseCase	?useCase ;
+									mac:hasStatus 	?status ;
 									mac:hasNumberOfAgents	?agentsAmount .
 			OPTIONAL {
 				?macProblem	rdf:type	mac:MACProblemInstance ;

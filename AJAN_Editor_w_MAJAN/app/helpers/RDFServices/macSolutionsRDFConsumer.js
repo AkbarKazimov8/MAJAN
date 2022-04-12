@@ -121,6 +121,9 @@ function getMacSolutionsDefinitions(graph, resource) {
       if (quad.predicate.value === MAJAN.useCase) {
         macSolution.useCase = quad.object.value;
       }
+      if (quad.predicate.value === MAJAN.hasStatus) {
+        macSolution.status = quad.object.value;
+      }
       if (quad.predicate.value === MAJAN.solver) {
         macSolution.solver = quad.object.value;
       }
