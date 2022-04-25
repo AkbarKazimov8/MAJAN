@@ -1,5 +1,5 @@
 {
-	"algorithm":"BOSS_for_MAJAN_v2.0",
+	"algorithm":"BOSS_for_MAJAN_v1.0",
 	"pathToJarFile":"/home/lexi/Desktop/MAJAN/Grouping Algorithms/BOSS/BOSS_for_MAJAN.jar",
 	"timeout": "5",
 	"keywords":[

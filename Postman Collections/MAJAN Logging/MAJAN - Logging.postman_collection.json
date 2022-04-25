@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "1d62a79f-bd67-4485-8b00-0da8b6088a40",
+		"_postman_id": "349d6461-3680-4705-9d7d-391660bda3f1",
 		"name": "MAJAN - Logging",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -50,25 +50,14 @@
 					"raw": "@prefix mac: <http://localhost:8090/rdf4j/repositories/ajan_mac_ontology#> .\r\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\r\n@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\r\n@prefix xml: <http://www.w3.org/XML/1998/namespace> .\r\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\r\n@prefix ajan: <http://www.ajan.de/ajan-ns#> .\r\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\r\n\r\n_:bnode     rdf:type    mac:Log ;\r\n            mac:hasAgentId     \"agent2\" ;\r\n            mac:hasUseCase     \"ABC\" ;\r\n            mac:hasSolver   \"Boss\" ;\r\n            mac:hasActivity \"MAC Problem Instance: \\nID:123,\\nParticipants: majanAgent1, 2, 3\" ;\r\n            mac:hasActivityStatus   \"Success\" .\r\n\r\n\r\n\r\n\r\n"
 				},
 				"url": {
-					"raw": "http://localhost:8060/welcome/integration/coordination/ajan/agents/majanAgent1?capability=sendCoordRequest",
+					"raw": "http://localhost:4202/post",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8060",
+					"port": "4202",
 					"path": [
-						"welcome",
-						"integration",
-						"coordination",
-						"ajan",
-						"agents",
-						"majanAgent1"
-					],
-					"query": [
-						{
-							"key": "capability",
-							"value": "sendCoordRequest"
-						}
+						"post"
 					]
 				}
 			},
