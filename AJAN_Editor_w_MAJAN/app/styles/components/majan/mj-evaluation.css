@@ -387,6 +387,9 @@ a, a:hover, a:focus, button, path {
     align-items: center;
 }
 
+.font-size15 {
+  font-size: 15px;
+}
 .form-check-input {
     width: 20px;
     margin: 0;
@@ -416,16 +419,21 @@ a, a:hover, a:focus, button, path {
 .selected-solution-title {
     background: rgb(0,0,0);
     color: rgb(19,243,198);
-    width: 150px;
+    width: 100px;
     /* height: 30px; */
     border: 1px solid gray;
 }
-
+.nmi-border {
+  border:solid 1px #f00;
+}
+fieldset {
+  background-color: #eeeeee;
+}
 .selected-solution-text {
     background: rgb(231,230,230);
     /* height: 30px; */
-    width: 150px;
-    border: 2px solid #000;
+    width: 100%;
+    /* border: 2px solid #000; */
     font-weight: 500;
     margin-left: 10px;
 }

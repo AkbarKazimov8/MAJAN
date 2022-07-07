@@ -26,7 +26,6 @@ import rdf from "npm:rdf-ext";
 import N3 from "npm:rdf-parser-n3";
 import { filterBy } from '@ember/object/computed';
 import globalMjnVariable from "ajan-editor/helpers/majan/globalVariables";
-//import store from 'ember-data/store';
 
 let that;
 let $ = Ember.$;
@@ -40,6 +39,7 @@ export default Ember.Component.extend({
   socketRef: null,
   wssMessage: {},
   availableLogs: [],
+  reversedMacLogs: [],
   allMacLogs: [],
   filteredMacLogs: [],
   agentIdInput: "",
@@ -52,29 +52,12 @@ export default Ember.Component.extend({
     setTriplestoreField();
 
     getResponseMessage();
-    //if (that.socketRef === null) {
-      //that.set('wssConnection', true);
-    //  that.actions.connect();
-  //  }
-/*  console.log(11111);
-  console.log(globalMjnVariable.getMajanServiceConnection());
-  globalMjnVariable.setMajanServiceConnection(true);
-  console.log(22222);
-  console.log(globalMjnVariable.getMajanServiceConnection());
-*/
   if (globalMjnVariable.getMajanServiceConnection() == false || globalMjnVariable.getMajanServiceConnection() == true) {
     that.set('wssConnection', globalMjnVariable.getMajanServiceConnection());
   }else{
     that.set('wssConnection', false);
     globalMjnVariable.setMajanServiceConnection(false);
   }
-
-  /*
-  that.get('store').createRecord('macrepo',{
-    name: 'macrepoexampledata-in-monitoring'
-  });
-*/
-
   },
 
   willDestroyElement() {
@@ -103,17 +86,8 @@ export default Ember.Component.extend({
         }
       }
 
-    //  var filtered = that.availableLogs.filterBy('agentId', that.agentIdInput);
-        //.filterBy('useCase', that.useCaseInput)
-        //.filterBy('solver', that.solverInput);
-
-      console.log(that.availableLogs.length);
-
-      //filtered.forEach((item, i) => {
-      //  console.log(item.agentId);
-    //  });
       that.set('availableLogs', that.filteredMacLogs);
-      console.log(that.agentIdInput);
+      that.set('reversedMacLogs', that.availableLogs.reverse());
     },
 
     cleanFilter(){
@@ -136,6 +110,7 @@ export default Ember.Component.extend({
       that.set('availableLogs', []);
       that.set('allMacLogs', []);
       that.set('filteredMacLogs', []);
+      that.set('reversedMacLogs', that.availableLogs.reverse());
 
     },
 
@@ -189,7 +164,7 @@ export default Ember.Component.extend({
       useCase: "",
       solver: "",
       activity: "",
-      activityStatus: ""
+      macStatus: ""
     };
     rdf.dataset().import(quadStream).then((dataset) => {
       dataset.forEach((quad) => {
@@ -202,15 +177,12 @@ export default Ember.Component.extend({
             break;
           case MAJAN.solver:
             logData.solver = quad.object.value ;
-            console.log("5555555");
             break;
           case MAJAN.activity:
             logData.activity = quad.object.value ;
-            console.log("6666666");
             break;
-          case MAJAN.activityStatus:
-            logData.activityStatus = quad.object.value ;
-            console.log("7777777");
+          case MAJAN.hasStatus:
+            logData.macStatus = quad.object.value ;
             break;
           default:
             console.log("switch default 00000");
@@ -228,7 +200,7 @@ function addLogToList(logData){
     usecase: logData.useCase,
     solver: logData.solver,
     activity: logData.activity,
-    status: logData.activityStatus,
+    status: logData.macStatus,
   });
 
   that.availableLogs.pushObject({
@@ -237,38 +209,23 @@ function addLogToList(logData){
     usecase: logData.useCase,
     solver: logData.solver,
     activity: logData.activity,
-    status: logData.activityStatus,
+    status: logData.macStatus,
   });
+
+  that.set('reversedMacLogs', that.availableLogs.reverse());
 }
 
   function myOpenHandler(event) {
-  console.log(`On open event has been called: ${event}`);
   that.set("wssConnection", true);
   }
 
   function myMessageHandler(event) {
-  console.log(`Message: ${event.data}`);
-  console.log('mesaj set eliyir');
-/*  that.set("wssMessage", JSON.parse(event.data));*/
   let wssMessage = JSON.parse(event.data);
-  //addLog(wssMessage.body);
   parseLog(wssMessage.body);
-/*  this.availableLogs.pushObject({
-    time: date.toLocaleTimeString(),
-    activity: wssMessage.body
-  });
-  this.availableLogs.pushObject({
-    time: "14:22",
-    agentId: "agent3",
-    usecase: "LCC",
-    solver: "BOSS",
-    activity: "Broadcasted Feasible Coalitions",
-    status: "Failure"
-  });*/
+
   }
 
   function myCloseHandler(event) {
-  console.log(`On close event has been called: ${event}`);
   that.get('websockets').closeSocketFor('ws://localhost:4202');
   that.set("wssConnection", false);
   }
@@ -304,53 +261,3 @@ function addLogToList(logData){
     console.log(error);
   });
 }
-
-/*
-  init() {
-    this._super(...arguments);
-    //that = this;
-
-    this.set('availableLogs',[{
-      time: "14:21",
-      agentId: "agent1",
-      usecase: "LCC",
-      solver: "BOSS",
-      activity: "Generated Feasible Coalitions",
-      status: "Success"
-    },
-    {
-      time: "14:21",
-      agentId: "agent2",
-      usecase: "LCC",
-      solver: "BOSS",
-      activity: "Returned Personal Info",
-      status: "Success"
-    },
-    {
-      time: "14:22",
-      agentId: "agent1",
-      usecase: "LCC",
-      solver: "BOSS",
-      activity: "Broadcasted Feasible Coalitions",
-      status: "Success"
-    }
-  ])
-  this.availableLogs.pushObject({
-    time: "14:22",
-    agentId: "agent3",
-    usecase: "LCC",
-    solver: "BOSS",
-    activity: "Broadcasted Feasible Coalitions",
-    status: "Failure"
-  })
-  //const textStream = require('streamify-string')(`
-//  <http://ex.org/s> <http://ex.org/p> <http://ex.org/o1>, <http://ex.org/o2>.
-//  `);
-
-  //rdfParser.parse(textStream, { contentType: 'text/turtle', baseIRI: 'http://example.org' })
-  //    .on('data', (quad) => console.log(quad))
-  //    .on('error', (error) => console.error(error))
-  //    .on('end', () => console.log('All done!'));
-} }}*/
-
-//});

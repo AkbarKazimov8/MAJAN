@@ -82,7 +82,7 @@
                               </div>
                               <form onsubmit="return false">
                                   <div local-class="flex">
-                                      <div local-class="form-group">
+                                      <div local-class="form-group" style="width: 50%">
                                           <select local-class="form-select" aria-label="Select Repository" onchange={{action "macRepoSelection" value="target.value"}} >
                                             {{#each macReposList as |macRepo|}}
                                             <option value={{macRepo.id}}>{{macRepo.name}}</option>
@@ -91,7 +91,7 @@
                                       </div>
                                       <div local-class="form-group ">
                                           {{input type="text" class="form-control" aria-label="algorithm"
-                                                        placeholder="Specify Repository…" value=mac_repo_tobesaved}}
+                                                        placeholder="Write an Agent Name to Fetch Results" value=mac_repo_tobesaved}}
                                       </div>
                                   </div>
                                   <div local-class="flex-end">
@@ -112,12 +112,12 @@
                           </div>
                           <div local-class="scrollable-block">
                               <p local-class="title">
-                                  Problem Instances
+                                  <u>Problem Instances</u>
                               </p>
                               <div local-class="item-list">
                                 {{#each macProblemInstances as |macInstance index| }}
                                 <div local-class="item flex-center">
-                                    <div local-class="item-info w-100"><b>{{inc index}}.</b> {{macInstance.useCase}}_{{macInstance.id}}</div>
+                                    <div local-class="item-info w-100 font-size15"><b>{{inc index}}.</b> {{macInstance.useCase}}_{{macInstance.id}}</div>
                                     <div local-class="form-check">
                                         <input local-class="form-check-input" type="radio" name="instance"
                                                value={{index}} aria-label="instance" onclick={{action "problemInstanceRadioClick" value="target.value"}}>
@@ -127,30 +127,31 @@
                               </div>
                           </div>
                           <div local-class="data-block flex">
-                              <div local-class="left w-100">
-                                  <p local-class="m-0"><b>Use-case:</b> {{selectedMacInstanceUseCase}}</p>
-                                  <p local-class="m-0"><b>Status:</b> {{selectedMacInstanceStatus}}</p>                                  <p local-class="m-0"><b>Solver:</b> {{selectedMacInstanceSolver}}</p>
-                                  <p local-class="m-0"><b>Runtime (sec):</b> {{selectedMacInstanceRuntime}}</p>
-                                  <p local-class="m-0"><b>No. of Agents:</b> {{selectedMacInstanceAgentsCount}}</p>
+                            <div local-class="left w-100">
+                                <p local-class="m-0" style="font-size: 15px"><b>Use-case:</b> {{macProblemToBeDisplayed.useCase}}</p>
+                                <p local-class="m-0" style="font-size: 15px"><b>Status:</b> {{macProblemToBeDisplayed.status}}</p>
+                                <p local-class="m-0" style="font-size: 15px"><b>Solver:</b> {{macProblemToBeDisplayed.solver}}</p>
+                                <p local-class="m-0" style="font-size: 15px"><b>Runtime (sec):</b> {{macProblemToBeDisplayed.runtime}}</p>
+                                <p local-class="m-0" style="font-size: 15px"><b>No. of Agents:</b> {{macProblemToBeDisplayed.numberOfAgents}}</p>
+                                <!-- <p local-class="m-0"><b>No. of Exchanged Messages:</b> {{selectedMacInstanceMessagesCount}}</p> -->
+                            </div>
+                              <!-- <div local-class="left w-100"> -->
+                                  <!-- <p local-class="m-0"><b>Use-case:</b> {{selectedMacInstanceUseCase}}</p> -->
+                                  <!-- <p local-class="m-0"><b>Status:</b> {{selectedMacInstanceStatus}}</p>                                  <p local-class="m-0"><b>Solver:</b> {{selectedMacInstanceSolver}}</p> -->
+                                  <!-- <p local-class="m-0"><b>Runtime (sec):</b> {{selectedMacInstanceRuntime}}</p> -->
+                                  <!-- <p local-class="m-0"><b>No. of Agents:</b> {{selectedMacInstanceAgentsCount}}</p> -->
                                   <!-- <p local-class="m-0"><b>No. of Exchanged Messages:</b> {{selectedMacInstanceMessagesCount}}</p> -->
-                              </div>
-                              {{!-- <div local-class="right w-100"> --}}
-                                  {{!-- <p local-class="m-0">{{selectedMacInstanceUseCase}}</p> --}}
-                                  {{!-- <p local-class="m-0">{{selectedMacInstanceSolver}}</p> --}}
-                                  {{!-- <p local-class="m-0">{{selectedMacInstanceRuntime}}</p> --}}
-                                  {{!-- <p local-class="m-0">{{selectedMacInstaneAgentsCount}}</p> --}}
-                                  {{!-- <p local-class="m-0">{{selectedMacInstanceMessagesCount}}</p> --}}
-                              {{!-- </div> --}}
+                              <!-- </div> -->
                           </div>
                           {{!-- <div local-class="my_parent"> --}}
                           <div local-class=" scrollable-block m-0 solutions-specific-block">
                               <p local-class="title">
-                                  Solutions
+                                  <u>Solutions</u>
                               </p>
                               <div local-class="item-list">
                                   {{#each selectedMacInstanceSolutions as |solution index| }}
                                   <div local-class="item flex-center">
-                                      <div local-class="item-info w-100"><b>{{inc index}}. Grouping:</b> {{solution.macSolutionContent}}
+                                      <div local-class="item-info w-100 font-size15"><b>{{inc index}}. Grouping:</b> {{solution.macSolutionContent}}
                                         <br><b>Value:</b> {{solution.macSolutionValue}}</div>
                                       <div local-class="form-check">
                                           <input local-class="form-check-input" type="radio" name="solution"
@@ -258,20 +259,20 @@
                           </div>
                           <div local-class="data-block flex" >
                               <div local-class="left w-100">
-                                  <p local-class="m-0"><b>Algorithm:</b> {{selectedCentralAlgorithm.name}}</p>
-                                  <p local-class="m-0"><b>Input:</b> {{selectedInputTitle}}</p>
-                                  <p local-class="m-0"><b>Runtime (sec):</b> {{selectedCentralAlgorithm.runtime}}</p>
-                                  <p local-class="m-0"><b>No. of Agents:</b> {{selectedCentralAlgorithm.agentCount}}</p>
+                                  <p local-class="m-0" style="font-size: 15px"><b>Algorithm:</b> {{selectedCentralAlgorithm.name}}</p>
+                                  <p local-class="m-0" style="font-size: 15px"><b>Input:</b> {{selectedInputTitle}}</p>
+                                  <p local-class="m-0" style="font-size: 15px"><b>Runtime (sec):</b> {{selectedCentralAlgorithm.runtime}}</p>
+                                  <p local-class="m-0" style="font-size: 15px"><b>No. of Agents:</b> {{selectedCentralAlgorithm.agentCount}}</p>
                               </div>
                           </div>
                           <div local-class="scrollable-block m-0 solutions-specific-block">
                               <p local-class="title">
-                                  Solutions
+                                  <u>Solutions</u>
                               </p>
                               <div local-class="item-list">
                                 {{#each centralAlgorithmSolutionsList as |centralSolution index| }}
                                 <div local-class="item flex-center">
-                                    <div local-class="item-info w-100"><b>{{inc index}}. Grouping:</b> {{centralSolution.groupingSolutionContent}}
+                                    <div local-class="item-info w-100 font-size15"><b>{{inc index}}. Grouping:</b> {{centralSolution.groupingSolutionContent}}
                                       <br><b>Value:</b> {{centralSolution.groupingValue}}</div>
                                     <div local-class="form-check">
                                         <input local-class="form-check-input" type="radio" name="cntrlSolution"
@@ -306,17 +307,20 @@
                               <div local-class="comparison-score">
                                   <ul local-class="list-unstyled">
                                       <li local-class="flex-start">
-                                          <span local-class="selected-solution-title flex-center">Selected MAC:</span>
+                                          <span local-class="selected-solution-title flex-center">Selected:</span>
                                           <span local-class="selected-solution-text flex-center"><b>{{selectedSolutionsForComparison.mac}}</b></span>
                                       </li>
                                       <li local-class="flex-start">
-                                          <span local-class="selected-solution-title flex-center">Selected Central:</span>
+                                          <span local-class="selected-solution-title flex-center">Selected:</span>
                                           <span local-class="selected-solution-text flex-center"><b>{{selectedSolutionsForComparison.central}}</b></span>
                                       </li>
                                   </ul>
                               </div>
                               <div id="chartdiv" style="width: 100%;  max-height: 350px; padding-top: 20px;" ></div>
                               <form onsubmit="return false" style="padding-top:10px;">
+                                <!-- <div local-class="nmi-border"> -->
+                                <fieldset>
+                                  <legend align="center">Compute NMI</legend>
                                 <div local-class="flex">
                                     <div local-class="form-group">
                                       <select local-class="form-select" aria-label="AgentNameMappings" onchange={{action "handleAgentIdMappingSelection" value="target.value"}}>
@@ -364,10 +368,10 @@
                                                                   placeholder="Enter Input for Algorithm… (free text)"
                                                                   rows="3" >{{input value=centralInputBody}}</textarea> --}}
                                                         {{textarea type="text" local-class="form-control" aria-label="comment"
-                                                                         placeholder='Add mapping of IDs and agent names where IDs represent agents in central solution and agent names represent respective agents in MAC solution. Example:
-1. agent1
-2. agent2
-3. agent3
+                                                                         placeholder='Match agent names in MAC Solution with agent names in Central Solution as described below:
+agent1 = 1
+agent2 = 2
+agent3 = 3
 ...' value=agentIdMappingInputValue}}
                                                 </div>
                                             </div>
@@ -443,7 +447,8 @@
                                     </div> -->
                                   {{!-- </div> --}}
                                   {{!-- <div local-class="central-resizable" style="padding-bottom: 80px;"> --}}
-
+                               <!-- </div> -->
+                             </fieldset>
                               </form>
                           </div>
                       </div>

@@ -21,13 +21,11 @@
                       <span style="font-size: 20px;"> <b>Monitoring Service</b></span>
                         <div local-class="connect_wss">
                       {{#if wssConnection}}
-                      <button local-class="disconnect-button" class="ui right icon button" onclick={{action "disconnect"}}>
-                        Disconnect <i class="icon red bell slash no-side-margins"></i>
+                      <button local-class="disconnect-button" class="ui right icon button" onclick={{action "disconnect"}}>Click to Disconnect <i class="icon red bell slash no-side-margins"></i>
                       </button>
                       {{/if}}
                       {{#unless wssConnection}}
-                      <button local-class="connect-button" class="ui right icon button" onclick={{action "connect"}}>
-                        Connect <i class="icon green bell no-side-margins"></i>
+                      <button local-class="connect-button" class="ui right icon button" onclick={{action "connect"}}>Click to Connect <i class="icon green bell no-side-margins"></i>
                       </button>
                       {{/unless}}
                     </div>
@@ -88,13 +86,16 @@
 
                   <div local-class="coordination-block">
                       <div local-class="col-8">
+                        <div local-class="flex-start">
+                            <button type="button" local-class="btn-border" onclick={{action "cleanLogs"}}>Clean Logs</button>
+                        </div>
                           <div local-class="coordination-in">
                               <div local-class="flex-center">
                                   <div local-class="title text-center">
                                       Multi Agent Coordination <br> Logs
                                   </div>
                               </div>
-                              <div local-class="item-list-static">
+                              <!-- <div local-class="item-list-static">
                                  <span local-class="item-static">
                                    <b>Time</b>
                                  </span>
@@ -113,32 +114,36 @@
                                   <span local-class="item-static">
                                     <b>Status</b>
                                  </span>
-                              </div>
-                              {{#each availableLogs as |log|}}
+                              </div> -->
+                              {{#each reversedMacLogs as |log|}}
                               <div local-class="item-list">
                                  <span local-class="item">
+                                   <b><u>Time<br/></u></b>
                                    {{log.time}}
                                  </span>
                                   <span local-class="item">
+                                  <b><u>Agent ID<br/></u></b>
                                     {{log.agentId}}
                                  </span>
                                  <span local-class="item">
+                                   <b><u>Use Case<br/></u></b>
                                    {{log.usecase}}
                                  </span>
                                   <span local-class="item">
+                                    <b><u>Solver<br/></u></b>
                                     {{log.solver}}
                                  </span>
-                                 <span local-class="item" style="white-space: pre-line">
-                                   {{log.activity}}
+                                 <!-- <span local-class="item" style="white-space: pre-line"> -->
+                                 <span local-class="item">
+                                   <b><u>Activity<br/></u></b>
+                                   <pre>{{log.activity}}</pre>
                                  </span>
                                   <span local-class="item">
+                                    <b><u>Coordination Status<br/></u></b>
                                     {{log.status}}
                                  </span>
                               </div>
                               {{/each}}
-                          </div>
-                          <div local-class="flex-start">
-                              <button type="button" local-class="btn-border" onclick={{action "cleanLogs"}}>Clean Logs</button>
                           </div>
                       </div>
                   </div>

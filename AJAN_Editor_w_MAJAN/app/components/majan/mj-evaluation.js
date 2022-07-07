@@ -69,7 +69,7 @@ export default Ember.Component.extend({
   selectedInputTitle: "",
   selectedCentralAlgorithm: {},
   centralAlgorithmSolutionsList: [],
-  selectedSolutionsForComparison: {},
+  selectedSolutionsForComparison: [],
   chart: null,
   chartData:[{
      "solution": "N/A",
@@ -89,24 +89,20 @@ export default Ember.Component.extend({
     this._super(...arguments);
     that = this;
     // TO CLEAR FROM LOCAL STORAGE
-    // localStorage.centralAlgorithms = [];
-    // localStorage.centralInputs = [];
-    // localStorage.macRepos = [];
-    //localStorage.agentIdMappings = [];
+     localStorage.centralAlgorithms = [];
+     localStorage.centralInputs = [];
+     localStorage.macRepos = [];
+     localStorage.agentIdMappings = [];
+    resetSelectedSolutionsInComparisonSection();
     setTriplestoreField();
     initializeGlobals(this);
+    setNoSolutionsSelectedYet();
     loadStoredMacRepos();
     loadStoredCentralInputs();
     loadStoredAgentIdMappings();
     displayStoredCentralAlgorithms();
     console.log("000-"+that.selected_mac_repo);
-    // TODO NMI Works correctly. Just create arrays
-    // let a1 = [3, 3, 3, 2, 2, 1, 1,];
-    // let a2 = [2, 2, 1, 1, 3, 3, 3];
-    // let a3 = [2, 2, 2, 1, 1, 3, 3];
-    //
-    // let node2com = nmi.jNMI(a3, a1);
-    // console.log("sik bas:--" + node2com);
+
     // chartFunc();
     // barChartF();
     // runtimeBarChart();
@@ -117,7 +113,6 @@ export default Ember.Component.extend({
 
   willDestroyElement() {
     this._super(...arguments);
-    //this.actions.disconnect();
     if (that.chart) {
       that.chart.dispose();
     }
@@ -126,15 +121,11 @@ export default Ember.Component.extend({
 
   actions: {
     reloadNmiScore(){
+      setNmiScore("-");
       if(that.comparisonAgentIdMappingsList.length > 0){
-        console.log("--11--: " + that.selectedAgentIdMappingIndex);
         if(that.selectedAgentIdMappingIndex != "" && that.selectedAgentIdMappingIndex != undefined){
-        console.log(that.comparisonAgentIdMappingsList.filter(function(item) {return item.title == that.selectedAgentIdMappingIndex}));
-                console.log(that.comparisonAgentIdMappingsList.filter(function(item) {return item.title == that.selectedAgentIdMappingIndex})[0].body);
       displayNMIscore(that.comparisonAgentIdMappingsList.filter(function(item) {return item.title == that.selectedAgentIdMappingIndex})[0].body);
       }else {
-        console.log(that.comparisonAgentIdMappingsList[0]);
-        console.log(that.comparisonAgentIdMappingsList[0].body);
         displayNMIscore(that.comparisonAgentIdMappingsList[0].body);
       }
     }else {
@@ -142,9 +133,11 @@ export default Ember.Component.extend({
     }
     },
     saveAgentIdMappingInput(){
-      console.log("save agent id mapping input");
-      if (that.agentIdMappingInputValue != "" & that.agentIdMappingTitleValue != "") {
-
+      if (that.agentIdMappingInputValue == ""){
+        alert("Input is empty. Enter something!");
+      }else if (that.agentIdMappingTitleValue == "") {
+        alert("Input Title is empty. Enter something!");
+      }else {
         if(that.comparisonAgentIdMappingsList.filter(function(item) {return item.title == that.agentIdMappingTitleValue}).length==0){
           that.comparisonAgentIdMappingsList.pushObject({
             title: that.agentIdMappingTitleValue,
@@ -166,38 +159,27 @@ export default Ember.Component.extend({
           // that.set('selectedInputTitle', that.centralInputsList[0].title);
         }else {
           // notify that input title exists
-          console.log("Input Title already exists. Write something else!");
           alert("Agent-ID Mapping Title already exists. Write something else!");
         }
-
-      }else {
-        // notify that input is empty
-        console.log("Input is empty. Write something!");
-        alert("Input is empty. Enter something!");
       }
+
     },
     save_repo(){
       if(that.mac_repo_tobesaved != ""){
-        // create record example below
-        /*let newMacRepo = that.get('store').createRecord('macrepo',{
-          name: that.mac_repo_tobesaved
-        });*/
-      //  newMacRepo.save();
-        //that.macReposList.pushObject(that.mac_repo_tobesaved);
         that.macReposList.pushObject({
           name: that.mac_repo_tobesaved,
         });
         localStorage.macRepos = JSON.stringify(that.macReposList);
         that.set('mac_repo_tobesaved', "");
+        sendQueryToFetchMacProblems();
+
       }else {
-        // notify that input is empty
-        console.log("Input is empty. Write something!");
+        alert("No input is provided!");
       }
     },
 
     save_input(){
       if (that.centralInputBody != "" & that.centralInputTitleToBeSaved != "") {
-        console.log("lentgggggg:::-"+that.centralInputsList.filter(function(item) {return item.title == that.centralInputTitleToBeSaved}).length);
         if(that.centralInputsList.filter(function(item) {return item.title == that.centralInputTitleToBeSaved}).length==0){
           that.centralInputsList.pushObject({
             title: that.centralInputTitleToBeSaved,
@@ -210,26 +192,16 @@ export default Ember.Component.extend({
             displaySelectedInput(that.centralInputsList.filter(function(item) {return item.title == that.selectedInputTitle})[0]);
            }
           //
-          // that.set('centralInputBody', "");
            that.set('centralInputTitleToBeSaved', "");
-          // that.set('selectedInputTitle', that.centralInputsList[0].title);
         }else {
-          // notify that input title exists
-          console.log("Input Title already exists. Write something else!");
           alert("Input Title already exists. Write something else!");
         }
-
       }else {
-        // notify that input is empty
-        console.log("Input is empty. Write something!");
         alert("Input is empty. Enter something!");
       }
     },
 
     handleAgentIdMappingSelection: function(selected){
-      console.log("selected mapping: " + selected);
-      // displaySelectedInput(that.get('centralInputsList').filter(
-        // function(item) {return item.title == selected})[0]);
       displaySelectedAgentIdMapping(that.get('comparisonAgentIdMappingsList').filter(
           function(item) {return item.title == selected})[0]);
       displayNMIscore(that.get('comparisonAgentIdMappingsList').filter(
@@ -238,64 +210,44 @@ export default Ember.Component.extend({
     },
 
     macRepoSelection: function(selected){
-      console.log("00---"+selected);
-      console.log("000---"+selected.value);
       that.set('selected_mac_repo', selected)
       resetMacSolutionPanel();
       sendQueryToFetchMacProblems();
     },
 
     centralAlgoSelection:function(selected){
-      console.log("selected central algo:"+selected);
       displaySelectedAlgorithm(that.get('centralAlgorithmList').filter(function(item) {return item.name == selected})[0].config);
 
     },
 
     setCentralInputSelection:function(selected){
-      console.log("selected central input"+selected);
       displaySelectedInput(that.get('centralInputsList').filter(
         function(item) {return item.title == selected})[0]);
 
     },
 
     problemInstanceRadioClick: function(selected){
-      console.log("11---"+selected);
-      console.log("111---"+selected.value);
-      that.set('selectedSolutionsForComparison.mac', "Problem "+(parseInt(selected)+1));
+      that.set('selectedSolutionsForComparison.mac', "Problem Instance: "+(parseInt(selected)+1));
       that.set('selectedSolutionsForComparison.macProblemIndex', selected);
       displayMacProblemInfo(that.get('macProblemInstances')[selected]);
       displayMacSolutions(that.get('macProblemInstances')[selected]);
-      // display solutions
-      //that.set('selected_mac_repo', selected)
-    //  sendQueryToFetchMacProblems();
   },
 
   handleMacSolutionChange: function(selected){
-    console.log("11---"+selected);
-    console.log("111---"+selected.value);
-    // that.set('selectedSolutionsForComparison.mac', that.selectedMacInstanceSolutions[selected]);
-    // that.selectedSolutionsForComparison.mac = selectedMacInstanceSolutions[selected];
-    var selectionTitle = "P "+ (parseInt(that.selectedSolutionsForComparison.macProblemIndex)+1) +
-    ", Solution " + (parseInt(selected)+1);
+    var selectionTitle = "MAC Solution: " + (parseInt(selected)+1) + " of Problem Instance: " + (parseInt(that.selectedSolutionsForComparison.macProblemIndex)+1);
     that.set('selectedSolutionsForComparison.mac', selectionTitle);
     that.set('selectedSolutionsForComparison.macId', selected);
 
     that.chartData.splice(1,1,{
       solution: selectionTitle,
-      runtime: that.get('selectedMacInstanceRuntime')
+      runtime: that.get('macProblemToBeDisplayed.runtime')
     });
-    // that.chartData.pushObject({
-    //   solution: selectionTitle,
-    //   runtime: that.get('selectedMacInstanceRuntime')
-    // });
     updateChartData(that.chartData);
     updateNMIscore();
   },
 
   handleCentralSolutionChange: function(selected){
-    console.log("222---"+selected);
-    console.log("222---"+selected.value);
-    var selectionTitle = "Solution " + (parseInt(selected)+1);
+    var selectionTitle = "Central Solution: " + (parseInt(selected)+1);
     that.set('selectedSolutionsForComparison.central', selectionTitle);
     that.set('selectedSolutionsForComparison.centralId', selected);
 
@@ -303,27 +255,12 @@ export default Ember.Component.extend({
       solution: selectionTitle,
       runtime: that.get('selectedCentralAlgorithm.runtime')
     });
-    // that.chartData = [];
-    // that.chartData.pushObject({
-    //   solution: "",
-    //   runtime: 0
-    // });
-    // that.chartData.pushObject({
-    //   solution: selectionTitle,
-    //   runtime: that.get('selectedCentralAlgorithm.runtime')
-    // });
-
     updateChartData(that.chartData);
     updateNMIscore();
-    // that.selectedSolutionsForComparison.central = centralAlgorithmSolutionsList[selected];
   },
 
   reload_mac(){
-    resetMacSolutionPanel();
-    // that.set('selectedMacInstanceSolutions', []);
     sendQueryToFetchMacProblems();
-    // displayMacProblemInfo(that.get('macProblemInstances')[selected]);
-    // displayMacSolutions(that.get('macProblemInstances')[selected]);
   },
 
   runAlgorithm(){
@@ -333,30 +270,20 @@ export default Ember.Component.extend({
         timeout: that.selectedCentralAlgorithm.timeout,
         body: that.centralInputBody
       };
-      console.log("jar::-" + runJarPayload.jarPath);
-      console.log("time::-" + runJarPayload.timeout);
-      console.log("body::-" + runJarPayload.body);
-
       sendRunJarRequest(runJarPayload);
-    // }), 2000);
-
-
   },
 
   upload_file: function(event){
     const reader = new FileReader();
     const file = event.target.files[0];
     let algoConfigData;
-    console.log("file budu:" + file);
 
     reader.onload = () => {
       algoConfigData = reader.result;
-      console.log("imaData:-"+algoConfigData);
       saveNewAlgorithm(algoConfigData);
     };
 
     if (file) {
-      console.log("girdiii");
       reader.readAsText(file);
     }
   }
@@ -496,6 +423,8 @@ var series = innerChart.series.push(new am4charts.ColumnSeries());
 series.dataFields.categoryY = "solution";
 series.dataFields.valueX = "runtime";
 series.tooltipText = "{valueX.value}";
+// series.columns.template.showTooltipOn = "always";
+series.dataFields.valueY = "value";
 series.sequencedInterpolation = true;
 series.defaultState.transitionDuration = 1000;
 series.sequencedInterpolationDelay = 100;
@@ -505,8 +434,12 @@ series.columns.template.fill = am4core.color("#ff0000");
 series.columns.template.maxHeight = 50;
 // series.minWidth = '300px';
 // series.columns.template.minWidth = 500;
-
-
+var bullet = series.bullets.push(new am4charts.LabelBullet);
+bullet.label.text = "{valueX.value}";
+bullet.label.rotation = 0;
+bullet.label.truncate = false;
+bullet.label.hideOversized = false;
+bullet.label.horizontalCenter = "left";
 
 innerChart.cursor = new am4charts.XYCursor();
 innerChart.cursor.behavior = "panY";
@@ -721,13 +654,11 @@ function sendRunJarRequest(payload) {
         timeout: payload.timeout
       },
     }).then(function (data) {
-      console.log("response: data: --" + JSON.stringify(data));
       let groupingProblem = buildCentralGroupingProblem(data);
       let centralSolutions = getSolutionsOfGroupingProblem(groupingProblem);
       displayCentralSolutions(centralSolutions, groupingProblem);
 
     }).catch (function (error) {
-      console.log("errorr::--"+JSON.stringify(error));
       alert("JAR file couldn't be executed. Error message is below:\n" + JSON.stringify(error));
     });
   }
@@ -770,13 +701,6 @@ function displaySelectedAlgorithm(jsonConfigInput){
   let algorithm = jsonObj.algorithm;
   let pathToJarFile = jsonObj.pathToJarFile;
   let timeout = jsonObj.timeout;
-  console.log("algo:11:"+ algorithm);
-  console.log("timee:-:"+timeout);
-  console.log("pattth:---:"+ pathToJarFile);
-
-  // that.selectedCentralAlgorithm.name = algorithm ;
-  // that.selectedCentralAlgorithm.jarPath = pathToJarFile ;
-  // that.selectedCentralAlgorithm.timeout = timeout ;
   let algoInfo = {
     name: algorithm,
     jarPath: pathToJarFile,
@@ -793,113 +717,74 @@ function displaySelectedAlgorithm(jsonConfigInput){
 }
 
 function displaySelectedInput(selectedInput){
-  console.log("111kkkk1111-"+selectedInput);
   that.set('centralInputBody', selectedInput.body);
   that.set('selectedInputTitle', selectedInput.title);
 }
 
 function displaySelectedAgentIdMapping(selectedAgentIdMapping){
-  console.log("111kkkk1111-"+selectedAgentIdMapping);
   that.set('agentIdMappingInputValue', selectedAgentIdMapping.body);
   that.set('selectedAgentIdMappingTitle', selectedAgentIdMapping.title);
-//  displayNMIscore(selectedAgentIdMapping.body);
 }
 
 function updateNMIscore(){
   if(that.comparisonAgentIdMappingsList.length > 0){
     if(that.selectedAgentIdMappingIndex != "" && that.selectedAgentIdMappingIndex != undefined){
-        // console.log(that.comparisonAgentIdMappingsList.filter(function(item) {return item.title == that.selectedAgentIdMappingIndex}));
-        // console.log(that.comparisonAgentIdMappingsList.filter(function(item) {return item.title == that.selectedAgentIdMappingIndex})[0].body);
         displayNMIscore(that.comparisonAgentIdMappingsList.filter(function(item) {return item.title == that.selectedAgentIdMappingIndex})[0].body);
     }else {
-      // console.log(that.comparisonAgentIdMappingsList[0]);
-      // console.log(that.comparisonAgentIdMappingsList[0].body);
       displayNMIscore(that.comparisonAgentIdMappingsList[0].body);
     }
   }
 }
 
 function displayNMIscore(selectedAgentIdMappingBody){
-  console.log("computing nmi:" + selectedAgentIdMappingBody);
   if(that.selectedMacInstanceSolutions == null || that.selectedMacInstanceSolutions == undefined || that.selectedMacInstanceSolutions.length == 0 || that.selectedSolutionsForComparison.macId == undefined){
+    setNmiScore("-");
     alert("No mac solution selected to compute NMI score!");
   }else if(that.selectedSolutionsForComparison.centralId == undefined){
+    setNmiScore("-");
     alert("No central solution selected to compute NMI score!");
   } else {
 
 let selectedMACSoltuion = that.selectedMacInstanceSolutions[that.selectedSolutionsForComparison.macId];
 let macGroups = selectedMACSoltuion.groups; // this is an array of objects: {agentId: "<agentName>", groupId: <groupId>}
-// macGroups.filter(function(item) {return item.agentId == that.agentIdMappingTitleValue})
-console.log("oo-"+selectedMACSoltuion);
-console.log("oo-"+selectedMACSoltuion.groups);
-console.log("oo-"+selectedMACSoltuion.macSolutionRank);
-
 var agentNameLines = selectedAgentIdMappingBody.trim().split(/\r?\n/);
 let macArrayForNMI = Array.apply(null, {length: agentNameLines.length}).map(Number.call, Number); // this array is created to pass to NMI() to compute comparison of MAC vs Central solutions
 
 for (var i = 0; i < agentNameLines.length; i++) {
   let agentNameLine = agentNameLines[i];
-  console.log("aj:-" + agentNameLine);
-  let index = parseInt(agentNameLine.trim().split('.')[0].trim());
-  console.log("indeeeex:"+index);
+  if(!agentNameLine.includes("=")){
+    setNmiScore("-");
+    alert("Incorrect Mapping Structure to compute NMI score: MAC and Central agent names are not separated with = in the selected mapping file");
+    return;
+  }
+  let index = parseInt(agentNameLine.trim().split('=')[1].trim());
   if(Number.isInteger(index)){
-    let agentName = agentNameLine.trim().split('.')[1].trim();
+    let agentName = agentNameLine.trim().split('=')[0].trim();
     let groupIdOfAgent = macGroups.filter(function(item) {return item.agentId == agentName})[0].groupId;
     macArrayForNMI.splice((index-1), 1, (groupIdOfAgent)); // deduct 1 since array starts from 0 and the indexes of agents in mapping start from 1
-    // macArrayForNMI.pushObject(groupIdOfAgent);
-    // console.log("group id00-- " + groupIdOfAgent);
-    //
-    // console.log("index: "+index + " -- name: "+agentName);
-    // console.log("leng:--" + macGroups.length);
-    // for (var j = 0; j < macGroups.length; j++) {
-    //   console.log("~~~~: "+ macGroups[j]);
-    //   console.log("~~~~: "+ macGroups[j].agentId);
-    //   console.log("~~~~: "+ macGroups[j].groupId);
-    // }
   }else {
+    setNmiScore("-");
     alert("Incorrect Mapping Structure to compute NMI score: Index values of Mapping should be integer but instead found " + index);
     return;
   }}
 
-console.log("-----------------------------------------------------------*****************************"+macArrayForNMI);
-  for (var i = 0; i < macArrayForNMI.length; i++) {
-    console.log("cl:" + macArrayForNMI[i]);
-    console.log("---");
-  }
   let groupsArrayForNmi = that.centralAlgorithmSolutionsList[that.selectedSolutionsForComparison.centralId].groupsArrayForNmi;
-  console.log("sikikikikik");
-  console.log(groupsArrayForNmi.length);
-  console.log( macArrayForNMI.length);
   if(groupsArrayForNmi.length != agentNameLines.length){
-    alert("Amount of agents in mapping input (<index>. <agentName>) should be same as selected solutions to compute NMI score!");
+    setNmiScore("-");
+    alert("Amount of agents in mapping input (MAC_Agent_Name = Central_Agent_Name) should be same as selected solutions to compute NMI score!");
   }else if(groupsArrayForNmi.length == macArrayForNMI.length){
     let nmiscore = nmi.jNMI(groupsArrayForNmi, macArrayForNMI);
     nmiscore = (nmiscore).toFixed(3);
-    that.set('nmiScore', nmiscore);
-    console.log("sik bas:--" + nmiscore);
+    setNmiScore(nmiscore);
   }else {
+    setNmiScore("-");
     alert("Selected Solutions should have the same amount of agents to compute NMI score!");
   }
 }
 
-
-
-// 1. mac solutionu arraya doldur. her agentin hansi cluster oldugunu store
-// 2. nmi ucun array duzelt: mappingde her line indexi (agentIndex) ve name i gotur. sonra yuxardaki
-// arraydan hemin namein clusterini gotur.
-// sonra nmi arrayin agentIndex indexine cluster id ni sox.
-// 3. sora eyni seyi centrala ele.
-  // selectedMacInstaneAgentsCount
-  // [
-  //   {
-  //     agentId: "agent1",
-  //     clusterId: 2
-  //   },
-  //   {}..
-  // ]
-  //
-  // [clusterId, ...]
-
+function setNmiScore(score){
+    that.set('nmiScore', score);
+}
 
 }
 
@@ -917,10 +802,7 @@ function addKeyword(keyword){
   let type = keyword.type;
   that.set('tooltipInputStructure', that.get('tooltipInputStructure') + "<b>" + type + " -></b>");
   that.set('tooltipExampleInput', that.get('tooltipExampleInput') + "<b>" + type + " -></b>");
-  console.log("keyword:type:"+type);
   let description = keyword.description;
-  console.log("keyword:description:"+description);
-  // that.set('tooltipDescriptions', that.get('tooltipDescriptions') + type + ": <i>" + description + "</i><br>");
   that.set('tooltipDescriptions', that.get('tooltipDescriptions') + "<i>&#9679; " + type + ":</i> " + description + "<br>");
 
   if (keyword.element != undefined) {
@@ -946,20 +828,15 @@ function addKeyword(keyword){
 }
 
 function addElement(element){
-  console.log("addElement:"+element);
   if (element.item != undefined) {
     that.set('tooltipInputStructure', that.get('tooltipInputStructure') + "&lt;");
-    // that.set('tooltipExampleInput', that.get('tooltipExampleInput') + " &lt;");
     addItem(element.item);
     that.set('tooltipInputStructure', that.get('tooltipInputStructure') + "&gt;");
-    // that.set('tooltipExampleInput', that.get('tooltipExampleInput') + "&gt;");
   }else if(element.items != undefined){
     element.items.forEach(function(itemObj){
       that.set('tooltipInputStructure', that.get('tooltipInputStructure') + "&lt;");
-      // that.set('tooltipExampleInput', that.get('tooltipExampleInput') + " &lt;");
       addItem(itemObj.item);
       that.set('tooltipInputStructure', that.get('tooltipInputStructure') + "&gt;, ");
-      // that.set('tooltipExampleInput', that.get('tooltipExampleInput') + "&gt; ,");
       that.set('tooltipExampleInput', that.get('tooltipExampleInput') + ", ");
     });
     that.set('tooltipInputStructure', that.get('tooltipInputStructure').substring(0, that.get('tooltipInputStructure').length-2));
@@ -969,23 +846,16 @@ function addElement(element){
 
 function addItem(item){
   let name = item.name;
-  console.log("item:name:"+name);
   that.set('tooltipInputStructure', that.get('tooltipInputStructure') + name);
   let example_value = item.example_value;
   that.set('tooltipExampleInput', that.get('tooltipExampleInput') + example_value);
-//  that.set('tooltipExampleInput', that.get('tooltipInputStructure').replace("<"+name+">", "&lt;"+example_value+"&gt;"));
   let datatype = item.datatype;
   let description =item.description;
-
   that.set('tooltipDescriptions', that.get('tooltipDescriptions') + "<i>&#9679; " + name + ":</i> " + description + " (" + datatype + ")<br>");
-
-  console.log("item details: "+name+example_value+datatype+description);
 }
 
 function sendQueryToFetchMacProblems(){
-  console.log("sending query to this repository:"+that.get('selected_mac_repo'));
-  console.log(localStorage.currentStore);
-  let repo = (localStorage.currentStore || "http://localhost:8090/rdf4j/repositories");
+  let repo = (localStorage.currentStore || "http://localhost:8090/rdf4j/repositories/");
   if(that.get('selected_mac_repo') == null || that.get('selected_mac_repo') == ""){
     if(that.get('macReposList') != null && that.get('macReposList').length > 0){
       repo = repo + that.get('macReposList')[0].name;
@@ -995,18 +865,12 @@ function sendQueryToFetchMacProblems(){
   }else{
     repo = repo + that.get('selected_mac_repo');
   }
-  console.log("11111---" + repo);
-
   macSolutionsAjax.getFromServer(ajax, repo).then(macSolutionsFetched);
 }
 
 function macSolutionsFetched(rdfData) {
-console.log("result1111",rdfData);
-console.log("typeofit-",typeof(rdfData));
-console.log("1111",rdfData[0]);
-
 that.set('macProblemInstances', macSolutionsAjax.getMacSolutions());
-if(that.get('macProblemInstances').length>0){
+if(that.get('macProblemInstances').length > 0){
   displayMacProblemInfo(that.get('macProblemInstances')[0]);
   displayMacSolutions(that.get('macProblemInstances')[0]);
 }else {
@@ -1015,49 +879,33 @@ if(that.get('macProblemInstances').length>0){
 
 let macProblemInstances2 = macSolutionsAjax.getMacSolutions();
 
-console.log("size",macProblemInstances2.length);
-console.log("ici",macProblemInstances2);
-console.log("--------------------------------------------------------");
-macProblemInstances2.forEach(function(macProblemInstance){
-console.log("id: "+macProblemInstance.id);
-console.log("usecase: "+macProblemInstance.useCase);
-console.log("solver: "+macProblemInstance.solver);
-console.log("runtime: "+macProblemInstance.runtime);
-console.log("numberOfAgents: "+macProblemInstance.numberOfAgents);
-})
-
-//parseRdfTest(rdfData);
 }
 function resetMacSolutionPanel(){
   that.set('macProblemInstances', null);
-  that.set('selectedMacInstanceUseCase',"N/A");
-  that.set('selectedMacInstanceStatus',"N/A");
-  that.set('selectedMacInstanceSolver',"N/A");
-  that.set('selectedMacInstanceRuntime',"N/A");
-  that.set('selectedMacInstanceAgentsCount',"N/A");
-  that.set('selectedMacInstanceMessagesCount',"N/A");
   that.set('selectedMacInstanceSolutions',null);
 
+  that.set('macProblemToBeDisplayed.useCase', "N/A");
+  that.set('macProblemToBeDisplayed.status', "N/A");
+  that.set('macProblemToBeDisplayed.solver', "N/A");
+  that.set('macProblemToBeDisplayed.runtime', "N/A");
+  that.set('macProblemToBeDisplayed.numberOfAgents', "N/A");
 }
 
 
 
 function displayMacSolutions(macProblemToBeDisplayed){
   if (macProblemToBeDisplayed.groupingSolutions.length>0) {
-    console.log("**1");
     let macSolutionValue = "N/A";
     let macSolutionRank = "";
     let selectedMacInstanceSolutions = new Array();
     macProblemToBeDisplayed.groupingSolutions.forEach(function(groupingSolution){
       let groups = new Array();
       let groupId = 1;
-      console.log("**2");
       let macSolutionContent = "[";
       // macSolutionValue = Double.valueOf(String.valueOf(groupingSolution.value)) ;
       macSolutionRank = Math.floor(groupingSolution.rank) ;
       macSolutionValue = parseFloat(groupingSolution.value).toFixed(3) ;
       groupingSolution.groups.forEach(function(group){
-  console.log("**3");
     macSolutionContent = macSolutionContent + "[";
     group.forEach(function(member){
       // add each agent and its group to array
@@ -1067,14 +915,11 @@ function displayMacSolutions(macProblemToBeDisplayed){
           groupId: groupId
         }
     );
-      console.log("**4");
       macSolutionContent = macSolutionContent + member + ", ";
    })
    macSolutionContent = macSolutionContent.trim();
    macSolutionContent = macSolutionContent.slice(0,-1);
-   //macSolutionContent = macSolutionContent.substring(macSolutionContent.length - 1);
    macSolutionContent = macSolutionContent + "], ";
-   console.log("**6",macSolutionContent);
    groupId = groupId + 1;
 })
 macSolutionContent = macSolutionContent.trim();
@@ -1086,7 +931,6 @@ selectedMacInstanceSolutions.pushObject(macSlObj);
 })
 selectedMacInstanceSolutions = selectedMacInstanceSolutions.sortBy('macSolutionRank');
 that.set('selectedMacInstanceSolutions', selectedMacInstanceSolutions);
-console.log("--11---1--1---",selectedMacInstanceSolutions);
 }else {
   alert("There is no solution for the selected MAC Problem instance!");
   that.set('selectedMacInstanceSolutions',null);
@@ -1095,16 +939,9 @@ console.log("--11---1--1---",selectedMacInstanceSolutions);
 
 function displayMacProblemInfo(macProblemToBeDisplayed){
           that.set("macProblemToBeDisplayed", macProblemToBeDisplayed);
-
-          // that.set('selectedMacInstanceUseCase',macProblemToBeDisplayed.useCase);
-          // that.set('selectedMacInstanceStatus',macProblemToBeDisplayed.status);
-          // that.set('selectedMacInstanceSolver',macProblemToBeDisplayed.solver);
-          // that.set('selectedMacInstanceRuntime',macProblemToBeDisplayed.runtime);
-          // that.set('selectedMacInstanceAgentsCount',macProblemToBeDisplayed.numberOfAgents);
 }
 
 function parseRdfTest(rdfInput) {
-  console.log("Test Parsing of RDF Started!");
   let parser = new N3({ factory: rdf });
   let quadStream = parser.import(stringToStream(JSON.stringify(rdfInput)));
   /*let logData = {
@@ -1116,8 +953,6 @@ function parseRdfTest(rdfInput) {
   };*/
   rdf.dataset().import(quadStream).then((dataset) => {
     dataset.forEach((quad) => {
-      console.log("predicate", quad.predicate.value);
-      console.log("object", quad.object.value);
       /*switch (quad.predicate.value) {
         case MAJAN.agentId:
           logData.agentId = quad.object.value ;
@@ -1143,6 +978,10 @@ function parseRdfTest(rdfInput) {
     });
     addLogToList(logData);
   });
+}
+function setNoSolutionsSelectedYet(){
+  that.set('selectedSolutionsForComparison.mac', "Nothing selected in <MAC Solution>");
+  that.set('selectedSolutionsForComparison.central', "Nothing selected in <Central Solution>");
 }
 
 function loadStoredMacRepos(){
@@ -1190,35 +1029,23 @@ function initializeAjax() {
 }
 
 function getSolutionsOfGroupingProblem(groupingProblem){
-      console.log("**1");
       let groupingValue = "N/A";
       let groupingRank = "";
       let groupingSolutionsList = new Array();
 
       groupingProblem.groupingSolutions.forEach(function(groupingSolution){
-        // let groupsArrayForNmi = new Array();
         let groupsArrayForNmi = Array.apply(null, {length: parseInt(groupingProblem.agentCount)}).map(Number.call, Number); // this array is created to pass to NMI() to compute comparison of MAC vs Central solutions
         let groupId = 1;
-        console.log("**2");
         let groupingSolutionContent = "[";
         groupingRank = Math.floor(groupingSolution.rank) ;
         groupingValue = parseFloat(groupingSolution.value).toFixed(3);
         groupingSolution.groups.forEach(function(group){
-          console.log("**3");
           groupingSolutionContent = groupingSolutionContent + "[";
           group.forEach(function(member){
             groupsArrayForNmi.splice(parseInt(member)-1, 1, groupId);
-            // groups.pushObject(
-            //   {
-            //     agentId: member,
-            //     groupId: groupId
-            //   }
-            // );
-            console.log("**4");
             groupingSolutionContent = groupingSolutionContent + member + ", ";
           })
         groupingSolutionContent = groupingSolutionContent.trim().slice(0,-1) + "], ";
-        console.log("**6",groupingSolutionContent);
         groupId = groupId + 1;
 
         })
@@ -1247,11 +1074,9 @@ function buildCentralGroupingProblem(jarExecutionResponse){
       }else {
           groupingProblem.runtime = "N/A";
       }
-      console.log("runt:" + groupingProblem.runtime);
       // FETCH GROUPINGS FROM THE JSON RESULT IF THEY EXIST
       if (jarResponseJsonObj.groupings != undefined) {
           groupingProblem.groupingSolutions = new Array();
-          console.log("groupings-length: "+ jarResponseJsonObj.groupings.length);
           jarResponseJsonObj.groupings.forEach(function(groupingObj){
             groupingProblem.groupingSolutions.pushObject(fetchGroupingFromJarResponse(groupingObj));
           });
@@ -1263,19 +1088,12 @@ function buildCentralGroupingProblem(jarExecutionResponse){
 }
 
 function fetchGroupingFromJarResponse(groupingJsonObj){
-      console.log("groupingJson:" + groupingJsonObj);
-      console.log("groupingJson:" + JSON.stringify(groupingJsonObj));
-
       let grouping = {};
       // let groupingRank = "";
       // let groupingValue = "N/A";
       grouping.rank = groupingJsonObj.rank;
       grouping.value = groupingJsonObj.value;
-      console.log("groupingRank:" + grouping.rank);
-      console.log("groupingValue:" + grouping.value);
-
       grouping.groups = new Array();
-      console.log("groupsLength: "+groupingJsonObj.groups.length);
       groupingJsonObj.groups.forEach(function(groupObj){
         grouping.groups.pushObject(fetchGroupFromJarResponse(groupObj));
       });
@@ -1283,11 +1101,9 @@ function fetchGroupingFromJarResponse(groupingJsonObj){
 }
 
 function fetchGroupFromJarResponse(groupObj){
-      console.log("group:" + groupObj);
       let group = new Array();
       groupObj.ids.forEach(function(id){
           group.pushObject(id);
-          console.log("id:" + id);
       });
       return group;
 }
@@ -1307,7 +1123,6 @@ function displaySolutions(jarExecutionResponse){
     jarExecResultObj.runtime = "N/A";
   }
 
-  console.log("runt:" + jarExecResultObj.runtime);
   // FETCH GROUPINGS FROM THE JSON RESULT IF THEY EXIST
   if (jsonObj.groupings != undefined) {
     jsonObj.groupings.forEach(function(groupingObj){
@@ -1321,14 +1136,21 @@ function displaySolutions(jarExecutionResponse){
 function fetchGrouping(groupingObj, jarResultObj){
 
 }
-  function retrieveMacReposAndPushToUi(){
+
+function resetSelectedSolutionsInComparisonSection(){
+  that.set('selectedSolutionsForComparison.mac', "");
+  that.set('selectedSolutionsForComparison.macId', "");
+  that.set('selectedSolutionsForComparison.central', "");
+  that.set('selectedSolutionsForComparison.centralId', "");
+}
+
+function retrieveMacReposAndPushToUi(){
     that.get('store').findAll('macrepo').then((dataList) => {
       //deal with dataList like an array
       dataList.forEach((item) => {
         //the item is the exact model instance and
         //you can access to attributes like belo
         let name = item.get('name');
-        console.log("name:"+name);
         that.macReposList.pushObject(name);
       });
     })
