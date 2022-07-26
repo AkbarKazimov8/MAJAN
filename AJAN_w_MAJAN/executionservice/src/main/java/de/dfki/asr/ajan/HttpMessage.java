@@ -63,7 +63,7 @@ public class HttpMessage {
         try (CloseableHttpResponse httpResponse = httpClient.execute(request)) {
 
             // Get HttpResponse Status
-            System.out.println(httpResponse.getStatusLine().toString());
+            //System.out.println(httpResponse.getStatusLine().toString());
             
             HttpEntity entity = httpResponse.getEntity();
             

@@ -74,7 +74,9 @@ public class HttpConnection implements IConnection {
 
 	@Override
 	public void setPayload(final String payload) {
-            System.out.println("---1111----"+payload);
+            System.out.println("---HTTP Request Payload below:");
+            System.out.println(payload);
+            
             /*System.out.println("---1111----"+payload);
             for(HttpHeader hdr: this.binding.getHeaders()){
              System.out.println("-22"+hdr.getHeaderName().toString());

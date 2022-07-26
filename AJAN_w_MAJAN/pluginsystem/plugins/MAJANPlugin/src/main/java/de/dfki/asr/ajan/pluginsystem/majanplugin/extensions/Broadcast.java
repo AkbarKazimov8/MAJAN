@@ -99,7 +99,7 @@ public class Broadcast extends AbstractTDBLeafTask implements NodeExtension, Tre
                         setRequestUriList();
                         
                         for (String requestUri: requestUriList) {
-                            System.out.println("RequestURI:" + requestUri);
+                            System.out.println("RequestURI: " + requestUri);
                             binding.setRequestURI(new URI(requestUri));
                             request = new HttpConnection(binding);
                             String payload = null;

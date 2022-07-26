@@ -9614,8 +9614,7 @@ a bt:Message ;
 					}
 					WHERE {
 						?agent	rdf:type ajan:Agent .
-						?du		rdf:type	welcome:DialogueUser ;
-								welcome:hasRootAddress	?rootAddress .
+						?du		welcome:hasRootAddress	?rootAddress .
 					}
 
 
@@ -13507,7 +13506,7 @@ a bt:Message ;
 					ASK
 					WHERE {
 						?agentUri	rdf:type	ajan:Agent ;
-									welcome:hasRunningChc	?runningChc .
+									welcome:isRunningChc	?runningChc .
 						FILTER(LCASE(?runningChc) = "true")
 
 #						?agent welcome:isRunningCHC ?chcId .
@@ -13836,7 +13835,7 @@ a bt:Message ;
 
 
 					INSERT {
-						?agent	welcome:hasRunningChc	"true" .
+						?agent	welcome:isRunningChc	"true" .
 
 					}
 					WHERE {
@@ -14387,8 +14386,7 @@ a bt:Message ;
 							?agent	rdf:type	ajan:Agent ;
 									ajan:agentId	?agentId ;
 									welcome:isRunningCHC	?chcId.
-							?du		rdf:type	welcome:DialogueUser ;
-									welcome:hasRootAddress	?rootAddress .
+							?du		welcome:hasRootAddress	?rootAddress .
 							BIND(CONCAT(?rootAddress, ?agentId) AS ?agentAddress)
 						}
  """^^xsd:string ;
@@ -14677,8 +14675,7 @@ a bt:Message ;
 									welcome:isRunningCHC ?chcId ;
 									ajan:agentId	?dAgentId.
 
-							?du		rdf:type	welcome:DialogueUser ;
-									welcome:hasRootAddress	?rootAddress .
+							?du		welcome:hasRootAddress	?rootAddress .
 							BIND(CONCAT(?rootAddress, ?dAgentId) AS ?agentAddress)
 
 							?bnode	rdf:type	welcome:CHCUseCase;
@@ -15345,7 +15342,7 @@ a bt:Message ;
 					?agent	rdf:type ajan:Agent ;
 							ajan:agentId	?subAgentId .
 
-					?du		rdf:type	welcome:DialogueUser ;
+					?du		#rdf:type	welcome:DialogueUser ;
 							welcome:hasChcAgePreference ?agePref ;
 							welcome:hasChcGenderPreference ?genPref ;
 							welcome:hasChcFamilyPreference ?famPref ;
@@ -15394,7 +15391,7 @@ a bt:Message ;
 					?agent	rdf:type ajan:Agent ;
 							ajan:agentId	?subAgentId .
 
-					?du		rdf:type	welcome:DialogueUser ;
+					?du		#rdf:type	welcome:DialogueUser ;
 							welcome:hasChcAgePreference ?agePref ;
 							welcome:hasChcGenderPreference ?genPref ;
 							welcome:hasChcFamilyPreference ?famPref ;
@@ -16405,7 +16402,7 @@ a bt:Message ;
 									welcome:isRunningCHC ?chcId ;
 									ajan:agentId	?dAgentId.
 
-							?du		rdf:type	welcome:DialogueUser ;
+							?du		#rdf:type	welcome:DialogueUser ;
 									welcome:hasRootAddress	?rootAddress .
 							BIND(CONCAT(?rootAddress, ?dAgentId) AS ?agentAddress)
 
@@ -16568,9 +16565,9 @@ a bt:Message ;
 									mac:isClusterOf	?clusteringBnode .
 						}
 						WHERE {
-							?dAgent	welcome:hasMacRole	"Dedicated"^^xsd:string ;
-									welcome:hasFinishedCHC	?chcId ;
-									welcome:hasAddress	?agentAddress .
+							?dAgent	#welcome:hasMacRole	"Dedicated"^^xsd:string ;
+									welcome:hasFinishedCHC	?chcId .
+									#welcome:hasAddress	?agentAddress .
 
 							?chcBnode	rdf:type	welcome:CHCUseCase;
 										mac:hasId		?chcId;
@@ -16808,18 +16805,18 @@ a bt:Message ;
 				rdf:type bt:ConstructQuery ;
 				bt:originBase ajan:ExecutionKnowledge ;
 				bt:sparql """
-						PREFIX ajan: <http://www.ajan.de/ajan-ns#>
-						PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-						PREFIX welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#>
-						PREFIX mac: <http://localhost:8090/rdf4j/repositories/ajan_mac_ontology#>
-						PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+						#PREFIX ajan: <http://www.ajan.de/ajan-ns#>
+						#PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+						#PREFIX welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#>
+#						PREFIX mac: <http://localhost:8090/rdf4j/repositories/ajan_mac_ontology#>
+#						PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 
-						CONSTRUCT {
-							?groupBnode	rdf:type	welcome:Group ;
-									welcome:hasMembers	?agentId ;
-									welcome:isGroupOf	?groupingBNode .
-
-							?groupBnode	welcome:hasMembers	?groupMateAgentId .
+#						CONSTRUCT {
+#							?groupBnode	rdf:type	welcome:Group ;
+##									welcome:hasMembers	?agentId ;
+#									welcome:isGroupOf	?groupingBNode .
+#
+#							?groupBnode	welcome:hasMembers	?groupMateAgentId .
 
 
 #							?clusterBnode	rdf:type	mac:Cluster ;
@@ -16827,29 +16824,80 @@ a bt:Message ;
 #									mac:isClusterOf	?clusteringBnode .
 
 #							?clusterBnode	mac:hasMembers	?otherAgentId .
-						}
+#						}
+#						WHERE {
+#
+#							#?dAgent	welcome:hasMacRole	"Dedicated"^^xsd:string ;
+#							#		welcome:hasFinishedCHC	?chcId ;
+#							#		welcome:hasAddress	?agentAddress .
+#
+#							?thisAgent	rdf:type	ajan:Agent ;
+#										ajan:agentId	?thisAgentId .
+#
+#							?chcBnode	rdf:type	welcome:CHCUseCase;
+#										mac:hasId		?chcId;
+#										mac:hasParticipants		?pAgentId ;
+#										#welcome:hasStatus	?defaultChcStatus ;
+#										mac:hasSolution	?clusteringBnode .
+#
+#
+#							?clusteringBnode	rdf:type	mac:Clustering ;
+#									mac:hasSolutionOf	?chcId ;
+#									mac:hasMembers		?clusterBnode .
+#
+#							?clusterBnode	rdf:type	mac:Cluster ;
+#									mac:hasMembers	?thisAgentId ;
+#									mac:isClusterOf	?clusteringBnode .
+#
+#							OPTIONAL {
+#								?clusterBnode	mac:hasMembers	?otherAgentId .
+#								FILTER(?otherAgentId != ?thisAgentId)
+#							}
+#
+#						}
+
+
+		PREFIX ajan: <http://www.ajan.de/ajan-ns#>
+		PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+		PREFIX welcome: <https://raw.githubusercontent.com/gtzionis/WelcomeOntology/main/welcome.ttl#>
+		PREFIX mac: <http://localhost:8090/rdf4j/repositories/ajan_mac_ontology#>
+		PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+		CONSTRUCT {
+			?clusterBnode	rdf:type	welcome:Group ;
+							welcome:hasMembers	?thisAgentId ;
+							welcome:isGroupOf	?clusteringBnode .
+			?clusterBnode	welcome:hasMembers	?otherAgentId .
+
+}
 						WHERE {
-
-							?dAgent	welcome:hasMacRole	"Dedicated"^^xsd:string ;
-									welcome:hasFinishedCHC	?chcId ;
-									welcome:hasAddress	?agentAddress .
-
+{
+SELECT DISTINCT ?clusterBnode ?clusteringBnode ?thisAgentId ?otherAgentId
+WHERE{
 							?thisAgent	rdf:type	ajan:Agent ;
 										ajan:agentId	?thisAgentId .
 
-							?clusteringBnode	rdf:type	mac:Clustering ;
-									mac:hasSolutionOf	?chcId ;
-									mac:hasMembers		?clusterBnode .
+							?chcBnode	rdf:type	welcome:CHCUseCase;
+										mac:hasId		?chcId;
+										mac:hasParticipants		?pAgentId ;
+										#welcome:hasStatus	?defaultChcStatus ;
+										mac:hasSolution	?clusteringBnode .
+?clusteringBnode	rdf:type	mac:Clustering ;
+mac:hasSolutionOf	?chcId ;
+mac:hasMembers		?clusterBnode .
+?clusterBnode	rdf:type	mac:Cluster ;
+mac:hasMembers	?thisAgentId ;
+mac:isClusterOf	?clusteringBnode .
+OPTIONAL {
 
-							?clusterBnode	rdf:type	mac:Cluster ;
-									mac:hasMembers	?thisAgentId ;
-									mac:isClusterOf	?clusteringBnode .
+?clusterBnode	mac:hasMembers	?otherAgentId .
+FILTER(?otherAgentId != ?thisAgentId)
+}
+}
+}
 
-							OPTIONAL {
-								?clusterBnode	mac:hasMembers	?otherAgentId .
-								FILTER(?otherAgentId != ?thisAgentId)
-							}
-						}
+
+}
+
 						"""^^xsd:string
 			]
 		] ;
@@ -17015,14 +17063,14 @@ a bt:Message ;
 					PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 					PREFIX mac: <http://localhost:8090/rdf4j/repositories/ajan_mac_ontology#>
 					DELETE {
-						?agent	welcome:hasRunningChc	"true" .
+						?agent	welcome:isRunningChc	"true" .
 					}
 					INSERT{
-						?agent	welcome:hasRunningChc	"false" .
+						?agent	welcome:isRunningChc	"false" .
 					}
 					WHERE {
 						?agent	rdf:type ajan:Agent ;
-								welcome:hasRunningChc	"true" .
+								welcome:isRunningChc	"true" .
 					}
 					"""^^xsd:string ;
 		] .

@@ -84,13 +84,13 @@ public class Message extends AbstractTDBLeafTask {
 	@Override
 	public LeafStatus executeLeaf() {
 		try {
-                                        System.out.println("--5555--");
+                                //        System.out.println("--5555--");
 			setRequestUri();
                         binding.setRequestURI(new URI(requestURI));
                         request = new HttpConnection(binding);
                         String payload = null;
                         if (binding.getPayload() != null) {
-                                                System.out.println("--6666--");
+                                             //   System.out.println("--6666--");
                             payload = getInput(binding);
                         }
                         request.setPayload(payload);

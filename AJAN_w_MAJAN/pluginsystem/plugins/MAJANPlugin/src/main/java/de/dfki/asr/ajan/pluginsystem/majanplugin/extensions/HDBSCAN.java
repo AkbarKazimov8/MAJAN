@@ -132,7 +132,7 @@ public class HDBSCAN extends AbstractTDBLeafTask implements NodeExtension, TreeN
         Repository repo = BTUtil.getInitializedRepository(getObject(), constructQuery.getOriginBase());
         Model rdfInputModel = constructQuery.getResult(repo);        
         
-        Utils.printRDF4JModel(rdfInputModel, LOG);
+        //Utils.printRDF4JModel(rdfInputModel, LOG);
 
                 
         // Extract the Problem Instance. There should be only 1 problem instance because 

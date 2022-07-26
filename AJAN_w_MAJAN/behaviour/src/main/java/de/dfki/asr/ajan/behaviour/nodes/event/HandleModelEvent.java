@@ -194,18 +194,18 @@ public class HandleModelEvent extends AbstractTDBLeafTask {
 		if (info instanceof ModelEventInformation) {
 			ModelEventInformation eventInfo = (ModelEventInformation) info;
 			model = eventInfo.getModel();
-                        System.out.println("handle model 1 ----");
-                        for(Statement stm: model){
-                            System.out.println(stm);
-                        }
+                        //System.out.println("handle model 1 ----");
+                      //  for(Statement stm: model){
+                      //      System.out.println(stm);
+                       // }
 			if (constructQuery == null || constructQuery.getSparql().isEmpty()) {
 				return model;
 			} else {
                             Model model2 = constructQuery.getResult(model);
-                            System.out.println("handle model 2 ----");
-                            for(Statement stm: model2){
-                                System.out.println(stm);
-                            }
+                            //System.out.println("handle model 2 ----");
+                            //for(Statement stm: model2){
+                            //    System.out.println(stm);
+                            //}
                             return model2;
 			}
 		}

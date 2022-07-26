@@ -41,14 +41,14 @@ public class Application {
         String url = System.getProperty("notificationUrl");
         String[] headerKeys = System.getProperty("notificationHeaderKeys").split(",");
         String[] headerValues = System.getProperty("notificationHeaderValues").split(",");
-        System.out.println("url:"+url);
+      //  System.out.println("url:"+url);
             
         int n = headerKeys.length > headerValues.length ? headerValues.length : headerKeys.length ;
         HashMap<String, String> headers = new HashMap<>();
         for (int i = 0; i < n; i++) {
             headers.put(headerKeys[i], headerValues[i]);
-            System.out.println("key:"+headerKeys[i]);
-            System.out.println("value:"+headerValues[i]);
+           // System.out.println("key:"+headerKeys[i]);
+           // System.out.println("value:"+headerValues[i]);
         }
         
         HttpMessage hm = new HttpMessage();
@@ -56,7 +56,7 @@ public class Application {
         try {
             //resp = hm.sendGet(url, headers);
             resp = hm.sendPost(url, "just a body", headers);
-            System.out.println(resp);
+            //System.out.println(resp);
             hm.close();
         } catch (Exception ex) {
             Logger.getLogger(Application.class.getName()).log(Level.SEVERE, null, ex);
